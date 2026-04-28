@@ -1,0 +1,108 @@
+/* ---------------------------------------------------------------------------
+ * Theme tokens — brand palette + per-app accent colors.
+ * Attach [data-theme="<app>"] to an element to inherit that app's accent.
+ *
+ * Per-theme slots:
+ *   --theme-accent       = bright icon/text color (on dark bg)
+ *   --theme-accent-deep  = darker surface color (window headers later)
+ *   --theme-accent-soft  = translucent tint     (hover / open-state chips)
+ *
+ * Exact icon hex values confirmed by Samuel 2026-04-22 (see BRAND.md).
+ * ------------------------------------------------------------------------- */
+
+:root {
+  /* Brand backgrounds */
+  --bg-deep: #051B1D;
+  --bg-olive: #313715;
+  --bg-teal: #1A3A3A;
+  --bg-purple-dark: #2E2836;
+  --bg-purple-deep: #2D0B3D;
+  --bg-green-deep: #05381D;
+
+  /* Brand accents */
+  --accent-blue: #1D336C;
+  --accent-green: #13FC8D;
+  --accent-off-white: #F4FFFD;
+  --accent-pink: #B64F7F;
+  --accent-gold-brand: #FCCD93;
+
+  /* Icon-system accents (brighter, specific to UI) */
+  --icon-green: #53FC8D;
+  --icon-gold: #FCCD53;
+  --icon-purple: #8447FF;
+
+  /* Desktop */
+  --desktop-fg: var(--accent-off-white);
+  --desktop-muted: rgba(244, 255, 253, 0.65);
+
+  /* Taskbar */
+  --taskbar-bg: rgba(15, 32, 32, 0.95);
+  --taskbar-fg: var(--accent-off-white);
+  --taskbar-hover: rgba(244, 255, 253, 0.08);
+
+  /* Default theme accent (used by unthemed elements) */
+  --theme-accent: var(--icon-green);
+  --theme-accent-deep: var(--bg-green-deep);
+  --theme-accent-deep-alt: var(--bg-teal);
+  --theme-accent-soft: rgba(83, 252, 141, 0.18);
+}
+
+/* Per-app theme accents.
+   --theme-accent-deep / --theme-accent-deep-alt are the two darker bg
+   purples / greens called out in BRAND.md. Window bodies blend both so
+   the bright accent (#8447FF / #53FC8D / #FCCD53) reads vibrantly against
+   a properly themed surface instead of the underlying teal glass. */
+
+/* --theme-icon-on-tile chooses a contrasting fg color for the icon glyph
+   when displayed inside the colored Windows-style tile. White on green/purple,
+   dark purple on the lighter gold for legibility. */
+
+[data-theme="about"] {
+  --theme-accent: var(--icon-green);
+  --theme-accent-deep: var(--bg-green-deep);
+  --theme-accent-deep-alt: var(--bg-teal);
+  --theme-accent-soft: rgba(83, 252, 141, 0.18);
+  --theme-icon-on-tile: #ffffff;
+}
+
+/* Games + Experience are the "experience-related" pair (iter 16): yellow.
+   Blogs joined the "personal/me" pair (with About): green. */
+[data-theme="games"] {
+  --theme-accent: var(--icon-gold);
+  --theme-accent-deep: #6B5420;
+  --theme-accent-deep-alt: #3A2D10;
+  --theme-accent-soft: rgba(252, 205, 83, 0.2);
+  --theme-icon-on-tile: #2D0B3D;
+}
+
+[data-theme="blogs"] {
+  --theme-accent: var(--icon-green);
+  --theme-accent-deep: var(--bg-green-deep);
+  --theme-accent-deep-alt: var(--bg-teal);
+  --theme-accent-soft: rgba(83, 252, 141, 0.18);
+  --theme-icon-on-tile: #ffffff;
+}
+
+[data-theme="experience"] {
+  --theme-accent: var(--icon-gold);
+  --theme-accent-deep: #6B5420;
+  --theme-accent-deep-alt: #3A2D10;
+  --theme-accent-soft: rgba(252, 205, 83, 0.2);
+  --theme-icon-on-tile: #2D0B3D;
+}
+
+[data-theme="links"] {
+  --theme-accent: var(--icon-purple);
+  --theme-accent-deep: var(--bg-purple-deep);
+  --theme-accent-deep-alt: var(--bg-purple-dark);
+  --theme-accent-soft: rgba(132, 71, 255, 0.22);
+  --theme-icon-on-tile: #ffffff;
+}
+
+[data-theme="contacts"] {
+  --theme-accent: var(--icon-purple);
+  --theme-accent-deep: var(--bg-purple-deep);
+  --theme-accent-deep-alt: var(--bg-purple-dark);
+  --theme-accent-soft: rgba(132, 71, 255, 0.22);
+  --theme-icon-on-tile: #ffffff;
+}

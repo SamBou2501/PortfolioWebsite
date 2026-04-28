@@ -1,0 +1,1584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Samuel Bouzanquet — Game Designer</title>
+  <meta name="description" content="Personal portfolio of Samuel Bouzanquet — Game Designer specialising in systems and narrative.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&family=Caveat:wght@400;500;600;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/themes.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <filter id="sketch-roughen">
+        <feTurbulence type="fractalNoise" baseFrequency="0.025" numOctaves="2" seed="3"/>
+        <feDisplacementMap in="SourceGraphic" scale="2.4"/>
+      </filter>
+      <filter id="sketch-roughen-light">
+        <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="2" seed="5"/>
+        <feDisplacementMap in="SourceGraphic" scale="1.6"/>
+      </filter>
+    </defs>
+  </svg>
+
+  <main class="desktop" aria-label="Desktop">
+
+    <div class="desktop-decor" aria-hidden="true">
+
+      <div class="ink-splotch ink-purple-1"></div>
+      <div class="ink-splotch ink-purple-2"></div>
+      <div class="ink-splotch ink-green-1"></div>
+      <div class="ink-splotch ink-green-2"></div>
+      <div class="ink-splotch ink-gold-1"></div>
+
+      <svg class="sketch sketch-dungeon" viewBox="0 0 110 80" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" filter="url(#sketch-roughen)">
+        <rect x="6" y="10" width="22" height="18"/>
+        <rect x="42" y="14" width="26" height="22"/>
+        <rect x="80" y="6" width="22" height="26"/>
+        <rect x="14" y="48" width="24" height="24"/>
+        <rect x="56" y="50" width="34" height="22"/>
+        <line x1="28" y1="20" x2="42" y2="22"/>
+        <line x1="68" y1="20" x2="80" y2="18"/>
+        <line x1="22" y1="28" x2="22" y2="48"/>
+        <line x1="38" y1="60" x2="56" y2="60"/>
+        <line x1="86" y1="32" x2="86" y2="50"/>
+        <path d="M 71 22 L 76 27 M 76 22 L 71 27"/>
+        <circle cx="22" cy="60" r="1.5" fill="currentColor"/>
+        <circle cx="92" cy="14" r="1.5" fill="currentColor"/>
+      </svg>
+
+      <svg class="sketch sketch-talents" viewBox="0 0 80 110" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" filter="url(#sketch-roughen)">
+        <line x1="40" y1="14" x2="20" y2="38"/>
+        <line x1="40" y1="14" x2="60" y2="38"/>
+        <line x1="20" y1="38" x2="10" y2="64"/>
+        <line x1="20" y1="38" x2="30" y2="64"/>
+        <line x1="60" y1="38" x2="50" y2="64"/>
+        <line x1="60" y1="38" x2="70" y2="64"/>
+        <line x1="30" y1="64" x2="40" y2="92"/>
+        <line x1="50" y1="64" x2="40" y2="92"/>
+        <circle cx="40" cy="14" r="6" fill="rgba(0,0,0,0.55)"/>
+        <circle cx="20" cy="38" r="5"/>
+        <circle cx="60" cy="38" r="5" fill="rgba(0,0,0,0.55)"/>
+        <circle cx="10" cy="64" r="4"/>
+        <circle cx="30" cy="64" r="4"/>
+        <circle cx="50" cy="64" r="4"/>
+        <circle cx="70" cy="64" r="4"/>
+        <circle cx="40" cy="92" r="6"/>
+      </svg>
+
+      <svg class="sketch sketch-mechanic" viewBox="0 0 120 90" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" filter="url(#sketch-roughen)">
+        <rect x="6"  y="34" width="24" height="18" rx="2"/>
+        <rect x="48" y="14" width="24" height="18" rx="2"/>
+        <rect x="48" y="56" width="24" height="18" rx="2"/>
+        <rect x="90" y="34" width="24" height="18" rx="2"/>
+        <line x1="30" y1="42" x2="48" y2="22"/>
+        <path d="M 48 22 L 42 22 M 48 22 L 45 27"/>
+        <line x1="30" y1="44" x2="48" y2="64"/>
+        <path d="M 48 64 L 42 63 M 48 64 L 45 60"/>
+        <line x1="72" y1="22" x2="90" y2="40"/>
+        <path d="M 90 40 L 86 36 M 90 40 L 86 42"/>
+        <line x1="72" y1="64" x2="90" y2="46"/>
+        <path d="M 90 46 L 86 48 M 90 46 L 86 44"/>
+        <line x1="10" y1="40" x2="22" y2="40"/>
+        <line x1="10" y1="44" x2="18" y2="44"/>
+        <line x1="52" y1="20" x2="64" y2="20"/>
+        <line x1="52" y1="62" x2="64" y2="62"/>
+        <line x1="94" y1="40" x2="106" y2="40"/>
+        <line x1="94" y1="44" x2="102" y2="44"/>
+      </svg>
+
+      <!-- Hades "Death Defiance" — heart shape with HP-bar element across it -->
+      <svg class="sketch sketch-heart" viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" filter="url(#sketch-roughen)">
+        <!-- Outer badge circle -->
+        <circle cx="40" cy="40" r="34" stroke-width="1.6"/>
+        <!-- Heart -->
+        <path d="M 40 64 C 14 48, 10 28, 24 18 C 32 13, 40 20, 40 26 C 40 20, 48 13, 56 18 C 70 28, 66 48, 40 64 Z"/>
+        <!-- HP bar slashed across -->
+        <path d="M 18 44 L 62 36" stroke-width="2.4"/>
+        <!-- Tiny flourish -->
+        <circle cx="40" cy="32" r="1.5" fill="currentColor"/>
+      </svg>
+
+      <!-- Black Lotus (MTG) — card frame with a stylized lotus flower in the art box -->
+      <svg class="sketch sketch-card" viewBox="0 0 70 100" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" filter="url(#sketch-roughen)">
+        <rect x="4" y="4" width="62" height="92" rx="3"/>
+        <!-- Title bar -->
+        <line x1="8" y1="14" x2="62" y2="14"/>
+        <line x1="10" y1="11" x2="38" y2="11"/>
+        <circle cx="58" cy="9" r="3"/>
+        <!-- Art window -->
+        <rect x="8" y="17" width="54" height="36"/>
+        <!-- Stylized lotus: centre + 6 petals -->
+        <path d="M 35 44 Q 30 32 35 24 Q 40 32 35 44 Z"/>
+        <path d="M 35 44 Q 22 40 20 28 Q 30 30 35 44 Z"/>
+        <path d="M 35 44 Q 48 40 50 28 Q 40 30 35 44 Z"/>
+        <path d="M 35 44 Q 18 46 16 36"/>
+        <path d="M 35 44 Q 52 46 54 36"/>
+        <circle cx="35" cy="42" r="2" fill="currentColor"/>
+        <!-- Leaves -->
+        <path d="M 18 50 Q 26 46 30 50"/>
+        <path d="M 40 50 Q 48 46 52 50"/>
+        <!-- Type bar -->
+        <line x1="8" y1="59" x2="62" y2="59"/>
+        <line x1="10" y1="57" x2="28" y2="57"/>
+        <!-- Text box lines -->
+        <line x1="10" y1="65" x2="60" y2="65"/>
+        <line x1="10" y1="70" x2="56" y2="70"/>
+        <line x1="10" y1="75" x2="58" y2="75"/>
+        <line x1="10" y1="80" x2="50" y2="80"/>
+        <line x1="46" y1="89" x2="58" y2="89"/>
+      </svg>
+
+      <!-- Protoss Pylon (SC2) — faceted crystal obelisk on angular base -->
+      <svg class="sketch sketch-pylon" viewBox="0 0 60 130" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" filter="url(#sketch-roughen)">
+        <!-- Crystal body -->
+        <path d="M 30 4 L 14 26 L 14 88 L 30 104 L 46 88 L 46 26 Z"/>
+        <!-- Horizontal facet bands -->
+        <line x1="14" y1="26" x2="46" y2="26"/>
+        <line x1="14" y1="88" x2="46" y2="88"/>
+        <!-- Vertical centre seam -->
+        <line x1="30" y1="4" x2="30" y2="104"/>
+        <!-- Facet edges (two diagonals on each side of centre) -->
+        <line x1="14" y1="26" x2="30" y2="40"/>
+        <line x1="46" y1="26" x2="30" y2="40"/>
+        <line x1="14" y1="88" x2="30" y2="74"/>
+        <line x1="46" y1="88" x2="30" y2="74"/>
+        <!-- Energy hum lines inside -->
+        <line x1="22" y1="50" x2="38" y2="50" stroke-width="1.2"/>
+        <line x1="22" y1="62" x2="38" y2="62" stroke-width="1.2"/>
+        <!-- Golden angular base -->
+        <path d="M 8 108 L 30 103 L 52 108 L 52 118 L 8 118 Z"/>
+        <line x1="8" y1="112" x2="52" y2="112"/>
+        <!-- Base support wings -->
+        <path d="M 8 108 L 4 126 L 14 126"/>
+        <path d="M 52 108 L 56 126 L 46 126"/>
+      </svg>
+
+      <!-- Elden Ring greatsword — long blade, ornate wide crossguard, decorated pommel -->
+      <svg class="sketch sketch-sword" viewBox="0 0 80 180" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" filter="url(#sketch-roughen)">
+        <!-- Blade -->
+        <path d="M 40 4 L 34 22 L 34 126 L 40 136 L 46 126 L 46 22 Z"/>
+        <!-- Fuller (blood groove) -->
+        <line x1="40" y1="20" x2="40" y2="124"/>
+        <!-- Ornate crossguard — wide with flared ends -->
+        <path d="M 6 136 L 18 132 L 62 132 L 74 136 L 72 144 L 60 144 L 60 150 L 20 150 L 20 144 L 8 144 Z"/>
+        <line x1="20" y1="140" x2="60" y2="140"/>
+        <circle cx="40" cy="141" r="3"/>
+        <!-- Grip wrapping -->
+        <rect x="36" y="150" width="8" height="20"/>
+        <line x1="36" y1="154" x2="44" y2="154"/>
+        <line x1="36" y1="158" x2="44" y2="158"/>
+        <line x1="36" y1="162" x2="44" y2="162"/>
+        <line x1="36" y1="166" x2="44" y2="166"/>
+        <!-- Decorated pommel -->
+        <circle cx="40" cy="174" r="5"/>
+        <circle cx="40" cy="174" r="2" fill="currentColor"/>
+      </svg>
+
+      <figure class="screenshot screenshot-nexus">
+        <div class="screenshot-image">
+          <img src="_WebsiteAssets/NEXUSScreenshotThumbnail.png" alt="NEXUS screenshot">
+          <svg class="screenshot-frame" viewBox="0 0 100 60" preserveAspectRatio="none">
+            <rect x="1.5" y="1.5" width="97" height="57" fill="none" stroke="currentColor" stroke-width="0.6" vector-effect="non-scaling-stroke" filter="url(#sketch-roughen-light)"/>
+          </svg>
+        </div>
+        <figcaption>Player Experience</figcaption>
+      </figure>
+
+      <figure class="screenshot screenshot-starvin">
+        <div class="screenshot-image">
+          <img src="_WebsiteAssets/STARVINMARTIANScreenshotThumbnail.png" alt="Starvin Martian screenshot">
+          <svg class="screenshot-frame" viewBox="0 0 100 60" preserveAspectRatio="none">
+            <rect x="1.5" y="1.5" width="97" height="57" fill="none" stroke="currentColor" stroke-width="0.6" vector-effect="non-scaling-stroke" filter="url(#sketch-roughen-light)"/>
+          </svg>
+        </div>
+        <figcaption>Systems Design</figcaption>
+      </figure>
+
+      <figure class="screenshot screenshot-ordinem">
+        <div class="screenshot-image">
+          <img src="_WebsiteAssets/ORDINEMScreenshotThumbnail.png" alt="ORDINEM screenshot">
+          <svg class="screenshot-frame" viewBox="0 0 100 60" preserveAspectRatio="none">
+            <rect x="1.5" y="1.5" width="97" height="57" fill="none" stroke="currentColor" stroke-width="0.6" vector-effect="non-scaling-stroke" filter="url(#sketch-roughen-light)"/>
+          </svg>
+        </div>
+        <figcaption>Mechanical Set Design</figcaption>
+      </figure>
+
+      <figure class="screenshot screenshot-wos">
+        <div class="screenshot-image">
+          <img src="_WebsiteAssets/WAROfSTEELScreenshotThumbnail.png" alt="War of Steel screenshot">
+          <svg class="screenshot-frame" viewBox="0 0 100 60" preserveAspectRatio="none">
+            <rect x="1.5" y="1.5" width="97" height="57" fill="none" stroke="currentColor" stroke-width="0.6" vector-effect="non-scaling-stroke" filter="url(#sketch-roughen-light)"/>
+          </svg>
+        </div>
+        <figcaption>Level Design</figcaption>
+      </figure>
+
+    </div>
+
+    <section class="identity-panel" aria-label="Samuel Bouzanquet">
+      <figure class="portrait-figure">
+        <div class="portrait-image">
+          <img src="_WebsiteAssets/MeImageSamuel.jpg" alt="Photo of Samuel Bouzanquet" class="portrait">
+          <svg class="portrait-frame-sketch" viewBox="0 0 100 130" preserveAspectRatio="none">
+            <rect x="1.5" y="1.5" width="97" height="127" fill="none" stroke="currentColor" stroke-width="0.4" vector-effect="non-scaling-stroke" filter="url(#sketch-roughen-light)"/>
+          </svg>
+        </div>
+      </figure>
+      <h1 class="display-name">Samuel Bouzanquet</h1>
+      <p class="tagline">Game Designer &bull; Systems &bull; Narrative</p>
+    </section>
+
+    <section class="app-grid" aria-label="Applications">
+      <!-- About Me — filled person bust -->
+      <button class="app-icon" data-app="about" data-theme="about" type="button">
+        <span class="app-icon-face">
+          <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+            <circle cx="24" cy="16" r="8.5" fill="currentColor"/>
+            <path d="M 8 44 Q 8 28 24 28 Q 40 28 40 44 Z" fill="currentColor"/>
+            <path d="M 24 28 Q 40 28 40 44 L 24 44 Z" fill="rgba(0,0,0,0.15)"/>
+          </svg>
+        </span>
+        <span class="app-icon-label">About Me</span>
+      </button>
+
+      <!-- Blogs — document with folded corner + text lines (now green-themed
+           per iter 16; text-lines retinted from dark-gold to dark-green to
+           match the new accent). -->
+      <button class="app-icon" data-app="blogs" data-theme="blogs" type="button">
+        <span class="app-icon-face">
+          <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+            <path d="M 11 5 L 30 5 L 41 16 L 41 42 Q 41 44 39 44 L 11 44 Q 9 44 9 42 L 9 7 Q 9 5 11 5 Z" fill="currentColor"/>
+            <path d="M 30 5 L 30 14 Q 30 16 32 16 L 41 16 Z" fill="rgba(0,0,0,0.25)"/>
+            <rect x="14" y="22" width="20" height="2" rx="0.5" fill="rgba(5,56,29,0.55)"/>
+            <rect x="14" y="28" width="20" height="2" rx="0.5" fill="rgba(5,56,29,0.55)"/>
+            <rect x="14" y="34" width="14" height="2" rx="0.5" fill="rgba(5,56,29,0.55)"/>
+          </svg>
+        </span>
+        <span class="app-icon-label">Blogs</span>
+      </button>
+
+      <!-- Games — pill-shape gamepad (yellow-themed per iter 16; D-pad and
+           button shading is pure black so it reads correctly on either
+           accent). -->
+      <button class="app-icon" data-app="games" data-theme="games" type="button">
+        <span class="app-icon-face">
+          <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+            <rect x="3" y="14" width="42" height="22" rx="11" fill="currentColor"/>
+            <rect x="10" y="23" width="10" height="4" rx="0.5" fill="rgba(0,0,0,0.4)"/>
+            <rect x="13" y="20" width="4" height="10" rx="0.5" fill="rgba(0,0,0,0.4)"/>
+            <circle cx="32" cy="21" r="2.2" fill="rgba(0,0,0,0.4)"/>
+            <circle cx="38" cy="25" r="2.2" fill="rgba(0,0,0,0.4)"/>
+            <circle cx="32" cy="29" r="2.2" fill="rgba(0,0,0,0.4)"/>
+          </svg>
+        </span>
+        <span class="app-icon-label">Games</span>
+      </button>
+
+      <!-- Experience — briefcase -->
+      <button class="app-icon" data-app="experience" data-theme="experience" type="button">
+        <span class="app-icon-face">
+          <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+            <rect x="17" y="10" width="14" height="8" rx="1" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linejoin="round"/>
+            <rect x="5" y="16" width="38" height="28" rx="3" fill="currentColor"/>
+            <rect x="5" y="25" width="38" height="2" fill="rgba(0,0,0,0.3)"/>
+            <rect x="21" y="23" width="6" height="4" rx="0.8" fill="rgba(45,30,8,0.55)"/>
+            <rect x="5" y="16" width="38" height="2.5" fill="rgba(45,30,8,0.4)"/>
+          </svg>
+        </span>
+        <span class="app-icon-label">Experience</span>
+      </button>
+
+      <!-- Links — two chain rings -->
+      <button class="app-icon" data-app="links" data-theme="links" type="button">
+        <span class="app-icon-face">
+          <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+            <ellipse cx="16" cy="24" rx="10" ry="6.5" fill="none" stroke="currentColor" stroke-width="5"/>
+            <ellipse cx="32" cy="24" rx="10" ry="6.5" fill="none" stroke="currentColor" stroke-width="5"/>
+          </svg>
+        </span>
+        <span class="app-icon-label">Links</span>
+      </button>
+
+      <!-- Contacts — envelope with open flap -->
+      <button class="app-icon" data-app="contacts" data-theme="contacts" type="button">
+        <span class="app-icon-face">
+          <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+            <rect x="5" y="14" width="38" height="24" rx="2" fill="currentColor"/>
+            <path d="M 5 14 L 24 29 L 43 14 Z" fill="rgba(0,0,0,0.35)"/>
+            <path d="M 5 14 L 24 29 L 43 14" fill="none" stroke="rgba(45,11,61,0.6)" stroke-width="1" stroke-linejoin="round"/>
+            <path d="M 5 14 L 5 38" stroke="rgba(45,11,61,0.45)" stroke-width="1"/>
+          </svg>
+        </span>
+        <span class="app-icon-label">Contacts</span>
+      </button>
+    </section>
+
+  </main>
+
+  <footer class="taskbar" aria-label="Taskbar">
+    <button class="taskbar-start" type="button" aria-label="Show desktop">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <rect x="3"  y="3"  width="8" height="8" rx="1" fill="currentColor"/>
+        <rect x="13" y="3"  width="8" height="8" rx="1" fill="currentColor"/>
+        <rect x="3"  y="13" width="8" height="8" rx="1" fill="currentColor"/>
+        <rect x="13" y="13" width="8" height="8" rx="1" fill="currentColor"/>
+      </svg>
+    </button>
+
+    <nav class="taskbar-apps" aria-label="Applications">
+      <!-- Taskbar icons match the desktop icons exactly. -->
+      <button class="taskbar-app" data-app="about" data-theme="about" type="button" aria-label="About Me">
+        <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+          <circle cx="24" cy="16" r="8.5" fill="currentColor"/>
+          <path d="M 8 44 Q 8 28 24 28 Q 40 28 40 44 Z" fill="currentColor"/>
+          <path d="M 24 28 Q 40 28 40 44 L 24 44 Z" fill="rgba(0,0,0,0.15)"/>
+        </svg>
+      </button>
+      <button class="taskbar-app" data-app="blogs" data-theme="blogs" type="button" aria-label="Blogs">
+        <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+          <path d="M 11 5 L 30 5 L 41 16 L 41 42 Q 41 44 39 44 L 11 44 Q 9 44 9 42 L 9 7 Q 9 5 11 5 Z" fill="currentColor"/>
+          <path d="M 30 5 L 30 14 Q 30 16 32 16 L 41 16 Z" fill="rgba(0,0,0,0.25)"/>
+          <rect x="14" y="22" width="20" height="2" rx="0.5" fill="rgba(5,56,29,0.55)"/>
+          <rect x="14" y="28" width="20" height="2" rx="0.5" fill="rgba(5,56,29,0.55)"/>
+          <rect x="14" y="34" width="14" height="2" rx="0.5" fill="rgba(5,56,29,0.55)"/>
+        </svg>
+      </button>
+      <button class="taskbar-app" data-app="games" data-theme="games" type="button" aria-label="Games">
+        <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+          <rect x="3" y="14" width="42" height="22" rx="11" fill="currentColor"/>
+          <rect x="10" y="23" width="10" height="4" rx="0.5" fill="rgba(0,0,0,0.4)"/>
+          <rect x="13" y="20" width="4" height="10" rx="0.5" fill="rgba(0,0,0,0.4)"/>
+          <circle cx="32" cy="21" r="2.2" fill="rgba(0,0,0,0.4)"/>
+          <circle cx="38" cy="25" r="2.2" fill="rgba(0,0,0,0.4)"/>
+          <circle cx="32" cy="29" r="2.2" fill="rgba(0,0,0,0.4)"/>
+        </svg>
+      </button>
+      <button class="taskbar-app" data-app="experience" data-theme="experience" type="button" aria-label="Experience">
+        <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+          <rect x="17" y="10" width="14" height="8" rx="1" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linejoin="round"/>
+          <rect x="5" y="16" width="38" height="28" rx="3" fill="currentColor"/>
+          <rect x="5" y="25" width="38" height="2" fill="rgba(0,0,0,0.3)"/>
+          <rect x="21" y="23" width="6" height="4" rx="0.8" fill="rgba(45,30,8,0.55)"/>
+          <rect x="5" y="16" width="38" height="2.5" fill="rgba(45,30,8,0.4)"/>
+        </svg>
+      </button>
+      <button class="taskbar-app" data-app="links" data-theme="links" type="button" aria-label="Links">
+        <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+          <ellipse cx="16" cy="24" rx="10" ry="6.5" fill="none" stroke="currentColor" stroke-width="5"/>
+          <ellipse cx="32" cy="24" rx="10" ry="6.5" fill="none" stroke="currentColor" stroke-width="5"/>
+        </svg>
+      </button>
+      <button class="taskbar-app" data-app="contacts" data-theme="contacts" type="button" aria-label="Contacts">
+        <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+          <rect x="5" y="14" width="38" height="24" rx="2" fill="currentColor"/>
+          <path d="M 5 14 L 24 29 L 43 14 Z" fill="rgba(0,0,0,0.35)"/>
+          <path d="M 5 14 L 24 29 L 43 14" fill="none" stroke="rgba(45,11,61,0.6)" stroke-width="1" stroke-linejoin="round"/>
+          <path d="M 5 14 L 5 38" stroke="rgba(45,11,61,0.45)" stroke-width="1"/>
+        </svg>
+      </button>
+    </nav>
+
+    <div class="taskbar-clock" aria-live="polite">
+      <span id="clock-time">--:--</span>
+      <span id="clock-date">--/--/----</span>
+    </div>
+  </footer>
+
+  <!--
+    APP WINDOW CONTENT TEMPLATES
+    ----------------------------
+    Each <template id="app-content-<id>"> below holds the body HTML for one
+    app window. js/desktop.js clones this into the window-body when the app
+    opens. Edit the inner HTML directly to update content — no JS changes
+    needed. Placeholder text is wrapped with [brackets] where it should be
+    replaced by Samuel; everything else is structural/styling.
+  -->
+
+  <template id="app-content-about">
+    <article class="app-content app-about" data-theme="about">
+      <header class="app-section-header">
+        <h2 class="app-title">About Me</h2>
+        <p class="app-eyebrow">Game Designer &middot; Systems &amp; Narrative</p>
+      </header>
+
+      <section class="app-bio-section">
+        <h3 class="app-subtitle">Introduction / TLDR</h3>
+        <div class="app-bio">
+          <p>Hello, I am Samuel! I am a game designer and creator who has worked for a couple of years helping create and design games. I am a huge gamer, who started when he was very young and never grew out of it. It evolved into wanting to not just play games &mdash; but also be a part of creating them!</p>
+          <p><em>Read below for more details.</em></p>
+        </div>
+        <!-- Decorative sketch for the intro section: a smiley face on the
+             left. Hidden on narrow windows by the bio-sketch media query.
+             (Wave hand removed iter 20 — couldn't get it to read well.) -->
+        <svg class="bio-sketch bio-sketch-smiley" viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" filter="url(#sketch-roughen-light)" aria-hidden="true">
+          <circle cx="40" cy="40" r="32"/>
+          <circle cx="30" cy="33" r="2.6" fill="currentColor"/>
+          <circle cx="50" cy="33" r="2.6" fill="currentColor"/>
+          <path d="M 22 46 Q 40 62 58 46"/>
+        </svg>
+      </section>
+
+      <section class="app-bio-section">
+        <h3 class="app-subtitle">My Love of Gaming</h3>
+        <div class="app-bio">
+          <p>I have always been a huge gamer &mdash; basically ever since we first got a Game Boy when I was about 7 or 8. From there it went to DS's, then World of Warcraft, then StarCraft 2, which released when I was almost 10!</p>
+          <p>StarCraft, I immediately fell in love with the Zerg and to a lesser extent the Protoss; but when SC2 came out soon after I fell in love with the Zerg and the world all over again. To this day still probably my most absolutely loved game.</p>
+          <p>Over the years I played a lot of those two Blizzard games, but also played League of Legends and Heroes of the Storm.</p>
+          <p>As I got older, towards the end of my schooling years, I decided to branch out more as SC2 unfortunately began to die, and WoW just wasn't holding my attention anymore. 2020 was when I actually first made my Steam account and got a game on there! Dead by Daylight was the game I sunk my teeth into during covid. From there and over the last few years I was able to find and play even more games I loved as I expanded my repertoire even further &mdash; Skyrim, Vermintide, Control, Destiny 2, Darktide, Elden Ring, Outriders, Grim Dawn, Helldivers 2, WWZ: Aftermath and Hades (1 and now recently 2).</p>
+          <p>Note, this list doesn't include non-Steam games that I absolutely loved, including Spellbreak (RIP), Fortnite, Evil Dead: The Game, MTG Arena and Legends of Runeterra (also RIP).</p>
+        </div>
+        <!-- Gaming iconography clustered in both margins (centred vertically
+             in this longer section). Left: shield + sword (REFERENCE_SWORD-
+             SHIELD). Right: Game Boy, PC keyboard (REFERENCE_KEYBOARD), and
+             a mineral cluster (REFERENCE_MINERALS). -->
+        <svg class="bio-sketch bio-sketch-shield" viewBox="0 0 100 110" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" filter="url(#sketch-roughen-light)" aria-hidden="true">
+          <!-- outer shield -->
+          <path d="M 12 18 L 12 56 Q 12 86 50 104 Q 88 86 88 56 L 88 18 L 50 12 Z"/>
+          <!-- top notch -->
+          <path d="M 38 18 L 50 26 L 62 18"/>
+          <!-- inner outline -->
+          <path d="M 18 24 L 18 56 Q 18 82 50 98 Q 82 82 82 56 L 82 24 L 50 18 Z"/>
+        </svg>
+        <svg class="bio-sketch bio-sketch-sword" viewBox="0 0 70 130" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" filter="url(#sketch-roughen-light)" aria-hidden="true">
+          <!-- blade -->
+          <path d="M 35 6 L 24 22 L 24 86 L 35 96 L 46 86 L 46 22 Z"/>
+          <line x1="35" y1="6" x2="35" y2="96"/>
+          <!-- crossguard (wide, slightly flared) -->
+          <path d="M 10 96 L 18 92 L 52 92 L 60 96 L 58 102 L 12 102 Z"/>
+          <line x1="20" y1="98" x2="50" y2="98"/>
+          <!-- grip -->
+          <rect x="30" y="102" width="10" height="18"/>
+          <line x1="30" y1="106" x2="40" y2="106"/>
+          <line x1="30" y1="110" x2="40" y2="110"/>
+          <line x1="30" y1="114" x2="40" y2="114"/>
+          <!-- pommel -->
+          <circle cx="35" cy="124" r="4.5"/>
+          <circle cx="35" cy="124" r="1.6" fill="currentColor"/>
+        </svg>
+        <svg class="bio-sketch bio-sketch-gameboy" viewBox="0 0 70 100" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" filter="url(#sketch-roughen-light)" aria-hidden="true">
+          <rect x="6" y="6" width="58" height="88" rx="6"/>
+          <rect x="14" y="14" width="42" height="34" rx="2"/>
+          <line x1="18" y1="20" x2="52" y2="20"/>
+          <line x1="18" y1="26" x2="46" y2="26"/>
+          <line x1="18" y1="32" x2="50" y2="32"/>
+          <line x1="18" y1="38" x2="42" y2="38"/>
+          <!-- dpad -->
+          <rect x="14" y="62" width="14" height="4" rx="0.5"/>
+          <rect x="19" y="57" width="4" height="14" rx="0.5"/>
+          <!-- A/B buttons -->
+          <circle cx="46" cy="62" r="3"/>
+          <circle cx="54" cy="68" r="3"/>
+          <!-- start/select -->
+          <line x1="28" y1="84" x2="34" y2="84"/>
+          <line x1="36" y1="84" x2="42" y2="84"/>
+          <!-- speaker -->
+          <line x1="46" y1="80" x2="58" y2="76"/>
+          <line x1="46" y1="83" x2="58" y2="79"/>
+          <line x1="46" y1="86" x2="58" y2="82"/>
+        </svg>
+        <svg class="bio-sketch bio-sketch-keyboard" viewBox="0 18 130 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" filter="url(#sketch-roughen-light)" aria-hidden="true">
+          <!-- keyboard body -->
+          <rect x="6" y="22" width="118" height="42" rx="3"/>
+          <line x1="6" y1="28" x2="124" y2="28"/>
+          <!-- top row of keys -->
+          <g>
+            <rect x="10" y="32" width="6" height="6" rx="0.5"/>
+            <rect x="18" y="32" width="6" height="6" rx="0.5"/>
+            <rect x="26" y="32" width="6" height="6" rx="0.5"/>
+            <rect x="34" y="32" width="6" height="6" rx="0.5"/>
+            <rect x="42" y="32" width="6" height="6" rx="0.5"/>
+            <rect x="50" y="32" width="6" height="6" rx="0.5"/>
+            <rect x="58" y="32" width="6" height="6" rx="0.5"/>
+            <rect x="66" y="32" width="6" height="6" rx="0.5"/>
+            <rect x="74" y="32" width="6" height="6" rx="0.5"/>
+            <rect x="82" y="32" width="6" height="6" rx="0.5"/>
+            <rect x="90" y="32" width="6" height="6" rx="0.5"/>
+            <rect x="98" y="32" width="6" height="6" rx="0.5"/>
+            <rect x="106" y="32" width="6" height="6" rx="0.5"/>
+            <rect x="114" y="32" width="6" height="6" rx="0.5"/>
+          </g>
+          <!-- middle row -->
+          <g>
+            <rect x="10" y="40" width="6" height="6" rx="0.5"/>
+            <rect x="18" y="40" width="6" height="6" rx="0.5"/>
+            <rect x="26" y="40" width="6" height="6" rx="0.5"/>
+            <rect x="34" y="40" width="6" height="6" rx="0.5"/>
+            <rect x="42" y="40" width="6" height="6" rx="0.5"/>
+            <rect x="50" y="40" width="6" height="6" rx="0.5"/>
+            <rect x="58" y="40" width="6" height="6" rx="0.5"/>
+            <rect x="66" y="40" width="6" height="6" rx="0.5"/>
+            <rect x="74" y="40" width="6" height="6" rx="0.5"/>
+            <rect x="82" y="40" width="6" height="6" rx="0.5"/>
+            <rect x="90" y="40" width="6" height="6" rx="0.5"/>
+            <rect x="98" y="40" width="6" height="6" rx="0.5"/>
+            <rect x="106" y="40" width="6" height="6" rx="0.5"/>
+            <rect x="114" y="40" width="6" height="6" rx="0.5"/>
+          </g>
+          <!-- spacebar with WASD highlight -->
+          <rect x="38" y="50" width="54" height="8" rx="0.6"/>
+          <!-- arrow keys cluster -->
+          <rect x="100" y="50" width="5" height="5" rx="0.5"/>
+          <rect x="106" y="50" width="5" height="5" rx="0.5"/>
+          <rect x="112" y="50" width="5" height="5" rx="0.5"/>
+          <!-- (Iter 20b: removed cable + clack speed lines per Samuel.) -->
+        </svg>
+        <!-- (Iter 20c: bio-sketch-minerals removed per Samuel — the crystal
+             cluster was making the section feel too busy.) -->
+      </section>
+
+      <section class="app-bio-section">
+        <h3 class="app-subtitle">Getting Into Game Design</h3>
+        <div class="app-bio">
+          <p>I absolutely love games as you can see, but it never really struck me I could turn that into a job until a few years ago. I have always been incredibly creative and loved the idea of improving things to make them better.</p>
+          <p>StarCraft 2 is where I first got my taste of game design and developed through their awesome editor! I made many games from it, and began designing my own games, getting people to playtest them, and taking that feedback onboard to iterate and improve said game.</p>
+          <p>Then during covid I dabbled in it again by making a ginormous document for how to "fix" a game I really liked and played at the time, due to their very questionable balance (and design) decisions driving me mad. I was also all over forums for games I was playing and spinning up new ideas for content, balance, you name it.</p>
+          <p>Then when the opportunity came to actually start being part of making games at the company I started with my family &mdash; PLAYA3ULL GAMES &mdash; I was lucky enough to be able to jump right into being part of games being made! And from there I realised this is what I'd love to do all the time, and quickly decided to study it properly.</p>
+        </div>
+        <!-- StarCraft 2 Editor icon: a wrench inside a swirling/spiralling
+             gear-like ring (REFERENCE_SC2Editor). Iter 20b: reverted from
+             the iter-20 arrow back to a wrench — Samuel originally said
+             "arrow" but meant "wrench". Made the wrench cleaner this
+             time (open-end head + box-end head, with a clearer handle). -->
+        <svg class="bio-sketch bio-sketch-editor" viewBox="0 0 130 130" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" filter="url(#sketch-roughen-light)" aria-hidden="true">
+          <!-- spiralling petals (8 around) -->
+          <path d="M 65 8 Q 42 16 36 40 Q 46 26 62 28"/>
+          <path d="M 96 18 Q 76 30 78 54 Q 84 36 98 38"/>
+          <path d="M 122 65 Q 114 42 90 36 Q 104 46 102 62"/>
+          <path d="M 112 96 Q 100 76 76 78 Q 94 84 92 98"/>
+          <path d="M 65 122 Q 88 114 94 90 Q 84 104 68 102"/>
+          <path d="M 34 112 Q 54 100 52 76 Q 46 94 32 92"/>
+          <path d="M 8 65 Q 16 88 40 94 Q 26 84 28 68"/>
+          <path d="M 18 34 Q 30 54 54 52 Q 36 46 38 32"/>
+          <!-- inner ring -->
+          <circle cx="65" cy="65" r="22"/>
+          <!-- diagonal wrench: open-end head (top-right) → handle →
+               box-end head (bottom-left). Drawn at a 45° angle inside
+               the ring. -->
+          <path d="M 78 50
+                   L 84 50
+                   L 86 56
+                   L 80 60
+                   L 74 56
+                   L 56 74
+                   L 60 80
+                   L 56 84
+                   L 48 84
+                   L 48 76
+                   L 52 72
+                   L 70 54
+                   L 66 48
+                   L 70 44 Z" stroke-width="1.8"/>
+          <!-- box-end hex hole on the bottom head -->
+          <path d="M 50 78 L 53 76 L 56 78 L 56 81 L 53 83 L 50 81 Z"/>
+        </svg>
+      </section>
+
+      <section class="app-bio-section">
+        <h3 class="app-subtitle">Other Hobbies</h3>
+        <div class="app-bio">
+          <p>While I am obviously a gaming nut, I have other things I love to do as well!</p>
+          <ul class="app-bullets">
+            <li>I love dance! Have done it since I was a kid. I mainly do ballet, but do a variety of styles.</li>
+            <li>I love books! I absolutely bloody love reading (and more recently, listening to) books! Fantasy is my go-to.</li>
+            <li>I also am a fan of baking sweets.</li>
+            <li>I love TCGs! I have been playing physical Magic for a couple of years now.</li>
+          </ul>
+        </div>
+        <!-- Stack of fantasy books on the left, a couple of muffins on the
+             right (replaces the prior dragon — Samuel bakes sweets). -->
+        <svg class="bio-sketch bio-sketch-books" viewBox="0 0 110 110" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" filter="url(#sketch-roughen-light)" aria-hidden="true">
+          <!-- bottom book -->
+          <rect x="8" y="86" width="86" height="18" rx="1"/>
+          <line x1="14" y1="86" x2="14" y2="104"/>
+          <line x1="20" y1="86" x2="20" y2="104"/>
+          <line x1="26" y1="92" x2="26" y2="98"/>
+          <!-- middle book -->
+          <rect x="14" y="64" width="80" height="18" rx="1"/>
+          <line x1="20" y1="64" x2="20" y2="82"/>
+          <line x1="26" y1="64" x2="26" y2="82"/>
+          <line x1="38" y1="70" x2="60" y2="70" stroke-width="1.4"/>
+          <line x1="38" y1="76" x2="56" y2="76" stroke-width="1.4"/>
+          <!-- top book (askew, with ribbon bookmark) -->
+          <g transform="rotate(-5 50 50)">
+            <rect x="6" y="40" width="82" height="18" rx="1"/>
+            <line x1="12" y1="40" x2="12" y2="58"/>
+            <line x1="18" y1="40" x2="18" y2="58"/>
+            <path d="M 70 40 L 70 26 L 76 34 L 82 26 L 82 40"/>
+          </g>
+          <!-- a sparkle/star above the stack -->
+          <path d="M 92 18 L 95 24 L 102 26 L 95 28 L 92 34 L 89 28 L 82 26 L 89 24 Z"/>
+        </svg>
+        <svg class="bio-sketch bio-sketch-muffins" viewBox="0 0 170 120" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" filter="url(#sketch-roughen-light)" aria-hidden="true">
+          <!-- LEFT MUFFIN (taller) — mushroom-cap dome that bulges over the
+               wrapper, with a vertically-pleated wrapper narrower at the
+               base. Choco chips drawn as small outlined teardrop ovals. -->
+          <!-- dome (wavy / bumpy outline) -->
+          <path d="M 12 60
+                   Q 6 52 14 44
+                   Q 12 32 24 30
+                   Q 30 16 42 22
+                   Q 50 10 58 22
+                   Q 70 24 70 36
+                   Q 78 44 70 56
+                   Q 76 60 68 64 Z"/>
+          <!-- separation between dome and wrapper -->
+          <path d="M 12 60 L 70 64"/>
+          <!-- wrapper (trapezoid, narrower at base) -->
+          <path d="M 18 60 L 24 102 L 60 102 L 66 64"/>
+          <!-- pleats: subtle vertical lines -->
+          <line x1="24" y1="64" x2="26" y2="100"/>
+          <line x1="30" y1="64" x2="31" y2="100"/>
+          <line x1="36" y1="64" x2="36" y2="100"/>
+          <line x1="42" y1="64" x2="42" y2="100"/>
+          <line x1="48" y1="64" x2="48" y2="100"/>
+          <line x1="54" y1="64" x2="53" y2="100"/>
+          <line x1="60" y1="64" x2="58" y2="100"/>
+          <!-- outlined chocolate chips (drop/leaf shapes) -->
+          <path d="M 24 44 Q 22 47 24 50 Q 27 47 24 44 Z"/>
+          <path d="M 36 32 Q 33 36 36 40 Q 40 36 36 32 Z"/>
+          <path d="M 50 28 Q 47 32 50 36 Q 54 32 50 28 Z"/>
+          <path d="M 44 50 Q 41 53 44 56 Q 48 53 44 50 Z"/>
+          <path d="M 60 44 Q 57 48 60 52 Q 64 48 60 44 Z"/>
+
+          <!-- RIGHT MUFFIN (shorter, slightly tilted in posture) -->
+          <path d="M 92 76
+                   Q 86 68 94 60
+                   Q 92 50 102 50
+                   Q 108 38 118 44
+                   Q 126 36 132 46
+                   Q 142 48 142 58
+                   Q 148 64 142 72
+                   Q 146 76 140 80 Z"/>
+          <path d="M 92 76 L 142 80"/>
+          <path d="M 96 76 L 102 110 L 134 110 L 140 78"/>
+          <line x1="102" y1="80" x2="103" y2="108"/>
+          <line x1="108" y1="80" x2="108" y2="108"/>
+          <line x1="114" y1="80" x2="114" y2="108"/>
+          <line x1="120" y1="80" x2="120" y2="108"/>
+          <line x1="126" y1="80" x2="126" y2="108"/>
+          <line x1="132" y1="80" x2="131" y2="108"/>
+          <!-- chips -->
+          <path d="M 104 60 Q 102 63 104 66 Q 107 63 104 60 Z"/>
+          <path d="M 116 54 Q 114 57 116 60 Q 119 57 116 54 Z"/>
+          <path d="M 128 60 Q 126 63 128 66 Q 131 63 128 60 Z"/>
+          <path d="M 122 66 Q 120 69 122 72 Q 125 69 122 66 Z"/>
+        </svg>
+      </section>
+    </article>
+  </template>
+
+  <template id="app-content-games">
+    <article class="app-content app-games" data-theme="games">
+      <header class="app-section-header">
+        <h2 class="app-title">Games I've Worked On</h2>
+        <p class="app-eyebrow">Portfolio</p>
+      </header>
+
+      <!-- Grid view: 4 cards in display order ORDINEM → STARVIN MARTIAN → WAR OF STEEL → NEXUS.
+           Each card is a button; clicking it switches to the detail view below.
+           Each card is wrapped in a .game-card-row so per-game decorative
+           sketches can sit in the side margins without getting clipped by
+           the card's own overflow:hidden. Sketches are pure decoration
+           (pointer-events: none, aria-hidden) and collapse on narrow windows. -->
+      <div class="games-grid" data-view="list">
+        <div class="game-card-row">
+          <button class="game-card" type="button" data-detail-trigger="ordinem" data-detail-title="ORDINEM">
+            <div class="game-card-image">
+              <img src="_WebsiteAssets/ORDINEMScreenshotThumbnail.png" alt="ORDINEM screenshot">
+            </div>
+            <div class="game-card-body">
+              <h3 class="game-card-title">ORDINEM</h3>
+              <p class="game-card-desc">An online PvP trading card game loosely based on Magic: The Gathering. I was the lead designer tasked with designing the game from the ground up &mdash; mechanics, card designs, narrative, visuals, UX, and overall direction. I worked on it for a period of 3 years, and it finally &ldquo;gold launched&rdquo; early this year!</p>
+              <div class="game-card-tags">
+                <span class="game-tag">PvP</span>
+                <span class="game-tag">Unity</span>
+                <span class="game-tag">Card Game</span>
+                <span class="game-tag">Narrative</span>
+                <span class="game-tag">Visuals</span>
+                <span class="game-tag">Player Experience</span>
+                <span class="game-tag">Systems</span>
+              </div>
+            </div>
+          </button>
+          <!-- ORDINEM decorations: a fanned MTG-style card on the left and a
+               stat-sheet block on the right. -->
+          <svg class="game-sketch game-sketch-card" viewBox="0 0 60 90" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" filter="url(#sketch-roughen-light)" aria-hidden="true">
+            <rect x="4" y="4" width="52" height="82" rx="3"/>
+            <line x1="8" y1="14" x2="52" y2="14"/>
+            <line x1="10" y1="11" x2="32" y2="11"/>
+            <circle cx="50" cy="9" r="2.4"/>
+            <rect x="8" y="18" width="44" height="30"/>
+            <path d="M 30 40 Q 25 32 30 24 Q 35 32 30 40 Z"/>
+            <path d="M 30 40 Q 18 36 16 26"/>
+            <path d="M 30 40 Q 42 36 44 26"/>
+            <line x1="8" y1="54" x2="52" y2="54"/>
+            <line x1="10" y1="60" x2="48" y2="60"/>
+            <line x1="10" y1="66" x2="46" y2="66"/>
+            <line x1="10" y1="72" x2="48" y2="72"/>
+            <line x1="40" y1="80" x2="50" y2="80"/>
+          </svg>
+          <svg class="game-sketch game-sketch-stats" viewBox="0 0 80 90" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" filter="url(#sketch-roughen-light)" aria-hidden="true">
+            <rect x="6" y="6" width="68" height="78" rx="2"/>
+            <line x1="12" y1="14" x2="40" y2="14" stroke-width="2"/>
+            <line x1="12" y1="22" x2="68" y2="22"/>
+            <line x1="32" y1="22" x2="32" y2="78"/>
+            <line x1="50" y1="22" x2="50" y2="78"/>
+            <line x1="12" y1="32" x2="68" y2="32"/>
+            <line x1="12" y1="42" x2="68" y2="42"/>
+            <line x1="12" y1="52" x2="68" y2="52"/>
+            <line x1="12" y1="62" x2="68" y2="62"/>
+            <line x1="12" y1="72" x2="68" y2="72"/>
+            <circle cx="40" cy="27" r="0.9" fill="currentColor"/>
+            <circle cx="60" cy="27" r="0.9" fill="currentColor"/>
+            <circle cx="40" cy="37" r="0.9" fill="currentColor"/>
+            <circle cx="60" cy="37" r="0.9" fill="currentColor"/>
+            <circle cx="40" cy="47" r="0.9" fill="currentColor"/>
+            <circle cx="60" cy="47" r="0.9" fill="currentColor"/>
+          </svg>
+        </div>
+
+        <div class="game-card-row">
+          <button class="game-card" type="button" data-detail-trigger="starvin" data-detail-title="STARVIN MARTIAN">
+            <div class="game-card-image">
+              <img src="_WebsiteAssets/STARVINMARTIANScreenshotThumbnail.png" alt="STARVIN MARTIAN screenshot">
+            </div>
+            <div class="game-card-body">
+              <h3 class="game-card-title">STARVIN MARTIAN</h3>
+              <p class="game-card-desc">An online solo game where the player terraforms Mars. I was in charge of taking a previously made farm game that wasn't Mars-based and updating its narrative, visual and UX themes &mdash; as well as its systems and mechanics &mdash; to feel much more like &lsquo;Mars&rsquo;. I worked on this game for just over 3 years; it is in late open beta currently.</p>
+              <div class="game-card-tags">
+                <span class="game-tag">Solo</span>
+                <span class="game-tag">Unity</span>
+                <span class="game-tag">Farming Game</span>
+                <span class="game-tag">Player Experience</span>
+                <span class="game-tag">Systems</span>
+                <span class="game-tag">Narrative</span>
+                <span class="game-tag">Visuals</span>
+              </div>
+            </div>
+          </button>
+          <!-- STARVIN MARTIAN: base-building grid with a futuristic dome,
+               a couple of "plants" and "rocks" scattered (left). Tech-tree
+               progression diagram (right) — build boxes connected by arrows
+               showing items being made and then combined into the next
+               item. (Iter 20: replaced prior Mars planet + robot.) -->
+          <svg class="game-sketch game-sketch-base" viewBox="0 0 130 100" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" filter="url(#sketch-roughen-light)" aria-hidden="true">
+            <!-- ground grid (perspective tiles) -->
+            <path d="M 6 86 L 124 86"/>
+            <path d="M 14 78 L 116 78"/>
+            <path d="M 22 70 L 108 70"/>
+            <path d="M 28 62 L 102 62"/>
+            <line x1="6" y1="86"  x2="28" y2="62"/>
+            <line x1="34" y1="86" x2="48" y2="62"/>
+            <line x1="62" y1="86" x2="68" y2="62"/>
+            <line x1="90" y1="86" x2="86" y2="62"/>
+            <line x1="118" y1="86" x2="102" y2="62"/>
+            <!-- futuristic dome (centre back) -->
+            <path d="M 50 60 Q 65 30 80 60 Z"/>
+            <line x1="50" y1="60" x2="80" y2="60"/>
+            <line x1="65" y1="34" x2="65" y2="60"/>
+            <path d="M 56 50 Q 65 42 74 50"/>
+            <!-- dome base panel -->
+            <rect x="48" y="60" width="34" height="6"/>
+            <line x1="56" y1="60" x2="56" y2="66"/>
+            <line x1="65" y1="60" x2="65" y2="66"/>
+            <line x1="74" y1="60" x2="74" y2="66"/>
+            <!-- plant left -->
+            <path d="M 18 78 Q 14 70 16 64 Q 22 70 18 78"/>
+            <path d="M 18 78 Q 22 72 26 70 Q 22 76 18 78"/>
+            <line x1="18" y1="78" x2="18" y2="82"/>
+            <!-- plant right -->
+            <path d="M 110 76 L 108 70 L 112 70 L 110 76"/>
+            <path d="M 110 76 L 106 72 L 110 70"/>
+            <path d="M 110 76 L 114 72 L 110 70"/>
+            <!-- rocks (scattered) -->
+            <path d="M 36 80 Q 32 84 36 88 Q 42 86 40 82 Z"/>
+            <path d="M 96 80 Q 90 82 92 88 Q 100 90 98 84 Z"/>
+            <path d="M 70 90 Q 66 92 70 96 Q 76 94 74 90 Z"/>
+          </svg>
+          <svg class="game-sketch game-sketch-techtree" viewBox="0 0 130 110" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" filter="url(#sketch-roughen-light)" aria-hidden="true">
+            <!-- root: building (a barn / fab) -->
+            <rect x="6" y="40" width="28" height="22" rx="2"/>
+            <path d="M 6 40 L 20 28 L 34 40"/>
+            <rect x="14" y="48" width="6" height="14"/>
+            <line x1="22" y1="48" x2="30" y2="48"/>
+            <line x1="22" y1="54" x2="30" y2="54"/>
+            <!-- arrows from root to two items -->
+            <path d="M 34 46 L 56 30" stroke-dasharray="2 2"/>
+            <path d="M 50 28 L 56 30 L 52 34"/>
+            <path d="M 34 56 L 56 72" stroke-dasharray="2 2"/>
+            <path d="M 50 74 L 56 72 L 52 68"/>
+            <!-- item A (top): wheat / crop bundle -->
+            <rect x="56" y="20" width="24" height="20" rx="1"/>
+            <path d="M 62 36 L 62 26 M 66 36 L 66 24 M 70 36 L 70 26 M 74 36 L 74 24"/>
+            <path d="M 60 26 L 64 24 L 60 22"/>
+            <!-- item B (bottom): mineral / ore -->
+            <rect x="56" y="64" width="24" height="20" rx="1"/>
+            <path d="M 64 80 L 60 70 L 68 66 L 76 70 L 72 80 Z"/>
+            <line x1="68" y1="66" x2="68" y2="80"/>
+            <!-- arrows from items A and B both into final item -->
+            <path d="M 80 32 L 100 50" stroke-dasharray="2 2"/>
+            <path d="M 96 46 L 100 50 L 96 54"/>
+            <path d="M 80 72 L 100 56" stroke-dasharray="2 2"/>
+            <path d="M 96 60 L 100 56 L 96 52"/>
+            <!-- final item: rocket / supply pod -->
+            <rect x="100" y="40" width="24" height="28" rx="2"/>
+            <path d="M 100 40 L 112 30 L 124 40"/>
+            <path d="M 104 68 L 100 76 L 108 72"/>
+            <path d="M 124 68 L 124 76 L 116 72"/>
+            <circle cx="112" cy="52" r="4"/>
+            <line x1="108" y1="60" x2="116" y2="60"/>
+          </svg>
+        </div>
+
+        <div class="game-card-row">
+          <button class="game-card" type="button" data-detail-trigger="war-of-steel" data-detail-title="WAR OF STEEL">
+            <div class="game-card-image">
+              <img src="_WebsiteAssets/WAROfSTEELScreenshotThumbnail.png" alt="WAR OF STEEL screenshot">
+            </div>
+            <div class="game-card-body">
+              <h3 class="game-card-title">WAR OF STEEL</h3>
+              <p class="game-card-desc">An online 3rd-person shooter PvP battle royale where players play as mechs. I was the lead designer tasked with designing this game from the ground up &mdash; mechanics, systems, player experience/game feel, narrative, visuals, UX, and overall direction. I worked on it from 2024 to 2025; it is in closed alpha currently, with development paused for the time being.</p>
+              <div class="game-card-tags">
+                <span class="game-tag">PvP</span>
+                <span class="game-tag">Unreal Engine</span>
+                <span class="game-tag">Battle Royale</span>
+                <span class="game-tag">3rd-Person Shooter</span>
+                <span class="game-tag">Systems</span>
+                <span class="game-tag">Player Experience</span>
+                <span class="game-tag">Narrative</span>
+                <span class="game-tag">Visuals</span>
+              </div>
+            </div>
+          </button>
+          <!-- WAR OF STEEL: brainstormed gun on the left + explosion
+               radius diagram on the right. (Iter 20c: bullet removed at
+               Samuel's request.) -->
+          <svg class="game-sketch game-sketch-gun-bs" viewBox="0 0 140 110" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" filter="url(#sketch-roughen-light)" aria-hidden="true">
+            <!-- rifle silhouette -->
+            <path d="M 16 56 L 70 56 L 70 50 L 92 50 L 92 56 L 112 56 L 112 64 L 92 64 L 92 70 L 70 70 L 70 64 L 16 64 Z"/>
+            <!-- grip + trigger -->
+            <path d="M 30 64 L 28 86 L 44 86 L 42 64"/>
+            <path d="M 38 64 L 36 74 L 46 74 L 44 64"/>
+            <!-- sights -->
+            <rect x="48" y="46" width="6" height="4"/>
+            <rect x="78" y="46" width="6" height="4"/>
+            <!-- annotation: "RANGE" out of muzzle -->
+            <path d="M 112 60 L 128 42" stroke-dasharray="2 2"/>
+            <line x1="124" y1="38" x2="138" y2="38"/>
+            <line x1="124" y1="42" x2="134" y2="42"/>
+            <!-- annotation: "DMG" out of stock -->
+            <path d="M 18 56 L 4 32" stroke-dasharray="2 2"/>
+            <line x1="2" y1="30" x2="14" y2="30"/>
+            <line x1="2" y1="34" x2="12" y2="34"/>
+            <!-- damage stars -->
+            <path d="M 20 22 L 22 26 L 26 26 L 23 28 L 24 32 L 20 30 L 16 32 L 17 28 L 14 26 L 18 26 Z" fill="currentColor"/>
+            <!-- annotation: "GRIP/RECOIL" out of grip -->
+            <path d="M 36 86 L 50 100" stroke-dasharray="2 2"/>
+            <line x1="50" y1="100" x2="68" y2="100"/>
+            <line x1="50" y1="104" x2="62" y2="104"/>
+            <!-- arrow showing direction of fire -->
+            <path d="M 116 60 L 128 60"/>
+            <path d="M 124 56 L 130 60 L 124 64"/>
+          </svg>
+          <svg class="game-sketch game-sketch-explosion" viewBox="0 0 110 110" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" filter="url(#sketch-roughen-light)" aria-hidden="true">
+            <!-- center burst star -->
+            <path d="M 55 55 L 62 36 L 66 50 L 78 38 L 70 54 L 86 54 L 70 60 L 78 74 L 64 64 L 62 80 L 54 64 L 42 76 L 46 60 L 30 64 L 42 54 L 28 46 L 44 46 L 38 30 L 50 42 Z" fill="currentColor"/>
+            <!-- inner radius -->
+            <circle cx="55" cy="55" r="32" stroke-dasharray="3 3"/>
+            <!-- outer radius -->
+            <circle cx="55" cy="55" r="48" stroke-dasharray="2 4"/>
+            <!-- radius line -->
+            <path d="M 55 55 L 92 92" stroke-dasharray="3 3"/>
+            <line x1="86" y1="92" x2="92" y2="92"/>
+            <line x1="92" y1="86" x2="92" y2="92"/>
+            <!-- annotation tag -->
+            <line x1="84" y1="14" x2="100" y2="14"/>
+            <line x1="84" y1="18" x2="96" y2="18"/>
+            <path d="M 84 14 L 76 26" stroke-dasharray="2 2"/>
+          </svg>
+        </div>
+
+        <div class="game-card-row">
+          <button class="game-card" type="button" data-detail-trigger="nexus" data-detail-title="NEXUS">
+            <div class="game-card-image">
+              <img src="_WebsiteAssets/NEXUSScreenshotThumbnail.png" alt="NEXUS screenshot">
+            </div>
+            <div class="game-card-body">
+              <h3 class="game-card-title">NEXUS</h3>
+              <p class="game-card-desc">An online PvP 3rd-person shooter MOBA where teams of players fight to destroy the others' &lsquo;Nexus&rsquo;. I was in charge of taking a previously unfinished game and updating and improving its mechanics, systems, player experience, visuals, narrative and themes to be ready for a full release. It was fully released in 2024, with some updates still to come.</p>
+              <div class="game-card-tags">
+                <span class="game-tag">PvP</span>
+                <span class="game-tag">Unreal Engine</span>
+                <span class="game-tag">MOBA</span>
+                <span class="game-tag">3rd-Person Shooter</span>
+                <span class="game-tag">Systems</span>
+                <span class="game-tag">Player Experience</span>
+                <span class="game-tag">Narrative</span>
+                <span class="game-tag">Visuals</span>
+              </div>
+            </div>
+          </button>
+          <!-- NEXUS: futuristic SMG on the left, sci-fi grenade with pin
+               (right) — replaces the prior magic amulet. Capacitor floats
+               somewhere between/below as a third "design notes" sketch. -->
+          <svg class="game-sketch game-sketch-gun-smg" viewBox="0 0 120 80" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" filter="url(#sketch-roughen-light)" aria-hidden="true">
+            <path d="M 6 36 L 60 36 L 70 28 L 90 28 L 90 36 L 102 36 L 102 44 L 60 44 L 60 50 L 6 50 Z"/>
+            <path d="M 24 50 L 22 66 L 36 66 L 34 50"/>
+            <path d="M 32 50 L 30 56 L 38 56 L 36 50"/>
+            <rect x="40" y="50" width="16" height="14" rx="0.5"/>
+            <line x1="44" y1="54" x2="52" y2="54"/>
+            <line x1="44" y1="58" x2="52" y2="58"/>
+            <circle cx="78" cy="28" r="3"/>
+            <line x1="78" y1="20" x2="78" y2="28"/>
+            <!-- muzzle flash -->
+            <path d="M 102 40 L 114 36 L 106 40 L 116 42 L 106 42 L 114 46 Z" fill="currentColor"/>
+            <!-- arrow -->
+            <path d="M 106 56 L 118 56"/>
+            <path d="M 114 52 L 120 56 L 114 60"/>
+          </svg>
+          <svg class="game-sketch game-sketch-grenade" viewBox="0 0 130 130" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" filter="url(#sketch-roughen-light)" aria-hidden="true">
+            <!-- main body (round, with sci-fi panel seam) -->
+            <circle cx="55" cy="72" r="28"/>
+            <path d="M 28 66 Q 55 60 82 66"/>
+            <path d="M 28 80 Q 55 86 82 80"/>
+            <!-- safety lever (arm running down side) -->
+            <path d="M 40 46 L 36 74 L 42 76 L 46 48"/>
+            <!-- top neck / collar -->
+            <rect x="46" y="40" width="18" height="8" rx="1"/>
+            <line x1="50" y1="40" x2="50" y2="48"/>
+            <line x1="60" y1="40" x2="60" y2="48"/>
+            <!-- pin: ring + stem -->
+            <circle cx="72" cy="30" r="6"/>
+            <line x1="72" y1="36" x2="66" y2="44"/>
+            <line x1="66" y1="44" x2="56" y2="42"/>
+            <!-- annotation: "PIN" (top-right) -->
+            <path d="M 78 28 L 100 18" stroke-dasharray="2 2"/>
+            <line x1="96" y1="14" x2="116" y2="14"/>
+            <line x1="96" y1="18" x2="110" y2="18"/>
+            <!-- annotation: "RADIUS" (lower-right, with pulse arcs) -->
+            <path d="M 84 78 L 106 88" stroke-dasharray="2 2"/>
+            <line x1="100" y1="86" x2="120" y2="86"/>
+            <line x1="100" y1="90" x2="116" y2="90"/>
+            <path d="M 22 90 Q 18 96 22 102" stroke-dasharray="2 2"/>
+            <path d="M 12 86 Q 4 96 12 106" stroke-dasharray="2 2"/>
+            <!-- annotation: "FUSE" (left, off lever) -->
+            <path d="M 30 56 L 12 50" stroke-dasharray="2 2"/>
+            <line x1="2" y1="46" x2="18" y2="46"/>
+            <line x1="2" y1="50" x2="14" y2="50"/>
+          </svg>
+          <svg class="game-sketch game-sketch-capacitor" viewBox="0 0 140 130" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" filter="url(#sketch-roughen-light)" aria-hidden="true">
+            <!-- triangular sci-fi capacitor (REFERENCE_CAPACITOR) — three
+                 angled bars meeting near the apex with a base bar. -->
+            <path d="M 65 22 L 32 90 L 40 94 L 70 32 Z"/>
+            <path d="M 65 22 L 98 90 L 90 94 L 60 32 Z"/>
+            <path d="M 36 94 L 94 94 L 90 102 L 40 102 Z"/>
+            <!-- inner glow / core -->
+            <line x1="65" y1="50" x2="65" y2="78" stroke-dasharray="2 2"/>
+            <circle cx="65" cy="72" r="3"/>
+            <!-- annotation: "POWER" (top-right, off the right slant) -->
+            <path d="M 92 40 L 116 22" stroke-dasharray="2 2"/>
+            <line x1="106" y1="18" x2="130" y2="18"/>
+            <line x1="106" y1="22" x2="124" y2="22"/>
+            <!-- annotation: "CHARGE" (left, off the left slant) -->
+            <path d="M 38 40 L 14 22" stroke-dasharray="2 2"/>
+            <line x1="2" y1="18" x2="22" y2="18"/>
+            <line x1="6" y1="22" x2="20" y2="22"/>
+            <!-- annotation: "BASE" (bottom) -->
+            <path d="M 65 110 L 50 122" stroke-dasharray="2 2"/>
+            <line x1="34" y1="120" x2="56" y2="120"/>
+            <line x1="38" y1="124" x2="52" y2="124"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Detail view: shown when a card is clicked. js/desktop.js fills the title
+           from the card's data-detail-title; the rest of the panel is shared (same
+           sketch + "coming soon" copy as Blogs) until per-game content is written. -->
+      <div class="detail-view" data-view="detail" hidden>
+        <button class="detail-view-back" type="button" data-detail-back>
+          <span class="detail-view-back-arrow" aria-hidden="true">&larr;</span>
+          Back to all games
+        </button>
+        <div class="detail-view-stage">
+          <h3 class="detail-view-title" data-detail-title-target>[Game]</h3>
+          <div class="detail-view-sketch" aria-hidden="true">
+            <svg viewBox="0 0 220 180">
+              <g filter="url(#sketch-roughen)" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" transform="rotate(-3 110 90)">
+                <rect x="40" y="20" width="120" height="140" rx="3"/>
+                <path d="M 55 55 Q 75 52, 95 55 T 135 55 T 145 55"/>
+                <path d="M 55 75 Q 75 72, 95 75 T 135 75 T 145 75"/>
+                <path d="M 55 95 Q 75 92, 95 95 T 125 95"/>
+                <path d="M 55 115 Q 75 112, 95 115 T 145 115"/>
+              </g>
+              <g filter="url(#sketch-roughen)" stroke="currentColor" stroke-width="2" fill="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="170" y1="155" x2="200" y2="120"/>
+                <line x1="170" y1="155" x2="167" y2="161"/>
+                <polygon points="200,120 207,123 202,129"/>
+              </g>
+            </svg>
+          </div>
+          <p class="detail-view-message">More info coming soon!</p>
+        </div>
+      </div>
+    </article>
+  </template>
+
+  <template id="app-content-blogs">
+    <article class="app-content app-blogs" data-theme="blogs">
+      <!-- Pinned diagonal sketch-note, centred over the title row. Decoration
+           only (pointer-events: none); drop the whole .wip-note element when
+           real blog posts exist. -->
+      <div class="wip-note" aria-hidden="true">
+        <span class="wip-note-tape" aria-hidden="true"></span>
+        Work in progress!
+      </div>
+
+      <header class="app-section-header has-toolbar">
+        <div class="app-section-header-text">
+          <h2 class="app-title">Blogs</h2>
+          <p class="app-eyebrow">Notes from the workbench</p>
+        </div>
+        <div class="blog-search-wrap">
+          <svg class="blog-search-icon" viewBox="0 0 16 16" aria-hidden="true">
+            <circle cx="7" cy="7" r="4.5" fill="none" stroke="currentColor" stroke-width="1.4"/>
+            <line x1="10.4" y1="10.4" x2="13.5" y2="13.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+          <input class="blog-search" type="search" placeholder="Search posts&hellip;" aria-label="Search posts">
+        </div>
+      </header>
+
+      <!-- Grid view: 5 standin blog rows. Tags are intentionally NOT shown
+           on the front page (Samuel's call); they'll live on the per-post
+           detail page when content is written. Description text is lorem
+           ipsum for now — replace with real preview copy per post. -->
+      <ul class="blog-list" data-view="list">
+        <li>
+          <button class="blog-entry" type="button" data-detail-trigger="blog-1" data-detail-title="[Title 1]">
+            <div class="blog-entry-text">
+              <h3 class="blog-title">[Title 1]</h3>
+              <p class="blog-meta"><span>[Category 1]</span> &middot; <time>[Date 1]</time> &middot; <span>[N min read]</span></p>
+              <p class="blog-preview">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            </div>
+            <div class="blog-entry-image" aria-hidden="true"></div>
+          </button>
+        </li>
+        <li>
+          <button class="blog-entry" type="button" data-detail-trigger="blog-2" data-detail-title="[Title 2]">
+            <div class="blog-entry-text">
+              <h3 class="blog-title">[Title 2]</h3>
+              <p class="blog-meta"><span>[Category 2]</span> &middot; <time>[Date 2]</time> &middot; <span>[N min read]</span></p>
+              <p class="blog-preview">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            </div>
+            <div class="blog-entry-image" aria-hidden="true"></div>
+          </button>
+        </li>
+        <li>
+          <button class="blog-entry" type="button" data-detail-trigger="blog-3" data-detail-title="[Title 3]">
+            <div class="blog-entry-text">
+              <h3 class="blog-title">[Title 3]</h3>
+              <p class="blog-meta"><span>[Category 3]</span> &middot; <time>[Date 3]</time> &middot; <span>[N min read]</span></p>
+              <p class="blog-preview">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+            </div>
+            <div class="blog-entry-image" aria-hidden="true"></div>
+          </button>
+        </li>
+        <li>
+          <button class="blog-entry" type="button" data-detail-trigger="blog-4" data-detail-title="[Title 4]">
+            <div class="blog-entry-text">
+              <h3 class="blog-title">[Title 4]</h3>
+              <p class="blog-meta"><span>[Category 4]</span> &middot; <time>[Date 4]</time> &middot; <span>[N min read]</span></p>
+              <p class="blog-preview">Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est qui dolorem ipsum quia dolor sit amet.</p>
+            </div>
+            <div class="blog-entry-image" aria-hidden="true"></div>
+          </button>
+        </li>
+        <li>
+          <button class="blog-entry" type="button" data-detail-trigger="blog-5" data-detail-title="[Title 5]">
+            <div class="blog-entry-text">
+              <h3 class="blog-title">[Title 5]</h3>
+              <p class="blog-meta"><span>[Category 5]</span> &middot; <time>[Date 5]</time> &middot; <span>[N min read]</span></p>
+              <p class="blog-preview">Adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam.</p>
+            </div>
+            <div class="blog-entry-image" aria-hidden="true"></div>
+          </button>
+        </li>
+      </ul>
+
+      <!-- Detail view (shared with Games structurally — same sketch + copy). -->
+      <div class="detail-view" data-view="detail" hidden>
+        <button class="detail-view-back" type="button" data-detail-back>
+          <span class="detail-view-back-arrow" aria-hidden="true">&larr;</span>
+          Back to all blogs
+        </button>
+        <div class="detail-view-stage">
+          <h3 class="detail-view-title" data-detail-title-target>[Title]</h3>
+          <div class="detail-view-sketch" aria-hidden="true">
+            <svg viewBox="0 0 220 180">
+              <g filter="url(#sketch-roughen)" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" transform="rotate(-3 110 90)">
+                <rect x="40" y="20" width="120" height="140" rx="3"/>
+                <path d="M 55 55 Q 75 52, 95 55 T 135 55 T 145 55"/>
+                <path d="M 55 75 Q 75 72, 95 75 T 135 75 T 145 75"/>
+                <path d="M 55 95 Q 75 92, 95 95 T 125 95"/>
+                <path d="M 55 115 Q 75 112, 95 115 T 145 115"/>
+              </g>
+              <g filter="url(#sketch-roughen)" stroke="currentColor" stroke-width="2" fill="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="170" y1="155" x2="200" y2="120"/>
+                <line x1="170" y1="155" x2="167" y2="161"/>
+                <polygon points="200,120 207,123 202,129"/>
+              </g>
+            </svg>
+          </div>
+          <p class="detail-view-message">More info coming soon!</p>
+        </div>
+      </div>
+    </article>
+  </template>
+
+  <template id="app-content-experience">
+    <article class="app-content app-experience" data-theme="experience">
+      <header class="app-section-header">
+        <h2 class="app-title">Experience</h2>
+        <p class="app-eyebrow">Roles &amp; what shipped</p>
+      </header>
+
+      <section class="exp-role">
+        <header class="exp-role-header">
+          <h3 class="exp-role-title">Lead Game Designer</h3>
+          <span class="exp-role-tenure">PLAYA3ULL GAMES &middot; 2022 &ndash; Present</span>
+        </header>
+
+        <p class="exp-role-summary">I am the Lead Designer and &ldquo;Vision Holder&rdquo; for multiple projects.</p>
+
+        <h4 class="exp-role-subhead">As Lead Designer</h4>
+        <ul class="exp-bullets">
+          <li>Designing gameplay systems (loops that help engage players).</li>
+          <li>Designing game mechanics that are &ldquo;flavourful&rdquo; AND that feel good to play.</li>
+          <li>(Generally) creating the narrative and making sure it fits within gameplay.</li>
+          <li>Making sure the narrative is conveyed to players through gameplay.</li>
+          <li>Designing and balancing said systems and mechanics.</li>
+          <li>Running playtests of my designs, gathering feedback from players, and working on that feedback.</li>
+          <li>Relaying between different teams and adjusting designs as needed to make sure the designs are fulfilled while not putting too much strain on a single team.</li>
+          <li>Helping devs improve &ldquo;gameplay feel&rdquo; &mdash; especially around Sound, Player Experience, and UI.</li>
+        </ul>
+
+        <h4 class="exp-role-subhead">As Vision Holder</h4>
+        <ul class="exp-bullets">
+          <li>Making sure said systems and mechanics are implemented correctly in each game.</li>
+          <li>Creating the visual direction for a game.</li>
+          <li>Making sure visual direction, narrative, and gameplay all align.</li>
+        </ul>
+
+        <p class="exp-role-summary">While at PLAYA3ULL GAMES so far, I have seen two games brought to &ldquo;gold release&rdquo; (full release with more updates/expansions to come), with another two brought to beta and alpha stages, awaiting their move to the next stage.</p>
+      </section>
+
+      <!-- Cross-link to the Games portfolio. The href is the hash route, so
+           clicking opens the Games window via applyHash() in js/desktop.js. -->
+      <aside class="exp-cross-link">
+        <p class="exp-cross-link-text">Want to see what I specifically did on each project?</p>
+        <a class="exp-cross-link-button" href="#games">
+          <span>Browse the Games portfolio</span>
+          <span class="exp-cross-link-arrow" aria-hidden="true">&rarr;</span>
+        </a>
+      </aside>
+
+      <h3 class="app-subtitle">Tools</h3>
+      <div class="exp-skills-section">
+        <div class="skill-tier" data-tier="high">
+          <div class="skill-tier-label">Proficient</div>
+          <ul class="skill-list">
+            <li>Unreal Engine</li>
+            <li>Unity</li>
+            <li>Google Docs</li>
+          </ul>
+        </div>
+        <div class="skill-tier" data-tier="mid">
+          <div class="skill-tier-label">Confident</div>
+          <ul class="skill-list">
+            <li>Blueprint</li>
+            <li>Figma</li>
+            <li>Miro</li>
+            <li>Photoshop</li>
+          </ul>
+        </div>
+        <div class="skill-tier" data-tier="low">
+          <div class="skill-tier-label">Familiar</div>
+          <ul class="skill-list">
+            <li>Excel</li>
+            <li>Canva</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3 class="app-subtitle">Skills</h3>
+      <div class="exp-skills-section">
+        <div class="skill-tier" data-tier="high">
+          <div class="skill-tier-label">Proficient</div>
+          <ul class="skill-list">
+            <li>Systems design</li>
+            <li>Idea generation and brainstorming</li>
+            <li>&ldquo;Spreadsheeting&rdquo;</li>
+            <li>Documenting designs and changes</li>
+            <li>Communicating with teams</li>
+            <li>Adapting designs as needs arise</li>
+            <li>Adapting ideas so they&rsquo;re usable and feasible</li>
+          </ul>
+        </div>
+        <div class="skill-tier" data-tier="mid">
+          <div class="skill-tier-label">Confident</div>
+          <ul class="skill-list">
+            <li>Narrative design</li>
+            <li>Sound design</li>
+            <li>Player Experience</li>
+            <li>Implementing Blueprint</li>
+          </ul>
+        </div>
+        <div class="skill-tier" data-tier="low">
+          <div class="skill-tier-label">Familiar</div>
+          <ul class="skill-list">
+            <li>Implementing C# code</li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </template>
+
+  <template id="app-content-links">
+    <article class="app-content app-links" data-theme="links">
+      <header class="app-section-header">
+        <h2 class="app-title">Links</h2>
+        <p class="app-eyebrow">Where else to find me</p>
+      </header>
+
+      <!-- Decorative sketches that bleed off the page edges, behind the
+           link rows. Each .link-decor lives in the side margins; some
+           overlap the rows so they read as "scattered notes" underneath
+           the cards. (Iter 20 — added at Samuel's request to fill empty
+           space and connect the page to the rest of the sketchbook.
+           Iter 20b: removed the keyboard and iso-cube — Samuel pointed
+           out the cube read like a Chrome icon and the keyboard was
+           redundant with the About Me one.) -->
+      <svg class="link-decor link-decor-bubble" viewBox="0 0 110 90" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" filter="url(#sketch-roughen-light)" aria-hidden="true">
+        <path d="M 8 14 Q 8 6 18 6 L 92 6 Q 102 6 102 14 L 102 56 Q 102 64 92 64 L 38 64 L 22 78 L 26 64 L 18 64 Q 8 64 8 56 Z"/>
+        <line x1="22" y1="22" x2="86" y2="22"/>
+        <line x1="22" y1="32" x2="80" y2="32"/>
+        <line x1="22" y1="42" x2="84" y2="42"/>
+        <line x1="22" y1="52" x2="64" y2="52"/>
+      </svg>
+      <svg class="link-decor link-decor-brackets" viewBox="0 0 110 70" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" filter="url(#sketch-roughen-light)" aria-hidden="true">
+        <path d="M 30 6 L 14 18 L 14 50 L 30 64"/>
+        <path d="M 80 6 L 96 18 L 96 50 L 80 64"/>
+        <line x1="40" y1="22" x2="70" y2="22"/>
+        <line x1="40" y1="34" x2="60" y2="34"/>
+        <line x1="40" y1="46" x2="68" y2="46"/>
+      </svg>
+      <svg class="link-decor link-decor-paperplane" viewBox="0 0 100 80" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" filter="url(#sketch-roughen-light)" aria-hidden="true">
+        <path d="M 8 36 L 92 8 L 60 72 L 48 50 Z"/>
+        <path d="M 8 36 L 48 50"/>
+        <path d="M 48 50 L 92 8"/>
+        <path d="M 4 60 Q 14 56 22 58" stroke-dasharray="3 3"/>
+        <path d="M 14 70 Q 22 66 30 68" stroke-dasharray="3 3"/>
+      </svg>
+      <svg class="link-decor link-decor-at" viewBox="0 0 90 90" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" filter="url(#sketch-roughen-light)" aria-hidden="true">
+        <circle cx="45" cy="45" r="36"/>
+        <circle cx="45" cy="45" r="14"/>
+        <path d="M 59 45 Q 59 64 70 64 Q 78 64 78 50"/>
+      </svg>
+
+      <section class="link-section">
+        <h3 class="link-section-title">Socials</h3>
+        <ul class="link-items">
+          <li>
+            <a class="link-row" href="https://www.linkedin.com/in/samuelbouzanquet/" target="_blank" rel="noopener">
+              <span class="link-row-icon link-icon-linkedin" aria-hidden="true">
+                <svg viewBox="0 0 48 48" focusable="false">
+                  <rect x="2" y="2" width="44" height="44" rx="6" fill="currentColor"/>
+                  <rect x="9" y="19" width="6" height="20" rx="0.5" fill="#0a1426"/>
+                  <circle cx="12" cy="13" r="3.6" fill="#0a1426"/>
+                  <path d="M 19 19 L 25 19 L 25 22 Q 27 18.5 32 18.5 Q 39 18.5 39 27 L 39 39 L 33 39 L 33 28 Q 33 24 30 24 Q 26 24 26 28 L 26 39 L 19 39 Z" fill="#0a1426"/>
+                </svg>
+              </span>
+              <span class="link-row-text">
+                <span class="link-row-name">LinkedIn</span>
+                <span class="link-row-handle">linkedin.com/in/samuelbouzanquet</span>
+              </span>
+              <span class="link-row-sketch" aria-hidden="true">
+                <svg viewBox="0 0 60 40" filter="url(#sketch-roughen-light)">
+                  <g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M 8 20 L 44 20"/>
+                    <path d="M 36 12 L 44 20 L 36 28"/>
+                    <circle cx="50" cy="10" r="1.4" fill="currentColor"/>
+                    <path d="M 50 28 L 54 32"/>
+                    <path d="M 54 28 L 50 32"/>
+                  </g>
+                </svg>
+              </span>
+            </a>
+          </li>
+          <li>
+            <span class="link-row is-disabled" aria-disabled="true">
+              <span class="link-row-icon link-icon-youtube" aria-hidden="true">
+                <svg viewBox="0 0 48 48" focusable="false">
+                  <rect x="2" y="9" width="44" height="30" rx="7" fill="currentColor"/>
+                  <path d="M 20 17 L 34 24 L 20 31 Z" fill="#fff"/>
+                </svg>
+              </span>
+              <span class="link-row-text">
+                <span class="link-row-name">YouTube</span>
+                <span class="link-row-handle">Coming soon</span>
+              </span>
+              <span class="link-row-sketch" aria-hidden="true">
+                <!-- Iter 20: tick replaced with a film/clapperboard icon. -->
+                <svg viewBox="0 0 60 40" filter="url(#sketch-roughen-light)">
+                  <g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                    <!-- clapper top (slate arm) -->
+                    <path d="M 10 14 L 50 14 L 48 8 L 42 10 L 40 6 L 34 8 L 32 4 L 26 6 L 24 2 L 18 4 L 16 0"/>
+                    <line x1="14" y1="6" x2="20" y2="14"/>
+                    <line x1="22" y1="2" x2="28" y2="14"/>
+                    <line x1="30" y1="4" x2="36" y2="14"/>
+                    <line x1="38" y1="6" x2="44" y2="14"/>
+                    <!-- board body -->
+                    <rect x="10" y="14" width="40" height="22" rx="1"/>
+                    <!-- play triangle -->
+                    <path d="M 26 20 L 36 25 L 26 30 Z"/>
+                  </g>
+                </svg>
+              </span>
+            </span>
+          </li>
+        </ul>
+      </section>
+
+      <section class="link-section">
+        <h3 class="link-section-title">Code</h3>
+        <ul class="link-items">
+          <li>
+            <a class="link-row" href="https://github.com/SamBou2501" target="_blank" rel="noopener">
+              <span class="link-row-icon link-icon-github" aria-hidden="true">
+                <svg viewBox="0 0 48 48" focusable="false">
+                  <rect x="2" y="2" width="44" height="44" rx="6" fill="currentColor"/>
+                  <path d="M 24 9 C 15 9 8 16 8 25 C 8 32 12.5 38 19 40 C 19.7 40.1 20 39.7 20 39.4 L 20 36 C 16 36.8 15 34.5 15 34.5 C 14.3 33 13.3 32.5 13.3 32.5 C 12 31.6 13.4 31.7 13.4 31.7 C 14.8 31.8 15.6 33.2 15.6 33.2 C 17 35.5 19.3 34.8 20.1 34.5 C 20.2 33.5 20.6 32.8 21 32.4 C 17.7 32 14.3 30.7 14.3 25.1 C 14.3 23.5 14.9 22.2 15.7 21.2 C 15.6 20.8 15.1 19.4 15.9 17.4 C 15.9 17.4 17.1 17 20 18.9 C 21.2 18.6 22.5 18.4 23.8 18.4 C 25.1 18.4 26.5 18.6 27.7 18.9 C 30.5 17 31.7 17.4 31.7 17.4 C 32.5 19.4 32 20.8 31.9 21.2 C 32.7 22.2 33.3 23.5 33.3 25.1 C 33.3 30.7 29.9 32 26.6 32.4 C 27.1 32.9 27.6 33.8 27.6 35.2 L 27.6 39.4 C 27.6 39.7 27.9 40.1 28.6 40 C 35.1 38 39.6 32 39.6 25 C 39.6 16 32.6 9 24 9 Z" fill="#0a1426"/>
+                </svg>
+              </span>
+              <span class="link-row-text">
+                <span class="link-row-name">GitHub</span>
+                <span class="link-row-handle">github.com/SamBou2501</span>
+              </span>
+              <span class="link-row-sketch" aria-hidden="true">
+                <svg viewBox="0 0 60 40" filter="url(#sketch-roughen-light)">
+                  <g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M 14 14 L 8 20 L 14 26"/>
+                    <path d="M 46 14 L 52 20 L 46 26"/>
+                    <line x1="22" y1="28" x2="38" y2="12"/>
+                  </g>
+                </svg>
+              </span>
+            </a>
+          </li>
+        </ul>
+      </section>
+
+      <section class="link-section">
+        <h3 class="link-section-title">Games I have worked on</h3>
+        <ul class="link-items">
+          <li>
+            <a class="link-row" href="https://ordinem.playa3ull.games/" target="_blank" rel="noopener">
+              <span class="link-row-icon link-icon-game" aria-hidden="true">
+                <img src="_WebsiteAssets/ORDINEMScreenshotThumbnail.png" alt="">
+              </span>
+              <span class="link-row-text">
+                <span class="link-row-name">ORDINEM</span>
+                <span class="link-row-handle">ordinem.playa3ull.games</span>
+              </span>
+              <span class="link-row-sketch" aria-hidden="true">
+                <!-- Iter 20: simple card sketch — 9:16 rectangle with a
+                     vague drawing in the top section and text lines below. -->
+                <svg viewBox="0 0 60 40" filter="url(#sketch-roughen-light)">
+                  <g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="22" y="3" width="16" height="34" rx="1"/>
+                    <rect x="25" y="7" width="10" height="11"/>
+                    <path d="M 27 16 L 30 12 L 32 14 L 35 11"/>
+                    <line x1="25" y1="22" x2="35" y2="22"/>
+                    <line x1="25" y1="26" x2="35" y2="26"/>
+                    <line x1="25" y1="30" x2="33" y2="30"/>
+                  </g>
+                </svg>
+              </span>
+            </a>
+          </li>
+          <li>
+            <a class="link-row" href="https://nexus.playa3ull.games/" target="_blank" rel="noopener">
+              <span class="link-row-icon link-icon-game" aria-hidden="true">
+                <img src="_WebsiteAssets/NEXUSScreenshotThumbnail.png" alt="">
+              </span>
+              <span class="link-row-text">
+                <span class="link-row-name">NEXUS</span>
+                <span class="link-row-handle">nexus.playa3ull.games</span>
+              </span>
+              <span class="link-row-sketch" aria-hidden="true">
+                <svg viewBox="0 0 60 40" filter="url(#sketch-roughen-light)">
+                  <g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="30" cy="20" r="6"/>
+                    <line x1="30" y1="6" x2="30" y2="14"/>
+                    <line x1="30" y1="26" x2="30" y2="34"/>
+                    <line x1="14" y1="20" x2="22" y2="20"/>
+                    <line x1="38" y1="20" x2="46" y2="20"/>
+                    <circle cx="30" cy="20" r="1.6" fill="currentColor"/>
+                  </g>
+                </svg>
+              </span>
+            </a>
+          </li>
+          <li>
+            <a class="link-row" href="https://starvinmartian.playa3ull.games/" target="_blank" rel="noopener">
+              <span class="link-row-icon link-icon-game" aria-hidden="true">
+                <img src="_WebsiteAssets/STARVINMARTIANScreenshotThumbnail.png" alt="">
+              </span>
+              <span class="link-row-text">
+                <span class="link-row-name">STARVIN MARTIAN</span>
+                <span class="link-row-handle">starvinmartian.playa3ull.games</span>
+              </span>
+              <span class="link-row-sketch" aria-hidden="true">
+                <svg viewBox="0 0 60 40" filter="url(#sketch-roughen-light)">
+                  <g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="30" cy="22" r="9"/>
+                    <path d="M 21 22 Q 26 18 30 22 Q 34 26 39 22"/>
+                    <circle cx="14" cy="10" r="0.9" fill="currentColor"/>
+                    <circle cx="48" cy="14" r="0.9" fill="currentColor"/>
+                    <circle cx="46" cy="32" r="0.9" fill="currentColor"/>
+                  </g>
+                </svg>
+              </span>
+            </a>
+          </li>
+          <li>
+            <a class="link-row" href="https://playa3ull.games/games/war-of-steel" target="_blank" rel="noopener">
+              <span class="link-row-icon link-icon-game" aria-hidden="true">
+                <img src="_WebsiteAssets/WAROfSTEELScreenshotThumbnail.png" alt="">
+              </span>
+              <span class="link-row-text">
+                <span class="link-row-name">WAR OF STEEL</span>
+                <span class="link-row-handle">playa3ull.games/games/war-of-steel</span>
+              </span>
+              <span class="link-row-sketch" aria-hidden="true">
+                <!-- Iter 20: sword replaced with a mech head with glowing
+                     eyes (slits + filled pupils for the "glow"). -->
+                <svg viewBox="0 0 60 40" filter="url(#sketch-roughen-light)">
+                  <g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                    <!-- helmet -->
+                    <path d="M 18 8 L 18 26 Q 18 32 24 32 L 36 32 Q 42 32 42 26 L 42 8 Z"/>
+                    <!-- top antenna -->
+                    <line x1="22" y1="8" x2="22" y2="3"/>
+                    <line x1="38" y1="8" x2="38" y2="3"/>
+                    <!-- visor strip -->
+                    <rect x="20" y="14" width="20" height="6"/>
+                    <!-- glowing eye slits -->
+                    <line x1="22" y1="17" x2="27" y2="17" stroke-width="2.4"/>
+                    <line x1="33" y1="17" x2="38" y2="17" stroke-width="2.4"/>
+                    <!-- mouth grille -->
+                    <line x1="24" y1="25" x2="36" y2="25"/>
+                    <line x1="26" y1="28" x2="34" y2="28"/>
+                  </g>
+                </svg>
+              </span>
+            </a>
+          </li>
+        </ul>
+      </section>
+    </article>
+  </template>
+
+  <template id="app-content-contacts">
+    <article class="app-content app-contacts" data-theme="contacts">
+      <header class="app-section-header">
+        <h2 class="app-title">Get in touch</h2>
+        <p class="app-eyebrow">Best route is email</p>
+      </header>
+      <div class="contact-block">
+        <p class="contact-label">Email</p>
+        <button type="button" class="contact-email-button" data-copy="sambouzanquet@gmail.com" aria-label="Copy email address to clipboard">
+          <span class="contact-email">sambouzanquet@gmail.com</span>
+          <span class="contact-copy-icon" aria-hidden="true">
+            <svg viewBox="0 0 16 16" width="14" height="14"><rect x="4" y="4" width="9" height="10" rx="1.2" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M3 11 V3 a1 1 0 0 1 1-1 h7" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+          </span>
+          <span class="contact-copy-feedback">Copied!</span>
+        </button>
+        <p class="contact-hint">Click to copy the address to your clipboard.</p>
+      </div>
+
+      <!-- Doodles filling the bottom of the page below the email block.
+           (Iter 20b: hand redesign was tough to get right, so swapped to
+           gaming/mail-themed doodles per Samuel — scroll + envelope.
+           Sizes bumped up substantially since the bottom ~1/3 of the
+           page was bare.) -->
+      <div class="contact-doodles" aria-hidden="true">
+        <figure class="contact-doodle contact-doodle-thanks">
+          <svg viewBox="0 0 110 110" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" filter="url(#sketch-roughen-light)">
+            <!-- heart with sparkles around it -->
+            <path d="M 55 92 C 24 70, 18 42, 32 30 C 42 24, 55 32, 55 38 C 55 32, 68 24, 78 30 C 92 42, 86 70, 55 92 Z"/>
+            <path d="M 38 48 Q 46 44 54 48" stroke-width="1.4"/>
+            <path d="M 56 48 Q 64 44 72 48" stroke-width="1.4"/>
+            <!-- sparkles -->
+            <path d="M 14 22 L 16 26 L 20 28 L 16 30 L 14 34 L 12 30 L 8 28 L 12 26 Z"/>
+            <path d="M 92 14 L 94 18 L 98 20 L 94 22 L 92 26 L 90 22 L 86 20 L 90 18 Z"/>
+            <path d="M 100 60 L 101 63 L 104 64 L 101 65 L 100 68 L 99 65 L 96 64 L 99 63 Z"/>
+          </svg>
+          <figcaption>thank you!</figcaption>
+        </figure>
+
+        <figure class="contact-doodle contact-doodle-click">
+          <svg viewBox="0 0 140 110" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" filter="url(#sketch-roughen-light)">
+            <!-- bag body (rounded sack, fat at the bottom) -->
+            <path d="M 50 32 Q 36 50 34 72 Q 32 96 52 100 L 88 100 Q 108 96 106 72 Q 104 50 90 32 Z"/>
+            <!-- cinched neck with rope folds -->
+            <path d="M 50 32 L 56 24 L 62 30 L 70 22 L 78 30 L 84 24 L 90 32"/>
+            <!-- $ symbol on the bag -->
+            <line x1="70" y1="46" x2="70" y2="84" stroke-width="1.6"/>
+            <path d="M 80 56 Q 80 50 70 50 Q 60 50 60 58 Q 60 64 70 64 Q 80 64 80 72 Q 80 80 70 80 Q 60 80 60 74" stroke-width="1.6"/>
+            <!-- coins spilled around the base -->
+            <ellipse cx="20" cy="94" rx="8" ry="5"/>
+            <line x1="14" y1="94" x2="26" y2="94" stroke-width="1.2"/>
+            <ellipse cx="118" cy="96" rx="7" ry="4"/>
+            <line x1="113" y1="96" x2="123" y2="96" stroke-width="1.2"/>
+            <ellipse cx="128" cy="102" rx="6" ry="3"/>
+            <!-- a coin tumbling out mid-air -->
+            <circle cx="14" cy="76" r="4.5"/>
+            <line x1="10" y1="76" x2="18" y2="76" stroke-width="1.2"/>
+            <!-- sparkles for "treasure" feel -->
+            <path d="M 14 18 L 16 22 L 20 24 L 16 26 L 14 30 L 12 26 L 8 24 L 12 22 Z"/>
+            <path d="M 124 16 L 126 20 L 130 22 L 126 24 L 124 28 L 122 24 L 118 22 L 122 20 Z"/>
+          </svg>
+        </figure>
+
+        <figure class="contact-doodle contact-doodle-scroll">
+          <svg viewBox="0 0 130 80" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" filter="url(#sketch-roughen-light)">
+            <!-- main scroll (centre) — secondary scrolls removed (iter 20e). -->
+            <ellipse cx="22" cy="48" rx="10" ry="20"/>
+            <ellipse cx="22" cy="48" rx="4" ry="10"/>
+            <ellipse cx="108" cy="48" rx="10" ry="20"/>
+            <ellipse cx="108" cy="48" rx="4" ry="10"/>
+            <line x1="22" y1="28" x2="108" y2="28"/>
+            <line x1="22" y1="68" x2="108" y2="68"/>
+            <!-- scroll text lines -->
+            <line x1="34" y1="37" x2="96" y2="37" stroke-width="1.4"/>
+            <line x1="34" y1="45" x2="92" y2="45" stroke-width="1.4"/>
+            <line x1="34" y1="53" x2="98" y2="53" stroke-width="1.4"/>
+            <line x1="34" y1="61" x2="86" y2="61" stroke-width="1.4"/>
+            <!-- a couple of sparkles for "fresh delivery" feel -->
+            <path d="M 8 12 L 10 16 L 14 18 L 10 20 L 8 24 L 6 20 L 2 18 L 6 16 Z"/>
+            <path d="M 122 12 L 124 16 L 128 18 L 124 20 L 122 24 L 120 20 L 116 18 L 120 16 Z"/>
+          </svg>
+        </figure>
+      </div>
+    </article>
+  </template>
+
+  <script src="js/clock.js"></script>
+  <script src="js/desktop.js"></script>
+</body>
+</html>

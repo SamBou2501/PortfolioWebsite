@@ -1,0 +1,1845 @@
+/* ---------------------------------------------------------------------------
+ * Global styles for the portfolio desktop.
+ * ------------------------------------------------------------------------- */
+
+/* Fonts -------------------------------------------------------------------- */
+
+@font-face {
+  font-family: "Ethnocentric";
+  src: url("../_WebsiteAssets/ethnocentric/Ethnocentric-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Acid";
+  src: url("../_WebsiteAssets/acid/acid.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Acid";
+  src: url("../_WebsiteAssets/acid/acid_medium.otf") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Acid";
+  src: url("../_WebsiteAssets/acid/acid_bold.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Reset -------------------------------------------------------------------- */
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; height: 100%; }
+button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+img { display: block; max-width: 100%; }
+
+/* Base --------------------------------------------------------------------- */
+
+:root {
+  --taskbar-height: 48px;
+  --font-display: "Ethnocentric", "Orbitron", system-ui, sans-serif;
+  --font-heading: "Acid", "Be Vietnam Pro", system-ui, sans-serif;
+  --font-body: "Be Vietnam Pro", system-ui, sans-serif;
+  --font-hand: "Caveat", cursive;
+
+  /* Ink color for sketchbook content (sketches, scribbles, frames).
+     Currently OFF-WHITE because the desktop bg is dark; flip to a near-black
+     when the bg eventually becomes light sketchbook paper. */
+  --ink-color: rgba(244, 255, 253, 0.88);
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--desktop-fg);
+  background: var(--bg-deep);
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Desktop layout + paint-mix background ----------------------------------- */
+
+.desktop {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(360px, 50%) 1fr;
+  width: 100%;
+  height: calc(100vh - var(--taskbar-height));
+  overflow: hidden;
+
+  background:
+    repeating-linear-gradient(
+      118deg, transparent 0, transparent 160px,
+      rgba(244, 255, 253, 0.022) 160px, rgba(244, 255, 253, 0.022) 178px
+    ),
+    repeating-linear-gradient(
+      62deg, transparent 0, transparent 240px,
+      rgba(132, 71, 255, 0.03) 240px, rgba(132, 71, 255, 0.03) 254px
+    ),
+    radial-gradient(ellipse 38% 32% at 32% 68%, rgba(132, 71, 255, 0.22), transparent 70%),
+    radial-gradient(ellipse 32% 28% at 60% 28%, rgba(83, 252, 141, 0.18), transparent 65%),
+    radial-gradient(ellipse 25% 22% at 78% 78%, rgba(252, 205, 83, 0.13), transparent 70%),
+    radial-gradient(ellipse 26% 22% at 18% 24%, rgba(252, 205, 83, 0.10), transparent 70%),
+    radial-gradient(ellipse 30% 26% at 52% 76%, rgba(83, 252, 141, 0.11), transparent 70%),
+    radial-gradient(ellipse 22% 18% at 76% 18%, rgba(132, 71, 255, 0.13), transparent 70%),
+    radial-gradient(ellipse 20% 18% at 8% 60%, rgba(252, 205, 83, 0.06), transparent 70%),
+    linear-gradient(95deg,
+      #2D0B3D 0%, #2D0B3D 22%, #2A1338 30%, #221C32 40%,
+      #182328 50%, #102A23 60%, #082F1F 70%, #05381D 78%, #05381D 100%);
+}
+
+/* Identity panel (left) --------------------------------------------------- */
+
+.identity-panel {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  padding: 56px 56px 64px;
+  text-align: center;
+  background: transparent;
+}
+
+/* Photo: no white polaroid frame; just the image with a hand-drawn sketchy
+   border around it and a handwritten caption. */
+.portrait-figure {
+  /* Iter 20c: explicit centred-column layout so the photo is anchored
+     above the name/title without relying on the parent flex's shrink
+     behaviour. The previous flex-shrink-to-content layout was leaving
+     the figure off-centre on some viewport sizes. */
+  margin: 0 auto;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.portrait-image {
+  position: relative;
+  /* Iter 20b: bumped 470 → 540 — Samuel still wanted them bigger after
+     the iter 20 bump. */
+  width: min(100%, 540px);
+  transform: rotate(-1.5deg);
+  filter: drop-shadow(0 12px 22px rgba(0, 0, 0, 0.5));
+}
+
+.portrait-image img {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  display: block;
+  background: #000;
+}
+
+/* Hand-drawn sketchy frame around the photo (SVG fills the wrapper) */
+.portrait-frame-sketch {
+  position: absolute;
+  inset: -10px;
+  width: calc(100% + 20px);
+  height: calc(100% + 20px);
+  color: var(--ink-color);
+  pointer-events: none;
+}
+
+.display-name {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2.1rem, 3.4vw, 3.6rem);
+  letter-spacing: 0.04em;
+  line-height: 1;
+  color: var(--accent-off-white);
+  text-shadow: 0 2px 0 rgba(0, 0, 0, 0.35);
+}
+
+.tagline {
+  margin: 0;
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: clamp(1.15rem, 2vw, 2.2rem);
+  letter-spacing: 0.04em;
+  line-height: 1.2;
+  color: var(--accent-off-white);
+}
+
+/* App grid (right) — color-grouped staircase ----------------------------- */
+
+.app-grid {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-rows: repeat(2, auto);
+  grid-auto-columns: auto;
+  gap: 30px 38px;
+  align-content: center;
+  justify-content: center;
+  padding: 40px;
+  background: transparent;
+  /* Nudge the whole icon cluster up + left from dead-centre — feels less
+     "trapped in the corner" and frees up the bottom-right for the WoS polaroid. */
+  transform: translate(-40px, -50px);
+}
+
+.app-grid > *:nth-child(3),
+.app-grid > *:nth-child(4) { transform: translateY(5vh); }
+
+.app-grid > *:nth-child(5),
+.app-grid > *:nth-child(6) { transform: translateY(10vh); }
+
+/* App icon — strict 170×170 cell with Windows-11-style colored tile inside.
+   Iter 20 → 20b: bumped 150 → 170 — still felt small at 100% browser zoom. */
+.app-icon {
+  --icon-accent: var(--theme-accent);
+  width: 170px;
+  height: 170px;
+  min-width: 170px; min-height: 170px;
+  max-width: 170px; max-height: 170px;
+  aspect-ratio: 1 / 1;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  color: var(--desktop-fg);
+  cursor: pointer;
+  overflow: visible;
+  transition: background-color 120ms ease, border-color 120ms ease;
+}
+
+.app-icon:hover,
+.app-icon:focus-visible {
+  background: rgba(244, 255, 253, 0.07);
+  border-color: rgba(244, 255, 253, 0.22);
+  outline: none;
+}
+
+.app-icon:focus-visible {
+  box-shadow: 0 0 0 2px var(--icon-accent);
+}
+
+.app-icon:active {
+  background: rgba(244, 255, 253, 0.14);
+  border-color: rgba(244, 255, 253, 0.32);
+  cursor: progress;
+}
+
+/* Icon face: no tile background — the icon silhouette IS the theme color
+   (matching the taskbar treatment). Drop-shadow gives a subtle lift off
+   the desktop surface. */
+.app-icon-face {
+  display: grid;
+  place-items: center;
+  width: 80px;
+  height: 80px;
+  flex-shrink: 0;
+  color: var(--theme-accent);
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.45));
+  transition: transform 120ms ease, filter 120ms ease;
+}
+
+.app-icon:active .app-icon-face {
+  transform: translateY(1px);
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.45));
+}
+
+.app-icon-face svg {
+  width: 68px;
+  height: 68px;
+  display: block;
+}
+
+.app-icon-label {
+  font-family: "Be Vietnam Pro", system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 1.15rem;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  color: var(--accent-off-white);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+  white-space: nowrap;
+}
+
+/* Decorative scrapbook layer (sketches + screenshots + scribbles) -------- */
+
+.desktop-decor {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Ink splotches: kept (HTML has the divs) but currently no-op since the
+   background gradient already provides color splash texture. Reactivate
+   when bg becomes light paper. */
+.ink-splotch { display: none; }
+
+/* Sketches — high opacity now, ink color flipped per --ink-color. */
+.sketch {
+  position: absolute;
+  color: var(--ink-color);
+  opacity: 0.85;
+  filter: drop-shadow(0 0 1px rgba(0, 0, 0, 0.4));
+}
+
+/* Position each sketch to avoid the photo, name, icons, polaroids.
+   Castle removed — its slot at top-center is now free for the polaroids. */
+/* Original position was bottom:8%;left:26% — that landed it directly under
+   the tagline ("Game Designer • Systems • Narrative"). Pushed down to
+   bottom:2% (so it sits below the title text rather than over it) and
+   slimmed slightly so the visual footprint is more contained. */
+/* Iter 20c: positions tuned by Samuel in DevTools. */
+.sketch-dungeon   { width: 165px; bottom: 2%; left: 20%;  transform: rotate(-6deg); }
+.sketch-talents   { width: 140px; top: 52%;   right: 4%;  transform: rotate(5deg); }
+.sketch-mechanic  { width: 195px; top: 19%;   left: 40%;  transform: rotate(-3deg); }
+.sketch-heart     { width: 120px; top: 3%;    left: 4%;   transform: rotate(-8deg); }
+.sketch-card      { width:  93px; top: 21%;   right: 22%; transform: rotate(7deg); }
+.sketch-pylon     { width: 100px; top: 38%;   left: 4%;   transform: rotate(3deg); }
+.sketch-sword     { width:  94px; top: 52%;   left: 43%;  transform: rotate(-12deg); }
+
+/* Game screenshots — image with sketchy hand-drawn border + Caveat caption.
+   No white polaroid backdrop; sits directly on the desktop. */
+.screenshot {
+  position: absolute;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.screenshot-image {
+  position: relative;
+  /* Iter 20c: 290 → 361 per Samuel's DevTools tuning. */
+  width: 361px;
+  filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.55));
+}
+
+.screenshot-image img {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  display: block;
+  background: #000;
+}
+
+.screenshot-frame {
+  position: absolute;
+  inset: -6px;
+  width: calc(100% + 12px);
+  height: calc(100% + 12px);
+  color: var(--ink-color);
+  pointer-events: none;
+}
+
+.screenshot figcaption {
+  font-family: var(--font-hand);
+  font-weight: 600;
+  font-size: 1.85rem;
+  color: var(--ink-color);
+  text-align: center;
+  margin-top: 2px;
+  white-space: nowrap;
+}
+
+.screenshot-nexus    { top:  3%;  left: 51%;  transform: rotate(-3deg); }
+.screenshot-starvin  { top:  4%;  right: 2%;  transform: rotate(5deg); }
+.screenshot-ordinem  { bottom: 4%; left: 50%; transform: rotate(-4deg); }
+.screenshot-wos      { bottom: 2%; right: 1%; transform: rotate(6deg); }
+.screenshot-wos .screenshot-image { width: 365px; }
+
+/* Handwritten scribble notes and portrait caption removed in iter 9.
+   Screenshot captions (in figcaption under each polaroid) are kept — they're
+   styled via the `.screenshot figcaption` rule above. */
+
+/* Taskbar ----------------------------------------------------------------- */
+
+.taskbar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: var(--taskbar-height);
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 12px;
+  padding: 0 14px;
+  background: rgba(15, 32, 32, 0.92);
+  backdrop-filter: blur(18px) saturate(150%);
+  -webkit-backdrop-filter: blur(18px) saturate(150%);
+  border-top: 1px solid rgba(244, 255, 253, 0.05);
+  color: var(--taskbar-fg);
+  z-index: 100;
+}
+
+.taskbar-start {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 6px;
+  color: var(--taskbar-fg);
+  cursor: pointer;
+  transition: background-color 120ms ease, color 120ms ease;
+}
+
+.taskbar-start svg { width: 18px; height: 18px; }
+
+.taskbar-start:hover,
+.taskbar-start:focus-visible {
+  background: var(--taskbar-hover);
+  outline: none;
+}
+
+.taskbar-start:active {
+  background: rgba(244, 255, 253, 0.18);
+}
+
+.taskbar-apps {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+}
+
+.taskbar-app {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 6px;
+  color: var(--theme-accent);
+  cursor: pointer;
+  transition: background-color 120ms ease, transform 120ms ease;
+}
+
+.taskbar-app svg { width: 22px; height: 22px; }
+
+/* Hover: subtle tint, clearly less opaque than the open-state highlight so
+   "thinking about clicking" reads differently from "this app is open". */
+.taskbar-app:hover,
+.taskbar-app:focus-visible {
+  background: color-mix(in srgb, var(--theme-accent) 9%, transparent);
+  outline: none;
+}
+
+.taskbar-app:active {
+  background: color-mix(in srgb, var(--theme-accent) 32%, transparent);
+}
+
+/* Highlight (background tint) shows for any window that's open AND not
+   minimised — multiple visible windows can all carry the highlight. Uses
+   the full --theme-accent-soft (~18-22%) so it's clearly more present
+   than the hover tint above. */
+.taskbar-app.is-active {
+  background: var(--theme-accent-soft);
+}
+/* When an app is open AND the user is hovering it, prefer the open-state
+   tint — keeps the "is open" signal stable instead of flickering down to
+   the lighter hover tint. */
+.taskbar-app.is-active:hover,
+.taskbar-app.is-active:focus-visible {
+  background: var(--theme-accent-soft);
+}
+
+/* Underline persists for any open window (visible OR minimised), so users
+   can see what's still open after they minimise. */
+.taskbar-app.is-open::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -3px;
+  transform: translateX(-50%);
+  width: 14px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--theme-accent);
+}
+
+.taskbar-clock {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 1px;
+  padding: 0 10px;
+  font-family: var(--font-body);
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  color: var(--taskbar-fg);
+}
+
+.taskbar-clock #clock-time { font-weight: 600; font-size: 0.8rem; }
+.taskbar-clock #clock-date { opacity: 0.75; font-size: 0.65rem; }
+
+/* App icons — draggable feedback ----------------------------------------- */
+
+/* When the icon has been promoted to absolute positioning by JS, give it
+   a grab cursor at rest so users discover they can move it. The default
+   state is still :hover/:focus -> click-to-open. */
+.app-icon[style*="position: absolute"] {
+  cursor: grab;
+}
+.app-icon.is-dragging {
+  cursor: grabbing;
+  /* Slight visual lift while dragging */
+  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.55));
+  transition: none;
+}
+.app-icon.is-dragging .app-icon-face { transform: none; }
+
+/* Force grabbing cursor on the whole document while a drag is in flight,
+   so leaving the icon mid-drag doesn't flash a different cursor. */
+body.is-dragging-icon,
+body.is-dragging-icon * { cursor: grabbing !important; }
+
+/* Windows layer + window chrome ------------------------------------------ */
+
+.windows-layer {
+  position: fixed;
+  inset: 0 0 var(--taskbar-height) 0;
+  pointer-events: none; /* desktop receives clicks; windows opt back in */
+  z-index: 50;
+}
+
+.window {
+  position: absolute;
+  pointer-events: auto;
+  display: flex;
+  flex-direction: column;
+  min-width: 320px;
+  min-height: 200px;
+  border-radius: 10px;
+  overflow: hidden;
+  background: rgba(15, 32, 32, 0.88);
+  backdrop-filter: blur(22px) saturate(160%);
+  -webkit-backdrop-filter: blur(22px) saturate(160%);
+  border: 1px solid rgba(244, 255, 253, 0.10);
+  box-shadow:
+    0 22px 50px rgba(0, 0, 0, 0.55),
+    0 6px 18px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(244, 255, 253, 0.04);
+  color: var(--accent-off-white);
+}
+
+.window.is-minimised { display: none; }
+
+.window.is-maximised {
+  inset: 0 !important;
+  width: auto !important;
+  height: auto !important;
+  border-radius: 0;
+}
+
+.window-titlebar {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 38px;
+  padding: 0 4px 0 12px;
+  background: var(--theme-accent-soft);
+  border-bottom: 1px solid rgba(244, 255, 253, 0.06);
+  cursor: grab;
+  user-select: none;
+}
+
+body.is-dragging-window,
+body.is-dragging-window * { cursor: grabbing !important; }
+
+.window-titlebar-icon {
+  display: grid;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+  color: var(--theme-accent);
+  flex-shrink: 0;
+}
+.window-titlebar-icon svg { width: 18px; height: 18px; display: block; }
+
+.window-titlebar-title {
+  flex: 1 1 auto;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.82rem;
+  letter-spacing: 0.02em;
+  color: var(--accent-off-white);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.window-titlebar-controls {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.window-control {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 30px;
+  border-radius: 6px;
+  color: var(--accent-off-white);
+  cursor: pointer;
+  transition: background-color 120ms ease, color 120ms ease;
+}
+.window-control svg { width: 12px; height: 12px; display: block; }
+.window-control:hover { background: rgba(244, 255, 253, 0.10); }
+.window-control:focus-visible { outline: none; background: rgba(244, 255, 253, 0.10); }
+.window-close:hover { background: #c42b1c; color: #fff; }
+
+/* Maximise button shows one of two icons depending on window state:
+   default (not maximised) → single square (will maximise on click);
+   maximised → two overlapping squares (will restore on click). */
+.window-max .icon-restore { display: none; }
+.window-max .icon-maximise { display: block; }
+.window.is-maximised .window-max .icon-maximise { display: none; }
+.window.is-maximised .window-max .icon-restore { display: block; }
+
+.window-body {
+  flex: 1 1 auto;
+  /* y-scroll on overflow, x-clipped so margin sketches that bleed past
+     .app-content don't trigger a horizontal scrollbar. */
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding: 28px 32px 36px;
+  /* Themed bg uses both deep stops from BRAND.md so the bright accent
+     (e.g. #8447FF on Links/Contacts) reads against a properly themed
+     surface instead of the underlying teal glass. (Iter 20f.) */
+  background: linear-gradient(180deg,
+    color-mix(in srgb, var(--theme-accent-deep) 78%, transparent) 0%,
+    color-mix(in srgb, var(--theme-accent-deep-alt) 60%, transparent) 60%,
+    rgba(0, 0, 0, 0.22) 100%);
+}
+
+.window-placeholder {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 10px;
+  color: var(--desktop-muted);
+}
+.window-placeholder-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.6rem;
+  letter-spacing: 0.04em;
+  color: var(--theme-accent);
+  text-shadow: 0 2px 0 rgba(0, 0, 0, 0.3);
+}
+.window-placeholder-text {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--desktop-muted);
+}
+
+/* App content — shared base ---------------------------------------------- */
+
+.app-content {
+  position: relative; /* anchor for absolutely-positioned overlays like .wip-note */
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  color: var(--accent-off-white);
+  font-family: var(--font-body);
+  line-height: 1.55;
+  /* Cap article width to 80% of the parent (window-body) so the layout
+     scales proportionally with screen size instead of being stuck at a
+     fixed pixel cap. Leaves ~10% margin on each side for future decorative
+     sketches and stops content from sprawling edge-to-edge on huge
+     monitors. Uniform across all apps (iter 16c). */
+  max-width: 80%;
+  margin-inline: auto;
+}
+
+.app-section-header {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  border-bottom: 1px solid color-mix(in srgb, var(--theme-accent) 22%, transparent);
+  padding-bottom: 14px;
+}
+/* Variant: header with a toolbar on the right (used by Blogs for the search
+   input). Title text stays on the left, toolbar on the right, both bottom-
+   aligned. */
+.app-section-header.has-toolbar {
+  flex-direction: row;
+  align-items: flex-end;
+  gap: 18px;
+}
+.app-section-header.has-toolbar .app-section-header-text {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.app-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.45rem;
+  letter-spacing: 0.05em;
+  color: var(--theme-accent);
+  text-shadow: 0 2px 0 rgba(0, 0, 0, 0.35);
+}
+
+.app-eyebrow {
+  margin: 0;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(244, 255, 253, 0.55);
+}
+
+.app-subtitle {
+  margin: 0;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 1rem;
+  letter-spacing: 0.06em;
+  color: var(--theme-accent);
+  text-transform: uppercase;
+  /* Themed underline (iter 16b) — gives subsection titles ("Tools", "Skills",
+     "Introduction / TLDR", etc.) enough visual weight to read as proper
+     section breaks rather than just bigger body text. */
+  padding-bottom: 8px;
+  border-bottom: 1px solid color-mix(in srgb, var(--theme-accent) 26%, transparent);
+}
+
+/* About Me --------------------------------------------------------------- */
+
+.app-bio-section {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* About Me decorative sketches.
+   Each .bio-sketch is absolutely positioned within its parent
+   .app-bio-section. They live in the side margins between the
+   .app-content (capped at 80% of .window-body) and the body edges,
+   and are intentionally sized large enough to bleed past the body's
+   inner padding — overflow-x is clipped at the window edge by
+   .window-body, so anything that runs off just disappears past the
+   window border (which is the desired sketchbook feel).
+   They're decorative only (pointer-events: none, aria-hidden) and
+   collapse out on narrow windows where the side margin disappears. */
+.bio-sketch {
+  position: absolute;
+  pointer-events: none;
+  color: var(--theme-accent);
+  opacity: 0.36;
+  z-index: 0;
+}
+.bio-sketch svg { width: 100%; height: auto; display: block; }
+
+/* Intro — smiley on the LEFT. (Wave hand sketch removed iter 20.) */
+.bio-sketch-smiley  { top: 50px;  left:  -160px; width: 120px; transform: rotate(-6deg); }
+
+/* Love of Gaming — left margin: shield + sword. Right margin: Game Boy
+   + keyboard. Iter 20c: positions tuned by Samuel in DevTools. The
+   minerals (crystal cluster) was removed at his request. */
+.bio-sketch-shield   { top: 113px; left:  -288px; width: 243px; transform: rotate(-8deg); }
+.bio-sketch-sword    { top: 300px; left:  -143px; width: 131px; transform: rotate(14deg); }
+.bio-sketch-gameboy  { top:  40px; right: -194px; width: 115px; transform: rotate(6deg); }
+.bio-sketch-keyboard { top: 237px; right: -281px; width: 269px; transform: rotate(-5deg); }
+
+/* Getting Into Game Design — SC2 editor (wrench-in-swirl) on the right. */
+.bio-sketch-editor { top: 192px; right: -245px; width: 247px; transform: rotate(-4deg); }
+
+/* Other Hobbies — books left, muffins right. */
+.bio-sketch-books   { top:  28px; left:  -225px; width: 207px; transform: rotate(-6deg); }
+.bio-sketch-muffins { top:  98px; right:  -89px; width: 192px; transform: rotate(7deg); }
+
+/* Hide sketches on narrow windows where the side margin shrinks below
+   ~120px and they'd start overlapping the body text. */
+@media (max-width: 1080px) {
+  .bio-sketch { display: none; }
+}
+
+/* Iter 20c: ensure body text and cards always paint *above* their
+   decorative sketches, so when a window narrows enough that a sketch
+   bleeds over the content the text still reads cleanly. The sketches
+   already use z-index: 0; these rules give the in-flow content z-index:
+   1 in the same stacking context. */
+.app-bio-section > .app-subtitle,
+.app-bio-section > .app-bio,
+.app-bio-section > .app-bullets { position: relative; z-index: 1; }
+.game-card-row > .game-card { position: relative; z-index: 1; }
+.blog-list > li > .blog-entry { position: relative; z-index: 1; }
+
+.app-bio {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  font-size: 0.95rem;
+  color: rgba(244, 255, 253, 0.88);
+}
+.app-bio p { margin: 0; }
+
+.app-bullets {
+  margin: 4px 0 0;
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.95rem;
+  color: rgba(244, 255, 253, 0.88);
+}
+.app-bullets li::marker { color: var(--theme-accent); }
+
+.app-photo-strip {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 14px;
+}
+.app-photo {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid color-mix(in srgb, var(--theme-accent) 18%, transparent);
+  border-radius: 6px;
+  overflow: hidden;
+}
+.app-photo img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  display: block;
+  background: #000;
+}
+.app-photo figcaption {
+  font-family: var(--font-hand);
+  font-size: 0.95rem;
+  color: rgba(244, 255, 253, 0.65);
+  padding: 0 10px 8px;
+}
+
+/* Games ------------------------------------------------------------------ */
+
+/* Row layout (iter 16): one card per row, image on the left, body on the
+   right. Cards are capped + centred so they don't span absurdly wide on
+   huge monitors. Mobile flips back to vertical (image on top of body). */
+.games-grid {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 14px;
+}
+/* Wrapper around each .game-card so we can paint per-game decorative
+   sketches in the side margins without them being clipped by the card's
+   own overflow:hidden. The wrapper is the positioning context; sketches
+   inside it bleed into the .app-content side margins. */
+.game-card-row {
+  position: relative;
+}
+.game-sketch {
+  position: absolute;
+  pointer-events: none;
+  color: var(--theme-accent);
+  opacity: 0.34;
+  z-index: 0;
+}
+.game-sketch svg { width: 100%; height: auto; display: block; }
+
+/* Iter 20c: positions tuned by Samuel in DevTools. The bullet sketch
+   was removed at his request. */
+
+/* ORDINEM — fanned card (left) + stat sheet (right). */
+.game-sketch-card  { left: -103px; top: 30px; width: 70px;  transform: rotate(-12deg); }
+.game-sketch-stats { right: -160px; top: 25px; width: 120px; transform: rotate(8deg); }
+
+/* STARVIN MARTIAN — base-building grid (left) + tech tree (right). */
+.game-sketch-base     { left: -200px; top: -20px; width: 200px; transform: rotate(-4deg); }
+.game-sketch-techtree { right: -249px; top:  30px; width: 242px; transform: rotate(7deg); }
+
+/* WAR OF STEEL — brainstormed rifle (left) + explosion (right). */
+.game-sketch-gun-bs     { left: -218px; top:  80px; width: 197px; transform: rotate(-12deg); }
+.game-sketch-explosion  { right: -203px; top: -18px; width: 138px; transform: rotate(12deg); }
+
+/* NEXUS — SMG (left) + grenade (right, top) + capacitor (right, lower). */
+.game-sketch-gun-smg     { left: -231px; top: -32px; width: 205px; transform: rotate(10deg); }
+.game-sketch-grenade     { right: -227px; top: -38px; width: 183px; transform: rotate(10deg); }
+.game-sketch-capacitor   { right: -307px; top:  76px; width: 217px; transform: rotate(-6deg); }
+
+@media (max-width: 1080px) {
+  .game-sketch { display: none; }
+}
+.game-card {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.32);
+  border: 1px solid color-mix(in srgb, var(--theme-accent) 22%, transparent);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 140ms ease, border-color 140ms ease, box-shadow 140ms ease;
+}
+/* Card is a <button>; reset the user-agent button styles so it looks like the
+   card layout above and not an inline-block default button. */
+button.game-card {
+  text-align: left;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  padding: 0;
+}
+.game-card:hover {
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--theme-accent) 45%, transparent);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+.game-card:focus-visible {
+  outline: 2px solid var(--theme-accent);
+  outline-offset: 2px;
+}
+.game-card-image {
+  flex: 0 0 320px;
+  width: 320px;
+  align-self: stretch;
+  background: #000;
+  overflow: hidden;
+}
+.game-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.game-card-body {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+  padding: 18px 22px;
+}
+.game-card-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.05rem;
+  letter-spacing: 0.05em;
+  color: var(--theme-accent);
+}
+.game-card-desc {
+  margin: 0;
+  font-size: 0.85rem;
+  color: rgba(244, 255, 253, 0.82);
+  line-height: 1.5;
+}
+.game-card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 4px;
+}
+.game-tag {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 4px;
+  background: color-mix(in srgb, var(--theme-accent) 18%, transparent);
+  color: var(--theme-accent);
+  border: 1px solid color-mix(in srgb, var(--theme-accent) 32%, transparent);
+}
+
+/* Generic list/detail view, shared between Games and Blogs (and any future
+   app that wants a click-into-detail pattern). The [hidden] attribute is
+   toggled by JS in createWindow's wireDetailView block. */
+[hidden] { display: none !important; }
+
+.detail-view {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+.detail-view-back {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  color: var(--theme-accent);
+  border: 1px solid color-mix(in srgb, var(--theme-accent) 32%, transparent);
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  transition: background-color 120ms ease, border-color 120ms ease;
+}
+.detail-view-back:hover {
+  background: color-mix(in srgb, var(--theme-accent) 12%, transparent);
+  border-color: color-mix(in srgb, var(--theme-accent) 55%, transparent);
+}
+.detail-view-back-arrow {
+  font-size: 1.05rem;
+  line-height: 1;
+}
+.detail-view-stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 18px;
+  padding: 28px 16px 20px;
+}
+.detail-view-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.6rem;
+  letter-spacing: 0.06em;
+  color: var(--theme-accent);
+  text-shadow: 0 2px 0 rgba(0, 0, 0, 0.35);
+}
+.detail-view-sketch {
+  color: var(--ink-color, rgba(244, 255, 253, 0.85));
+  opacity: 0.85;
+}
+.detail-view-sketch svg {
+  width: 220px;
+  height: auto;
+  display: block;
+}
+.detail-view-message {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: rgba(244, 255, 253, 0.75);
+}
+
+/* Diagonal sketch sticky-note, centred horizontally over the title row.
+   Used so far on Blogs (work-in-progress indicator); reusable on any app
+   via .wip-note. Positioned absolutely; parent must be position:relative
+   (added on .app-content below). pointer-events:none so it never blocks
+   clicks on the search bar / title row underneath. */
+.wip-note {
+  position: absolute;
+  top: 4px;
+  left: 50%;
+  z-index: 5;
+  transform: translateX(-50%) rotate(-2deg);
+  padding: 10px 22px;
+  font-family: "Caveat", cursive;
+  font-size: 1.55rem;
+  font-weight: 500;
+  color: var(--theme-accent);
+  background: color-mix(in srgb, var(--theme-accent) 16%, rgba(5, 27, 29, 0.92));
+  border: 1.5px dashed color-mix(in srgb, var(--theme-accent) 55%, transparent);
+  border-radius: 6px;
+  box-shadow: 2px 6px 12px rgba(0, 0, 0, 0.4);
+  pointer-events: none;
+  white-space: nowrap;
+}
+.wip-note-tape {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-3deg);
+  width: 50px;
+  height: 14px;
+  background: color-mix(in srgb, var(--theme-accent) 35%, rgba(244, 255, 253, 0.18));
+  border-radius: 1px;
+  opacity: 0.75;
+}
+
+/* Window-body scrollbar — themed per-app via the inherited --theme-accent.
+   Yellow on Blogs/Experience, mint on About/Games, purple on Links/Contacts. */
+.window-body {
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in srgb, var(--theme-accent) 60%, transparent) rgba(0, 0, 0, 0.22);
+}
+.window-body::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+.window-body::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.22);
+}
+.window-body::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--theme-accent) 55%, rgba(0, 0, 0, 0.30));
+  border-radius: 6px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+.window-body::-webkit-scrollbar-thumb:hover {
+  background: color-mix(in srgb, var(--theme-accent) 80%, rgba(0, 0, 0, 0.15));
+  background-clip: padding-box;
+}
+
+/* Blogs ------------------------------------------------------------------ */
+
+.blog-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+/* Each <li> carries a decorative .blog-sketch in the side margin (injected
+   by populateBlogSketches in desktop.js). Make the <li> the positioning
+   context so the sketch can sit just outside the row's edge. */
+.blog-list > li {
+  position: relative;
+}
+.blog-sketch {
+  position: absolute;
+  top: 50%;
+  width: 92px;
+  height: auto;
+  pointer-events: none;
+  color: var(--theme-accent);
+  opacity: 0.32;
+  transform: translateY(-50%) rotate(-4deg);
+  z-index: 0;
+}
+.blog-sketch svg { width: 100%; height: auto; display: block; }
+.blog-sketch-right { right: -118px; transform: translateY(-50%) rotate(5deg); }
+.blog-sketch-left  { left:  -118px; transform: translateY(-50%) rotate(-7deg); }
+/* Slight per-row variety: nudge every other sketch up/down a little so the
+   scatter doesn't look perfectly aligned. */
+.blog-list > li:nth-child(3n) .blog-sketch { transform: translateY(-58%) rotate(8deg); }
+.blog-list > li:nth-child(3n) .blog-sketch-left { transform: translateY(-58%) rotate(-10deg); }
+.blog-list > li:nth-child(4n) .blog-sketch { transform: translateY(-42%) rotate(-3deg); }
+
+@media (max-width: 1080px) {
+  .blog-sketch { display: none; }
+}
+/* .blog-entry is a <button> wrapping a row of text + a square image on the
+   right. Padding + image dimensions tuned so the row reads as a proper card,
+   not a tight one-line link. */
+.blog-entry {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  gap: 22px;
+  width: 100%;
+  padding: 24px 26px;
+  background: rgba(0, 0, 0, 0.22);
+  border: 1px solid color-mix(in srgb, var(--theme-accent) 16%, transparent);
+  border-radius: 6px;
+  cursor: pointer;
+  text-align: left;
+  font: inherit;
+  color: inherit;
+  transition: background-color 140ms ease, border-color 140ms ease, transform 140ms ease;
+}
+.blog-entry:hover {
+  background: color-mix(in srgb, var(--theme-accent) 14%, rgba(0, 0, 0, 0.32));
+  border-color: color-mix(in srgb, var(--theme-accent) 36%, transparent);
+  transform: translateY(-1px);
+}
+.blog-entry:focus-visible {
+  outline: 2px solid var(--theme-accent);
+  outline-offset: 2px;
+}
+.blog-entry-text {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  justify-content: center;
+  min-width: 0; /* allows long titles to truncate via CSS rather than overflow */
+}
+.blog-entry-image {
+  flex: 0 0 220px;
+  width: 220px;
+  align-self: stretch;
+  min-height: 150px;
+  background: #000;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.blog-entry-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.blog-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.05rem;
+  letter-spacing: 0.04em;
+  color: var(--theme-accent);
+}
+.blog-meta {
+  margin: 0;
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: rgba(244, 255, 253, 0.5);
+}
+.blog-preview {
+  margin: 4px 0 0;
+  font-size: 0.88rem;
+  color: rgba(244, 255, 253, 0.78);
+  line-height: 1.5;
+}
+
+/* Blogs search bar — sits in the section-header toolbar slot. Filters the
+   list as you type (wired in js/desktop.js). */
+.blog-search-wrap {
+  position: relative;
+  flex: 0 0 auto;
+}
+.blog-search-icon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 14px;
+  height: 14px;
+  color: color-mix(in srgb, var(--theme-accent) 70%, transparent);
+  pointer-events: none;
+}
+.blog-search {
+  width: 240px;
+  padding: 8px 12px 8px 32px;
+  background: rgba(0, 0, 0, 0.32);
+  border: 1px solid color-mix(in srgb, var(--theme-accent) 28%, transparent);
+  border-radius: 6px;
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  color: var(--accent-off-white);
+  outline: none;
+  transition: border-color 120ms ease, background-color 120ms ease;
+}
+.blog-search::placeholder {
+  color: rgba(244, 255, 253, 0.45);
+}
+.blog-search:focus {
+  border-color: var(--theme-accent);
+  background: rgba(0, 0, 0, 0.45);
+}
+.blog-search::-webkit-search-cancel-button {
+  filter: invert(0.8);
+  opacity: 0.5;
+  cursor: pointer;
+}
+.blog-search::-webkit-search-cancel-button:hover { opacity: 1; }
+
+/* Experience ------------------------------------------------------------- */
+
+.exp-role {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 14px 16px;
+  background: rgba(0, 0, 0, 0.22);
+  border-left: 3px solid var(--theme-accent);
+  border-radius: 0 6px 6px 0;
+}
+.exp-role-header {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.exp-role-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1rem;
+  letter-spacing: 0.04em;
+  color: var(--theme-accent);
+}
+.exp-role-tenure {
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(244, 255, 253, 0.55);
+}
+.exp-role-subhead {
+  margin: 8px 0 0;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(244, 255, 253, 0.78);
+}
+.exp-role-summary {
+  margin: 0;
+  font-size: 0.92rem;
+  color: rgba(244, 255, 253, 0.85);
+  line-height: 1.55;
+}
+.exp-bullets {
+  margin: 4px 0 0;
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.88rem;
+  color: rgba(244, 255, 253, 0.85);
+}
+.exp-bullets li::marker { color: var(--theme-accent); }
+
+/* Cross-link callout — points readers from Experience over to the Games
+   portfolio for per-project breakdowns. The href is `#games`, so clicking
+   it triggers applyHash() and opens the Games window. */
+.exp-cross-link {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 22px;
+  background: rgba(0, 0, 0, 0.22);
+  border: 1px solid color-mix(in srgb, var(--theme-accent) 26%, transparent);
+  border-radius: 6px;
+}
+.exp-cross-link-text {
+  margin: 0;
+  font-size: 0.95rem;
+  color: rgba(244, 255, 253, 0.86);
+}
+.exp-cross-link-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  background: color-mix(in srgb, var(--theme-accent) 18%, transparent);
+  border: 1px solid color-mix(in srgb, var(--theme-accent) 38%, transparent);
+  border-radius: 6px;
+  color: var(--theme-accent);
+  text-decoration: none;
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 0.88rem;
+  letter-spacing: 0.04em;
+  transition: background-color 120ms ease, border-color 120ms ease, transform 120ms ease;
+}
+.exp-cross-link-button:hover {
+  background: color-mix(in srgb, var(--theme-accent) 28%, transparent);
+  border-color: var(--theme-accent);
+  transform: translateY(-1px);
+}
+.exp-cross-link-arrow {
+  font-size: 1.05rem;
+  line-height: 1;
+}
+
+/* Tools / Skills tiered display — 3 tiers per section (high / mid / low),
+   each as a label + a wrap-row of pills. Pill brightness scales with tier
+   so visual hierarchy reads even before the labels do. */
+.exp-skills-section {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.skill-tier {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  gap: 18px;
+  align-items: baseline;
+}
+.skill-tier-label {
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--theme-accent);
+}
+.skill-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.skill-list li {
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  padding: 4px 10px;
+  border-radius: 4px;
+  color: rgba(244, 255, 253, 0.92);
+}
+.skill-tier[data-tier="high"] .skill-list li {
+  background: color-mix(in srgb, var(--theme-accent) 22%, transparent);
+  border: 1px solid color-mix(in srgb, var(--theme-accent) 42%, transparent);
+}
+.skill-tier[data-tier="mid"] .skill-list li {
+  background: color-mix(in srgb, var(--theme-accent) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--theme-accent) 24%, transparent);
+}
+.skill-tier[data-tier="low"] .skill-list li {
+  background: rgba(0, 0, 0, 0.22);
+  border: 1px solid color-mix(in srgb, var(--theme-accent) 14%, transparent);
+  color: rgba(244, 255, 253, 0.7);
+}
+
+/* Links ------------------------------------------------------------------ */
+
+/* Edge-bleeding sketches behind the link rows. They're absolutely
+   positioned within .app-links (which is position:relative via
+   .app-content) and pushed off the page edges so they read as
+   scattered scrapbook decoration. The link sections sit above them
+   via z-index. (Iter 20.) */
+.app-links { position: relative; }
+.link-decor {
+  position: absolute;
+  pointer-events: none;
+  color: var(--theme-accent);
+  opacity: 0.18;
+  z-index: 0;
+}
+.link-decor svg { width: 100%; height: auto; display: block; }
+
+.link-decor-bubble     { top: 8%;    left: -160px; width: 220px; transform: rotate(-10deg); }
+.link-decor-brackets   { top: 38%;    right: -110px; width: 200px; transform: rotate(6deg); }
+.link-decor-paperplane { bottom: 18%; right: -180px; width: 200px; transform: rotate(-14deg); }
+.link-decor-at         { bottom: 36%; left: -120px; width: 160px; transform: rotate(12deg); }
+
+/* Make the link sections sit above the decor layer. */
+.app-links .link-section { position: relative; z-index: 1; }
+.app-links > .app-section-header { position: relative; z-index: 1; }
+
+@media (max-width: 1080px) {
+  .link-decor { display: none; }
+}
+
+.link-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.link-section-title {
+  margin: 0;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  /* Same accent-into-off-white blend as .link-row-handle for legibility
+     against the dark purple window body. (Iter 20.) */
+  color: color-mix(in srgb, var(--theme-accent) 60%, var(--accent-off-white));
+}
+.link-items {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+/* .link-row is the full-width clickable card. Layout: icon (left) → text
+   (name + handle, flex-grow) → sketch (right). Padding tuned for tall,
+   roomy rows since there are only a handful of links per section. */
+.link-row {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  padding: 22px 26px;
+  /* Iter 20: darker row bg for stronger contrast against the dark
+     purple body — without it the row was too close to the bg lum. */
+  background: rgba(0, 0, 0, 0.42);
+  border: 1px solid color-mix(in srgb, var(--theme-accent) 28%, transparent);
+  border-radius: 8px;
+  text-decoration: none;
+  color: var(--accent-off-white);
+  cursor: pointer;
+  transition: background-color 140ms ease, border-color 140ms ease, transform 140ms ease;
+}
+.link-row:hover {
+  background: color-mix(in srgb, var(--theme-accent) 16%, rgba(0,0,0,0.32));
+  border-color: color-mix(in srgb, var(--theme-accent) 38%, transparent);
+  transform: translateY(-1px);
+}
+.link-row:focus-visible {
+  outline: 2px solid var(--theme-accent);
+  outline-offset: 2px;
+}
+.link-row.is-disabled {
+  cursor: default;
+  opacity: 0.55;
+}
+.link-row.is-disabled:hover {
+  background: rgba(0, 0, 0, 0.22);
+  border-color: color-mix(in srgb, var(--theme-accent) 16%, transparent);
+  transform: none;
+}
+
+.link-row-icon {
+  flex: 0 0 auto;
+  width: 56px;
+  height: 56px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.35);
+}
+.link-row-icon svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.link-row-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+/* Per-brand tint: icon SVGs use currentColor on the brand shape so we can
+   recolour the badge from one place. */
+.link-icon-linkedin { color: #0a66c2; }
+.link-icon-youtube  { color: #ff0033; }
+.link-icon-github   { color: #f4fffd; }
+
+.link-row-text {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+.link-row-name {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.15rem;
+  letter-spacing: 0.04em;
+  color: var(--accent-off-white);
+}
+.link-row-handle {
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 0.92rem;
+  font-weight: 600;
+  /* Iter 20: blend accent toward off-white so the handle reads against
+     the dark purple body. Pure --theme-accent (#8447FF) was sitting too
+     close to the bg luminance to be easily legible. */
+  color: color-mix(in srgb, var(--theme-accent) 55%, var(--accent-off-white));
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.link-row-sketch {
+  flex: 0 0 auto;
+  width: 64px;
+  height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: color-mix(in srgb, var(--theme-accent) 70%, var(--accent-off-white));
+  opacity: 0.85;
+  transition: transform 140ms ease, opacity 140ms ease;
+}
+.link-row:hover .link-row-sketch {
+  opacity: 1;
+  transform: translateX(3px);
+}
+.link-row.is-disabled .link-row-sketch { opacity: 0.5; }
+.link-row-sketch svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Contacts --------------------------------------------------------------- */
+
+.contact-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 22px;
+  padding: 56px 36px;
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid color-mix(in srgb, var(--theme-accent) 22%, transparent);
+  border-radius: 12px;
+  text-align: center;
+}
+.contact-label {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.3rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--theme-accent);
+  text-shadow: 0 2px 0 rgba(0, 0, 0, 0.35);
+}
+.contact-email-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  padding: 24px 36px;
+  background: color-mix(in srgb, var(--theme-accent) 32%, rgba(255, 255, 255, 0.04));
+  border: 1px solid color-mix(in srgb, var(--theme-accent) 60%, transparent);
+  border-radius: 10px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 1.55rem;
+  color: var(--accent-off-white);
+  cursor: pointer;
+  transition: background-color 140ms ease, border-color 140ms ease, box-shadow 140ms ease;
+}
+.contact-email-button:hover {
+  background: color-mix(in srgb, var(--theme-accent) 44%, rgba(255, 255, 255, 0.06));
+  border-color: color-mix(in srgb, var(--theme-accent) 78%, transparent);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+.contact-copy-icon { display: inline-flex; color: var(--theme-accent); }
+.contact-copy-icon svg { width: 22px; height: 22px; }
+.contact-copy-feedback {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--theme-accent);
+  color: #1a0030;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-size: 1.1rem;
+  border-radius: 10px;
+  opacity: 0;
+  transform: scale(0.96);
+  pointer-events: none;
+  transition: opacity 140ms ease, transform 140ms ease;
+}
+.contact-email-button.is-copied .contact-copy-feedback {
+  opacity: 1;
+  transform: scale(1);
+}
+.contact-hint {
+  margin: 0;
+  font-size: 0.95rem;
+  color: rgba(244, 255, 253, 0.6);
+}
+
+/* Friendly hand-written doodles filling the empty space below the email
+   block — "thank you" with a heart, "click here" with an arrow,
+   "let's chat" with a scroll. Captions use the same Caveat handwriting
+   font as the desktop polaroid captions. (Iter 20 → 20b: scaled up
+   substantially because the bottom 1/3 of the page was empty.) */
+.contact-doodles {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-around;
+  gap: 28px;
+  padding: 28px 12px 12px;
+  margin-top: 18px;
+}
+.contact-doodle {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  color: var(--theme-accent);
+  opacity: 0.82;
+}
+.contact-doodle svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.contact-doodle figcaption {
+  font-family: var(--font-hand);
+  font-weight: 600;
+  font-size: 1.85rem;
+  color: color-mix(in srgb, var(--theme-accent) 45%, var(--accent-off-white));
+  letter-spacing: 0.01em;
+  text-align: center;
+}
+.contact-doodle-thanks { width: 320px; transform: rotate(-6deg); }
+.contact-doodle-click  { width: 461px; transform: rotate(3deg); margin-top: 22px; }
+.contact-doodle-scroll { width: 374px; transform: rotate(-3deg); }
+
+@media (max-width: 720px) {
+  .contact-doodles { gap: 18px; padding: 18px 8px 6px; }
+  .contact-doodle figcaption { font-size: 1.4rem; }
+  .contact-doodle-thanks { width: 130px; }
+  .contact-doodle-click  { width: 170px; margin-top: 12px; }
+  .contact-doodle-scroll { width: 160px; }
+}
+
+/* Right-click context menu (taskbar app) --------------------------------- */
+
+.context-menu {
+  position: fixed;
+  z-index: 200;
+  min-width: 160px;
+  padding: 4px;
+  border-radius: 8px;
+  background: rgba(20, 36, 36, 0.96);
+  backdrop-filter: blur(18px) saturate(150%);
+  -webkit-backdrop-filter: blur(18px) saturate(150%);
+  border: 1px solid rgba(244, 255, 253, 0.10);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.5);
+  color: var(--accent-off-white);
+}
+
+.context-menu-item {
+  display: block;
+  width: 100%;
+  padding: 8px 12px;
+  border-radius: 5px;
+  text-align: left;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: var(--accent-off-white);
+  cursor: pointer;
+  transition: background-color 100ms ease;
+}
+.context-menu-item:hover,
+.context-menu-item:focus-visible {
+  background: var(--theme-accent-soft);
+  outline: none;
+}
+
+/* Responsive -------------------------------------------------------------- */
+
+@media (max-width: 900px) {
+  .desktop {
+    grid-template-columns: 1fr;
+    background:
+      repeating-linear-gradient(118deg, transparent 0 160px, rgba(244, 255, 253, 0.022) 160px 178px),
+      radial-gradient(ellipse 70% 22% at 30% 50%, rgba(132, 71, 255, 0.2), transparent 70%),
+      radial-gradient(ellipse 70% 22% at 70% 50%, rgba(83, 252, 141, 0.16), transparent 70%),
+      linear-gradient(180deg,
+        #2D0B3D 0%, #2D0B3D 30%, #221C32 42%, #182328 50%,
+        #102A23 58%, #05381D 70%, #05381D 100%);
+  }
+  .identity-panel { padding: 32px 24px 16px; gap: 14px; }
+  .portrait-figure { transform: none; } /* no shift on stacked mobile layout */
+  .portrait-image { width: min(70%, 240px); }
+  .app-grid {
+    padding: 24px;
+    gap: 24px 28px;
+    transform: none; /* drop the desktop nudge — grid is full-width on mobile */
+  }
+  .app-grid > *:nth-child(3),
+  .app-grid > *:nth-child(4) { transform: translateY(4vh); }
+  .app-grid > *:nth-child(5),
+  .app-grid > *:nth-child(6) { transform: translateY(8vh); }
+
+  /* Hide most decor on narrow screens to avoid clutter */
+  .sketch-mechanic, .sketch-card, .sketch-talents { display: none; }
+  .screenshot-image { width: 150px; }
+  .screenshot-wos .screenshot-image { width: 130px; }
+
+  .taskbar { padding: 0 8px; }
+
+  /* Mobile windows: fullscreen-ish — drag isn't useful on a small screen,
+     and the JS leaves desktop icons in their packed grid layout. */
+  .window {
+    inset: 8px 8px auto 8px !important;
+    width: auto !important;
+    height: calc(100vh - var(--taskbar-height) - 16px) !important;
+    left: 8px !important; top: 8px !important;
+    border-radius: 12px;
+  }
+  .window-titlebar { cursor: default; }
+  .window-body { padding: 22px 22px 28px; }
+  /* Mobile: phone-width screens don't have room for a 20% empty margin on
+     each side, so let articles use the full window-body width. */
+  .app-content { max-width: 100%; }
+
+  /* Per-app content tightening on tablet-ish screens */
+  /* Mobile: flip cards back to vertical (image on top, body below) since
+     320px image + body doesn't fit on a phone-width screen. */
+  .game-card { flex-direction: column; }
+  .game-card-image {
+    width: 100%;
+    flex: 0 0 auto;
+    aspect-ratio: 16 / 10;
+  }
+  .game-card-body { padding: 14px 16px 16px; }
+  /* Same idea for blogs: stack image below the text on phone widths. */
+  .blog-entry { flex-direction: column; gap: 12px; padding: 18px 18px; }
+  .blog-entry-image {
+    width: 100%;
+    flex: 0 0 auto;
+    aspect-ratio: 16 / 9;
+    min-height: 0;
+  }
+  /* Section-header toolbar: stack the search below the title on narrow screens. */
+  .app-section-header.has-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .blog-search { width: 100%; }
+  /* WIP note: drop a touch lower so it doesn't sit awkwardly above a stacked header. */
+  .wip-note { font-size: 1.3rem; padding: 8px 16px; }
+  .app-photo-strip { grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); }
+  .link-row { padding: 16px 18px; gap: 14px; }
+  .link-row-icon { width: 44px; height: 44px; }
+  .link-row-name { font-size: 1.02rem; }
+  .link-row-handle { font-size: 0.78rem; }
+  .link-row-sketch { width: 44px; height: 30px; }
+  /* Skill tiers stack vertically (label above pills) on narrow screens */
+  .skill-tier { grid-template-columns: 1fr; gap: 4px; }
+  .exp-cross-link { flex-direction: column; align-items: flex-start; }
+}
+
+@media (max-width: 560px) {
+  .app-grid {
+    grid-auto-flow: row;
+    grid-template-rows: auto;
+    grid-template-columns: repeat(2, auto);
+    gap: 20px 18px;
+  }
+  .app-grid > * { transform: none !important; }
+  .app-grid > *:nth-child(even) { transform: translateY(20px) !important; }
+  .display-name { font-size: 1.4rem; }
+  .tagline { font-size: 0.85rem; }
+  .app-icon {
+    width: 100px; height: 100px;
+    min-width: 100px; min-height: 100px;
+    max-width: 100px; max-height: 100px;
+  }
+  .app-icon-face { width: 50px; height: 50px; }
+  .app-icon-face svg { width: 26px; height: 26px; }
+
+  /* Drop most decor on phones */
+  .screenshot-nexus, .screenshot-ordinem, .screenshot-wos,
+  .sketch-dungeon, .sketch-pylon, .sketch-sword, .sketch-heart { display: none; }
+  .screenshot-starvin .screenshot-image { width: 130px; }
+  .screenshot-starvin { top: 2%; right: 4%; }
+}
