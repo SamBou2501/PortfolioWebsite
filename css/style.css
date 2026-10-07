@@ -6,7 +6,7 @@
 
 @font-face {
   font-family: "Ethnocentric";
-  src: url("../_WebsiteAssets/ethnocentric/Ethnocentric-Regular.otf") format("opentype");
+  src: url("../assets/ethnocentric/Ethnocentric-Regular.otf") format("opentype");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -14,21 +14,21 @@
 
 @font-face {
   font-family: "Acid";
-  src: url("../_WebsiteAssets/acid/acid.otf") format("opentype");
+  src: url("../assets/acid/acid.otf") format("opentype");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "Acid";
-  src: url("../_WebsiteAssets/acid/acid_medium.otf") format("opentype");
+  src: url("../assets/acid/acid_medium.otf") format("opentype");
   font-weight: 500;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "Acid";
-  src: url("../_WebsiteAssets/acid/acid_bold.otf") format("opentype");
+  src: url("../assets/acid/acid_bold.otf") format("opentype");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
