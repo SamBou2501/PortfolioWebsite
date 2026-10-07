@@ -24,9 +24,9 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Caveat:wght@500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/themes.css?v=3">
-  <link rel="stylesheet" href="css/style.css?v=3">
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Caveat:wght@500;600&family=Orbitron:wght@800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/themes.css?v=5">
+  <link rel="stylesheet" href="css/style.css?v=5">
 </head>
 <body>
   <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -39,18 +39,52 @@
         <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="2" seed="5"/>
         <feDisplacementMap in="SourceGraphic" scale="1.6"/>
       </filter>
+
+      <!-- App icons, defined once and reused (via <use>) by the desktop icons,
+           the taskbar buttons and the window title bars. -->
+      <symbol id="icon-about" viewBox="0 0 48 48">
+        <circle cx="24" cy="16" r="8.5" fill="currentColor"/>
+        <path d="M 8 44 Q 8 28 24 28 Q 40 28 40 44 Z" fill="currentColor"/>
+        <path d="M 24 28 Q 40 28 40 44 L 24 44 Z" fill="rgba(0,0,0,0.15)"/>
+      </symbol>
+      <symbol id="icon-blogs" viewBox="0 0 48 48">
+        <path d="M 11 5 L 30 5 L 41 16 L 41 42 Q 41 44 39 44 L 11 44 Q 9 44 9 42 L 9 7 Q 9 5 11 5 Z" fill="currentColor"/>
+        <path d="M 30 5 L 30 14 Q 30 16 32 16 L 41 16 Z" fill="rgba(0,0,0,0.25)"/>
+        <rect x="14" y="22" width="20" height="2" rx="0.5" fill="rgba(5,56,29,0.55)"/>
+        <rect x="14" y="28" width="20" height="2" rx="0.5" fill="rgba(5,56,29,0.55)"/>
+        <rect x="14" y="34" width="14" height="2" rx="0.5" fill="rgba(5,56,29,0.55)"/>
+      </symbol>
+      <symbol id="icon-games" viewBox="0 0 48 48">
+        <rect x="3" y="14" width="42" height="22" rx="11" fill="currentColor"/>
+        <rect x="10" y="23" width="10" height="4" rx="0.5" fill="rgba(0,0,0,0.4)"/>
+        <rect x="13" y="20" width="4" height="10" rx="0.5" fill="rgba(0,0,0,0.4)"/>
+        <circle cx="32" cy="21" r="2.2" fill="rgba(0,0,0,0.4)"/>
+        <circle cx="38" cy="25" r="2.2" fill="rgba(0,0,0,0.4)"/>
+        <circle cx="32" cy="29" r="2.2" fill="rgba(0,0,0,0.4)"/>
+      </symbol>
+      <symbol id="icon-experience" viewBox="0 0 48 48">
+        <rect x="17" y="10" width="14" height="8" rx="1" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linejoin="round"/>
+        <rect x="5" y="16" width="38" height="28" rx="3" fill="currentColor"/>
+        <rect x="5" y="25" width="38" height="2" fill="rgba(0,0,0,0.3)"/>
+        <rect x="21" y="23" width="6" height="4" rx="0.8" fill="rgba(45,30,8,0.55)"/>
+        <rect x="5" y="16" width="38" height="2.5" fill="rgba(45,30,8,0.4)"/>
+      </symbol>
+      <symbol id="icon-links" viewBox="0 0 48 48">
+        <ellipse cx="16" cy="24" rx="10" ry="6.5" fill="none" stroke="currentColor" stroke-width="5"/>
+        <ellipse cx="32" cy="24" rx="10" ry="6.5" fill="none" stroke="currentColor" stroke-width="5"/>
+      </symbol>
+      <symbol id="icon-contacts" viewBox="0 0 48 48">
+        <rect x="5" y="14" width="38" height="24" rx="2" fill="currentColor"/>
+        <path d="M 5 14 L 24 29 L 43 14 Z" fill="rgba(0,0,0,0.35)"/>
+        <path d="M 5 14 L 24 29 L 43 14" fill="none" stroke="rgba(45,11,61,0.6)" stroke-width="1" stroke-linejoin="round"/>
+        <path d="M 5 14 L 5 38" stroke="rgba(45,11,61,0.45)" stroke-width="1"/>
+      </symbol>
     </defs>
   </svg>
 
   <main class="desktop" aria-label="Desktop">
 
     <div class="desktop-decor" aria-hidden="true">
-
-      <div class="ink-splotch ink-purple-1"></div>
-      <div class="ink-splotch ink-purple-2"></div>
-      <div class="ink-splotch ink-green-1"></div>
-      <div class="ink-splotch ink-green-2"></div>
-      <div class="ink-splotch ink-gold-1"></div>
 
       <svg class="sketch sketch-dungeon" viewBox="0 0 110 80" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" filter="url(#sketch-roughen)">
         <rect x="6" y="10" width="22" height="18"/>
@@ -255,11 +289,7 @@
       <!-- About Me — filled person bust -->
       <button class="app-icon" data-app="about" data-theme="about" type="button">
         <span class="app-icon-face">
-          <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">
-            <circle cx="24" cy="16" r="8.5" fill="currentColor"/>
-            <path d="M 8 44 Q 8 28 24 28 Q 40 28 40 44 Z" fill="currentColor"/>
-            <path d="M 24 28 Q 40 28 40 44 L 24 44 Z" fill="rgba(0,0,0,0.15)"/>
-          </svg>
+          <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false"><use href="#icon-about"/></svg>
         </span>
         <span class="app-icon-label">About Me</span>
       </button>
@@ -269,13 +299,7 @@
            match the new accent). -->
       <button class="app-icon" data-app="blogs" data-theme="blogs" type="button">
         <span class="app-icon-face">
-          <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">
-            <path d="M 11 5 L 30 5 L 41 16 L 41 42 Q 41 44 39 44 L 11 44 Q 9 44 9 42 L 9 7 Q 9 5 11 5 Z" fill="currentColor"/>
-            <path d="M 30 5 L 30 14 Q 30 16 32 16 L 41 16 Z" fill="rgba(0,0,0,0.25)"/>
-            <rect x="14" y="22" width="20" height="2" rx="0.5" fill="rgba(5,56,29,0.55)"/>
-            <rect x="14" y="28" width="20" height="2" rx="0.5" fill="rgba(5,56,29,0.55)"/>
-            <rect x="14" y="34" width="14" height="2" rx="0.5" fill="rgba(5,56,29,0.55)"/>
-          </svg>
+          <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false"><use href="#icon-blogs"/></svg>
         </span>
         <span class="app-icon-label">Blogs</span>
       </button>
@@ -285,14 +309,7 @@
            accent). -->
       <button class="app-icon" data-app="games" data-theme="games" type="button">
         <span class="app-icon-face">
-          <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">
-            <rect x="3" y="14" width="42" height="22" rx="11" fill="currentColor"/>
-            <rect x="10" y="23" width="10" height="4" rx="0.5" fill="rgba(0,0,0,0.4)"/>
-            <rect x="13" y="20" width="4" height="10" rx="0.5" fill="rgba(0,0,0,0.4)"/>
-            <circle cx="32" cy="21" r="2.2" fill="rgba(0,0,0,0.4)"/>
-            <circle cx="38" cy="25" r="2.2" fill="rgba(0,0,0,0.4)"/>
-            <circle cx="32" cy="29" r="2.2" fill="rgba(0,0,0,0.4)"/>
-          </svg>
+          <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false"><use href="#icon-games"/></svg>
         </span>
         <span class="app-icon-label">Games</span>
       </button>
@@ -300,13 +317,7 @@
       <!-- Experience — briefcase -->
       <button class="app-icon" data-app="experience" data-theme="experience" type="button">
         <span class="app-icon-face">
-          <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">
-            <rect x="17" y="10" width="14" height="8" rx="1" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linejoin="round"/>
-            <rect x="5" y="16" width="38" height="28" rx="3" fill="currentColor"/>
-            <rect x="5" y="25" width="38" height="2" fill="rgba(0,0,0,0.3)"/>
-            <rect x="21" y="23" width="6" height="4" rx="0.8" fill="rgba(45,30,8,0.55)"/>
-            <rect x="5" y="16" width="38" height="2.5" fill="rgba(45,30,8,0.4)"/>
-          </svg>
+          <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false"><use href="#icon-experience"/></svg>
         </span>
         <span class="app-icon-label">Experience</span>
       </button>
@@ -314,10 +325,7 @@
       <!-- Links — two chain rings -->
       <button class="app-icon" data-app="links" data-theme="links" type="button">
         <span class="app-icon-face">
-          <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">
-            <ellipse cx="16" cy="24" rx="10" ry="6.5" fill="none" stroke="currentColor" stroke-width="5"/>
-            <ellipse cx="32" cy="24" rx="10" ry="6.5" fill="none" stroke="currentColor" stroke-width="5"/>
-          </svg>
+          <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false"><use href="#icon-links"/></svg>
         </span>
         <span class="app-icon-label">Links</span>
       </button>
@@ -325,12 +333,7 @@
       <!-- Contacts — envelope with open flap -->
       <button class="app-icon" data-app="contacts" data-theme="contacts" type="button">
         <span class="app-icon-face">
-          <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">
-            <rect x="5" y="14" width="38" height="24" rx="2" fill="currentColor"/>
-            <path d="M 5 14 L 24 29 L 43 14 Z" fill="rgba(0,0,0,0.35)"/>
-            <path d="M 5 14 L 24 29 L 43 14" fill="none" stroke="rgba(45,11,61,0.6)" stroke-width="1" stroke-linejoin="round"/>
-            <path d="M 5 14 L 5 38" stroke="rgba(45,11,61,0.45)" stroke-width="1"/>
-          </svg>
+          <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false"><use href="#icon-contacts"/></svg>
         </span>
         <span class="app-icon-label">Contacts</span>
       </button>
@@ -352,58 +355,27 @@
     <nav class="taskbar-apps" aria-label="Applications">
       <!-- Taskbar icons match the desktop icons exactly. -->
       <button class="taskbar-app" data-app="about" data-theme="about" type="button" aria-label="About Me">
-        <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">
-          <circle cx="24" cy="16" r="8.5" fill="currentColor"/>
-          <path d="M 8 44 Q 8 28 24 28 Q 40 28 40 44 Z" fill="currentColor"/>
-          <path d="M 24 28 Q 40 28 40 44 L 24 44 Z" fill="rgba(0,0,0,0.15)"/>
-        </svg>
+        <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false"><use href="#icon-about"/></svg>
         <span class="taskbar-label">About Me</span>
       </button>
       <button class="taskbar-app" data-app="blogs" data-theme="blogs" type="button" aria-label="Blogs">
-        <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">
-          <path d="M 11 5 L 30 5 L 41 16 L 41 42 Q 41 44 39 44 L 11 44 Q 9 44 9 42 L 9 7 Q 9 5 11 5 Z" fill="currentColor"/>
-          <path d="M 30 5 L 30 14 Q 30 16 32 16 L 41 16 Z" fill="rgba(0,0,0,0.25)"/>
-          <rect x="14" y="22" width="20" height="2" rx="0.5" fill="rgba(5,56,29,0.55)"/>
-          <rect x="14" y="28" width="20" height="2" rx="0.5" fill="rgba(5,56,29,0.55)"/>
-          <rect x="14" y="34" width="14" height="2" rx="0.5" fill="rgba(5,56,29,0.55)"/>
-        </svg>
+        <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false"><use href="#icon-blogs"/></svg>
         <span class="taskbar-label">Blogs</span>
       </button>
       <button class="taskbar-app" data-app="games" data-theme="games" type="button" aria-label="Games">
-        <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">
-          <rect x="3" y="14" width="42" height="22" rx="11" fill="currentColor"/>
-          <rect x="10" y="23" width="10" height="4" rx="0.5" fill="rgba(0,0,0,0.4)"/>
-          <rect x="13" y="20" width="4" height="10" rx="0.5" fill="rgba(0,0,0,0.4)"/>
-          <circle cx="32" cy="21" r="2.2" fill="rgba(0,0,0,0.4)"/>
-          <circle cx="38" cy="25" r="2.2" fill="rgba(0,0,0,0.4)"/>
-          <circle cx="32" cy="29" r="2.2" fill="rgba(0,0,0,0.4)"/>
-        </svg>
+        <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false"><use href="#icon-games"/></svg>
         <span class="taskbar-label">Games</span>
       </button>
       <button class="taskbar-app" data-app="experience" data-theme="experience" type="button" aria-label="Experience">
-        <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">
-          <rect x="17" y="10" width="14" height="8" rx="1" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linejoin="round"/>
-          <rect x="5" y="16" width="38" height="28" rx="3" fill="currentColor"/>
-          <rect x="5" y="25" width="38" height="2" fill="rgba(0,0,0,0.3)"/>
-          <rect x="21" y="23" width="6" height="4" rx="0.8" fill="rgba(45,30,8,0.55)"/>
-          <rect x="5" y="16" width="38" height="2.5" fill="rgba(45,30,8,0.4)"/>
-        </svg>
+        <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false"><use href="#icon-experience"/></svg>
         <span class="taskbar-label">Experience</span>
       </button>
       <button class="taskbar-app" data-app="links" data-theme="links" type="button" aria-label="Links">
-        <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">
-          <ellipse cx="16" cy="24" rx="10" ry="6.5" fill="none" stroke="currentColor" stroke-width="5"/>
-          <ellipse cx="32" cy="24" rx="10" ry="6.5" fill="none" stroke="currentColor" stroke-width="5"/>
-        </svg>
+        <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false"><use href="#icon-links"/></svg>
         <span class="taskbar-label">Links</span>
       </button>
       <button class="taskbar-app" data-app="contacts" data-theme="contacts" type="button" aria-label="Contacts">
-        <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">
-          <rect x="5" y="14" width="38" height="24" rx="2" fill="currentColor"/>
-          <path d="M 5 14 L 24 29 L 43 14 Z" fill="rgba(0,0,0,0.35)"/>
-          <path d="M 5 14 L 24 29 L 43 14" fill="none" stroke="rgba(45,11,61,0.6)" stroke-width="1" stroke-linejoin="round"/>
-          <path d="M 5 14 L 5 38" stroke="rgba(45,11,61,0.45)" stroke-width="1"/>
-        </svg>
+        <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false"><use href="#icon-contacts"/></svg>
         <span class="taskbar-label">Contacts</span>
       </button>
     </nav>
@@ -1602,7 +1574,7 @@
     </article>
   </template>
 
-  <script src="js/clock.js?v=3"></script>
-  <script src="js/desktop.js?v=3"></script>
+  <script src="js/clock.js?v=5"></script>
+  <script src="js/desktop.js?v=5"></script>
 </body>
 </html>

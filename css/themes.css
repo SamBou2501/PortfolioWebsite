@@ -53,16 +53,11 @@
    the bright accent (#8447FF / #53FC8D / #FCCD53) reads vibrantly against
    a properly themed surface instead of the underlying teal glass. */
 
-/* --theme-icon-on-tile chooses a contrasting fg color for the icon glyph
-   when displayed inside the colored Windows-style tile. White on green/purple,
-   dark purple on the lighter gold for legibility. */
-
 [data-theme="about"] {
   --theme-accent: var(--icon-green);
   --theme-accent-deep: var(--bg-green-deep);
   --theme-accent-deep-alt: var(--bg-teal);
   --theme-accent-soft: rgba(83, 252, 141, 0.18);
-  --theme-icon-on-tile: #ffffff;
 }
 
 /* Games + Experience are the "experience-related" pair (iter 16): yellow.
@@ -72,7 +67,6 @@
   --theme-accent-deep: #6B5420;
   --theme-accent-deep-alt: #3A2D10;
   --theme-accent-soft: rgba(252, 205, 83, 0.2);
-  --theme-icon-on-tile: #2D0B3D;
 }
 
 [data-theme="blogs"] {
@@ -80,7 +74,6 @@
   --theme-accent-deep: var(--bg-green-deep);
   --theme-accent-deep-alt: var(--bg-teal);
   --theme-accent-soft: rgba(83, 252, 141, 0.18);
-  --theme-icon-on-tile: #ffffff;
 }
 
 [data-theme="experience"] {
@@ -88,7 +81,6 @@
   --theme-accent-deep: #6B5420;
   --theme-accent-deep-alt: #3A2D10;
   --theme-accent-soft: rgba(252, 205, 83, 0.2);
-  --theme-icon-on-tile: #2D0B3D;
 }
 
 [data-theme="links"] {
@@ -96,7 +88,6 @@
   --theme-accent-deep: var(--bg-purple-deep);
   --theme-accent-deep-alt: var(--bg-purple-dark);
   --theme-accent-soft: rgba(132, 71, 255, 0.22);
-  --theme-icon-on-tile: #ffffff;
 }
 
 [data-theme="contacts"] {
@@ -104,5 +95,4 @@
   --theme-accent-deep: var(--bg-purple-deep);
   --theme-accent-deep-alt: var(--bg-purple-dark);
   --theme-accent-soft: rgba(132, 71, 255, 0.22);
-  --theme-icon-on-tile: #ffffff;
 }

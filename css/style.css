@@ -4,16 +4,13 @@
 
 /* Fonts -------------------------------------------------------------------- */
 
-@font-face {
-  font-family: "Ethnocentric";
-  src: url("../assets/ethnocentric/Ethnocentric-Regular.otf") format("opentype");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
+/* Display font: Orbitron (Google Fonts, SIL Open Font License), loaded in
+   index.html. Replaced Ethnocentric, whose free licence doesn't allow web
+   embedding. */
 
-/* (Acid @font-face rules removed — the font wasn't used anywhere. The files
-   are still in assets/acid/ if a heading font is wanted later.) */
+/* (Ethnocentric and Acid were removed from the site — Ethnocentric's free
+   licence forbids web embedding and Acid is non-commercial only. The files
+   are kept outside the site in raw/archive/fonts/.) */
 
 /* Reset -------------------------------------------------------------------- */
 
@@ -26,7 +23,10 @@ img { display: block; max-width: 100%; }
 
 :root {
   --taskbar-height: 48px;
-  --font-display: "Ethnocentric", "Orbitron", system-ui, sans-serif;
+  --font-display: "Orbitron", system-ui, sans-serif;
+  --display-weight: 800; /* Orbitron is lighter than Ethnocentric was; 800 matches its weight */
+  /* Every --font-display rule also sets text-transform: uppercase, since
+     Ethnocentric only had capitals. */
   --font-body: "Be Vietnam Pro", system-ui, sans-serif;
 
   /* Desktop sizing scales with the screen height so the layout fits laptops
@@ -148,7 +148,8 @@ body {
 .display-name {
   margin: 0;
   font-family: var(--font-display);
-  font-weight: 400;
+  font-weight: var(--display-weight);
+  text-transform: uppercase; /* Ethnocentric was caps-only; keep that look */
   font-size: clamp(2.1rem, 3.4vw, 3.6rem);
   letter-spacing: 0.04em;
   line-height: 1;
@@ -273,11 +274,6 @@ body {
   z-index: 1;
   pointer-events: none;
 }
-
-/* Ink splotches: kept (HTML has the divs) but currently no-op since the
-   background gradient already provides color splash texture. Reactivate
-   when bg becomes light paper. */
-.ink-splotch { display: none; }
 
 /* Sketches — high opacity now, ink color flipped per --ink-color. */
 .sketch {
@@ -634,32 +630,6 @@ body.is-dragging-window * { cursor: grabbing !important; }
     rgba(0, 0, 0, 0.22) 100%);
 }
 
-.window-placeholder {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  gap: 10px;
-  color: var(--desktop-muted);
-}
-.window-placeholder-title {
-  margin: 0;
-  font-family: var(--font-display);
-  font-weight: 400;
-  font-size: 1.6rem;
-  letter-spacing: 0.04em;
-  color: var(--theme-accent);
-  text-shadow: 0 2px 0 rgba(0, 0, 0, 0.3);
-}
-.window-placeholder-text {
-  margin: 0;
-  font-family: var(--font-body);
-  font-size: 0.95rem;
-  color: var(--desktop-muted);
-}
-
 /* App content — shared base ---------------------------------------------- */
 
 .app-content {
@@ -705,7 +675,8 @@ body.is-dragging-window * { cursor: grabbing !important; }
 .app-title {
   margin: 0;
   font-family: var(--font-display);
-  font-weight: 400;
+  font-weight: var(--display-weight);
+  text-transform: uppercase; /* Ethnocentric was caps-only; keep that look */
   font-size: 1.45rem;
   letter-spacing: 0.05em;
   color: var(--theme-accent);
@@ -818,35 +789,6 @@ body.is-dragging-window * { cursor: grabbing !important; }
 }
 .app-bullets li::marker { color: var(--theme-accent); }
 
-.app-photo-strip {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 14px;
-}
-.app-photo {
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  background: rgba(0, 0, 0, 0.25);
-  border: 1px solid color-mix(in srgb, var(--theme-accent) 18%, transparent);
-  border-radius: 6px;
-  overflow: hidden;
-}
-.app-photo img {
-  width: 100%;
-  aspect-ratio: 4 / 3;
-  object-fit: cover;
-  display: block;
-  background: #000;
-}
-.app-photo figcaption {
-  font-family: var(--font-hand);
-  font-size: 0.95rem;
-  color: rgba(244, 255, 253, 0.65);
-  padding: 0 10px 8px;
-}
-
 /* Games ------------------------------------------------------------------ */
 
 /* Row layout (iter 16): one card per row, image on the left, body on the
@@ -950,7 +892,8 @@ button.game-card {
 .game-card-title {
   margin: 0;
   font-family: var(--font-display);
-  font-weight: 400;
+  font-weight: var(--display-weight);
+  text-transform: uppercase; /* Ethnocentric was caps-only; keep that look */
   font-size: 1.05rem;
   letter-spacing: 0.05em;
   color: var(--theme-accent);
@@ -1025,7 +968,8 @@ button.game-card {
 .detail-view-title {
   margin: 0;
   font-family: var(--font-display);
-  font-weight: 400;
+  font-weight: var(--display-weight);
+  text-transform: uppercase; /* Ethnocentric was caps-only; keep that look */
   font-size: 1.6rem;
   letter-spacing: 0.06em;
   color: var(--theme-accent);
@@ -1199,7 +1143,8 @@ button.game-card {
 .blog-title {
   margin: 0;
   font-family: var(--font-display);
-  font-weight: 400;
+  font-weight: var(--display-weight);
+  text-transform: uppercase; /* Ethnocentric was caps-only; keep that look */
   font-size: 1.05rem;
   letter-spacing: 0.04em;
   color: var(--theme-accent);
@@ -1279,7 +1224,8 @@ button.game-card {
 .exp-role-title {
   margin: 0;
   font-family: var(--font-display);
-  font-weight: 400;
+  font-weight: var(--display-weight);
+  text-transform: uppercase; /* Ethnocentric was caps-only; keep that look */
   font-size: 1rem;
   letter-spacing: 0.04em;
   color: var(--theme-accent);
@@ -1540,7 +1486,8 @@ button.game-card {
 }
 .link-row-name {
   font-family: var(--font-display);
-  font-weight: 400;
+  font-weight: var(--display-weight);
+  text-transform: uppercase; /* Ethnocentric was caps-only; keep that look */
   font-size: 1.15rem;
   letter-spacing: 0.04em;
   color: var(--accent-off-white);
@@ -1596,7 +1543,8 @@ button.game-card {
 .contact-label {
   margin: 0;
   font-family: var(--font-display);
-  font-weight: 400;
+  font-weight: var(--display-weight);
+  text-transform: uppercase; /* Ethnocentric was caps-only; keep that look */
   font-size: 1.3rem;
   letter-spacing: 0.22em;
   text-transform: uppercase;
@@ -1870,6 +1818,11 @@ button.game-card {
     min-width: 0;
     border-radius: 0;
     border: 0;
+    /* Full screen, so nothing shows through the glass — skip the costly
+       backdrop blur and use the solid equivalent. */
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background: #0F2020;
   }
   .window-titlebar { height: 52px; padding: 0 4px 0 16px; cursor: default; touch-action: auto; }
   .window-titlebar-icon, .window-titlebar-icon svg { width: 22px; height: 22px; }
@@ -1905,7 +1858,6 @@ button.game-card {
   }
   .blog-search { width: 100%; padding-top: 11px; padding-bottom: 11px; font-size: 1rem; }
   .wip-note { font-size: 1.3rem; padding: 8px 16px; }
-  .app-photo-strip { grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); }
   .link-row { padding: 16px 18px; gap: 14px; }
   .link-row-icon { width: 44px; height: 44px; }
   .link-row-name { font-size: 1.02rem; }

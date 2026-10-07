@@ -238,7 +238,7 @@
           </button>
         </div>
       </header>
-      <div class="window-body">${getAppBody(app, meta)}</div>
+      <div class="window-body">${getAppBody(app)}</div>
     `;
 
     // Controls
@@ -458,16 +458,10 @@
 
   // Pulls each app's content from a <template id="app-content-<id>"> in
   // index.html. Templates make the content editable as plain HTML without
-  // touching this JS file. Falls back to a generic placeholder if missing.
-  function getAppBody(app, meta) {
+  // touching this JS file.
+  function getAppBody(app) {
     const tpl = document.getElementById(`app-content-${app}`);
-    if (tpl) return tpl.innerHTML;
-    return `
-      <div class="window-placeholder">
-        <h2 class="window-placeholder-title">${meta.title}</h2>
-        <p class="window-placeholder-text">Coming soon &mdash; content for this app will live here.</p>
-      </div>
-    `;
+    return tpl ? tpl.innerHTML : "";
   }
 
   // -- Window dragging ------------------------------------------------------
