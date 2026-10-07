@@ -5,11 +5,28 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Samuel Bouzanquet — Game Designer</title>
   <meta name="description" content="Personal portfolio of Samuel Bouzanquet — Game Designer specialising in systems and narrative.">
+  <meta name="theme-color" content="#0F2020">
+
+  <!-- Icons -->
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+
+  <!-- Link previews (LinkedIn, Discord, iMessage, etc.). og:image must be an
+       absolute URL, so it points at the live GitHub Pages address. -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://sambou2501.github.io/PortfolioWebsite/">
+  <meta property="og:title" content="Samuel Bouzanquet — Game Designer">
+  <meta property="og:description" content="Lead Game Designer on ORDINEM, STARVIN MARTIAN, WAR OF STEEL and NEXUS. Systems, narrative and player experience.">
+  <meta property="og:image" content="https://sambou2501.github.io/PortfolioWebsite/assets/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&family=Caveat:wght@400;500;600;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/themes.css">
-  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Caveat:wght@500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/themes.css?v=3">
+  <link rel="stylesheet" href="css/style.css?v=3">
 </head>
 <body>
   <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -181,7 +198,7 @@
 
       <figure class="screenshot screenshot-nexus">
         <div class="screenshot-image">
-          <img src="assets/NEXUSScreenshotThumbnail.png" alt="NEXUS screenshot">
+          <img src="assets/NEXUSScreenshotThumbnail.webp" alt="NEXUS screenshot">
           <svg class="screenshot-frame" viewBox="0 0 100 60" preserveAspectRatio="none">
             <rect x="1.5" y="1.5" width="97" height="57" fill="none" stroke="currentColor" stroke-width="0.6" vector-effect="non-scaling-stroke" filter="url(#sketch-roughen-light)"/>
           </svg>
@@ -191,7 +208,7 @@
 
       <figure class="screenshot screenshot-starvin">
         <div class="screenshot-image">
-          <img src="assets/STARVINMARTIANScreenshotThumbnail.png" alt="Starvin Martian screenshot">
+          <img src="assets/STARVINMARTIANScreenshotThumbnail.webp" alt="Starvin Martian screenshot">
           <svg class="screenshot-frame" viewBox="0 0 100 60" preserveAspectRatio="none">
             <rect x="1.5" y="1.5" width="97" height="57" fill="none" stroke="currentColor" stroke-width="0.6" vector-effect="non-scaling-stroke" filter="url(#sketch-roughen-light)"/>
           </svg>
@@ -201,7 +218,7 @@
 
       <figure class="screenshot screenshot-ordinem">
         <div class="screenshot-image">
-          <img src="assets/ORDINEMScreenshotThumbnail.png" alt="ORDINEM screenshot">
+          <img src="assets/ORDINEMScreenshotThumbnail.webp" alt="ORDINEM screenshot">
           <svg class="screenshot-frame" viewBox="0 0 100 60" preserveAspectRatio="none">
             <rect x="1.5" y="1.5" width="97" height="57" fill="none" stroke="currentColor" stroke-width="0.6" vector-effect="non-scaling-stroke" filter="url(#sketch-roughen-light)"/>
           </svg>
@@ -211,7 +228,7 @@
 
       <figure class="screenshot screenshot-wos">
         <div class="screenshot-image">
-          <img src="assets/WAROfSTEELScreenshotThumbnail.png" alt="War of Steel screenshot">
+          <img src="assets/WAROfSTEELScreenshotThumbnail.webp" alt="War of Steel screenshot">
           <svg class="screenshot-frame" viewBox="0 0 100 60" preserveAspectRatio="none">
             <rect x="1.5" y="1.5" width="97" height="57" fill="none" stroke="currentColor" stroke-width="0.6" vector-effect="non-scaling-stroke" filter="url(#sketch-roughen-light)"/>
           </svg>
@@ -224,7 +241,7 @@
     <section class="identity-panel" aria-label="Samuel Bouzanquet">
       <figure class="portrait-figure">
         <div class="portrait-image">
-          <img src="assets/MeImageSamuel.jpg" alt="Photo of Samuel Bouzanquet" class="portrait">
+          <img src="assets/MeImageSamuel.webp" alt="Photo of Samuel Bouzanquet" class="portrait">
           <svg class="portrait-frame-sketch" viewBox="0 0 100 130" preserveAspectRatio="none">
             <rect x="1.5" y="1.5" width="97" height="127" fill="none" stroke="currentColor" stroke-width="0.4" vector-effect="non-scaling-stroke" filter="url(#sketch-roughen-light)"/>
           </svg>
@@ -329,6 +346,7 @@
         <rect x="3"  y="13" width="8" height="8" rx="1" fill="currentColor"/>
         <rect x="13" y="13" width="8" height="8" rx="1" fill="currentColor"/>
       </svg>
+      <span class="taskbar-label">Home</span>
     </button>
 
     <nav class="taskbar-apps" aria-label="Applications">
@@ -339,6 +357,7 @@
           <path d="M 8 44 Q 8 28 24 28 Q 40 28 40 44 Z" fill="currentColor"/>
           <path d="M 24 28 Q 40 28 40 44 L 24 44 Z" fill="rgba(0,0,0,0.15)"/>
         </svg>
+        <span class="taskbar-label">About Me</span>
       </button>
       <button class="taskbar-app" data-app="blogs" data-theme="blogs" type="button" aria-label="Blogs">
         <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">
@@ -348,6 +367,7 @@
           <rect x="14" y="28" width="20" height="2" rx="0.5" fill="rgba(5,56,29,0.55)"/>
           <rect x="14" y="34" width="14" height="2" rx="0.5" fill="rgba(5,56,29,0.55)"/>
         </svg>
+        <span class="taskbar-label">Blogs</span>
       </button>
       <button class="taskbar-app" data-app="games" data-theme="games" type="button" aria-label="Games">
         <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">
@@ -358,6 +378,7 @@
           <circle cx="38" cy="25" r="2.2" fill="rgba(0,0,0,0.4)"/>
           <circle cx="32" cy="29" r="2.2" fill="rgba(0,0,0,0.4)"/>
         </svg>
+        <span class="taskbar-label">Games</span>
       </button>
       <button class="taskbar-app" data-app="experience" data-theme="experience" type="button" aria-label="Experience">
         <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">
@@ -367,12 +388,14 @@
           <rect x="21" y="23" width="6" height="4" rx="0.8" fill="rgba(45,30,8,0.55)"/>
           <rect x="5" y="16" width="38" height="2.5" fill="rgba(45,30,8,0.4)"/>
         </svg>
+        <span class="taskbar-label">Experience</span>
       </button>
       <button class="taskbar-app" data-app="links" data-theme="links" type="button" aria-label="Links">
         <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">
           <ellipse cx="16" cy="24" rx="10" ry="6.5" fill="none" stroke="currentColor" stroke-width="5"/>
           <ellipse cx="32" cy="24" rx="10" ry="6.5" fill="none" stroke="currentColor" stroke-width="5"/>
         </svg>
+        <span class="taskbar-label">Links</span>
       </button>
       <button class="taskbar-app" data-app="contacts" data-theme="contacts" type="button" aria-label="Contacts">
         <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">
@@ -381,6 +404,7 @@
           <path d="M 5 14 L 24 29 L 43 14" fill="none" stroke="rgba(45,11,61,0.6)" stroke-width="1" stroke-linejoin="round"/>
           <path d="M 5 14 L 5 38" stroke="rgba(45,11,61,0.45)" stroke-width="1"/>
         </svg>
+        <span class="taskbar-label">Contacts</span>
       </button>
     </nav>
 
@@ -690,7 +714,7 @@
         <div class="game-card-row">
           <button class="game-card" type="button" data-detail-trigger="ordinem" data-detail-title="ORDINEM">
             <div class="game-card-image">
-              <img src="assets/ORDINEMScreenshotThumbnail.png" alt="ORDINEM screenshot">
+              <img src="assets/ORDINEMScreenshotThumbnail.webp" alt="ORDINEM screenshot">
             </div>
             <div class="game-card-body">
               <h3 class="game-card-title">ORDINEM</h3>
@@ -746,7 +770,7 @@
         <div class="game-card-row">
           <button class="game-card" type="button" data-detail-trigger="starvin" data-detail-title="STARVIN MARTIAN">
             <div class="game-card-image">
-              <img src="assets/STARVINMARTIANScreenshotThumbnail.png" alt="STARVIN MARTIAN screenshot">
+              <img src="assets/STARVINMARTIANScreenshotThumbnail.webp" alt="STARVIN MARTIAN screenshot">
             </div>
             <div class="game-card-body">
               <h3 class="game-card-title">STARVIN MARTIAN</h3>
@@ -839,7 +863,7 @@
         <div class="game-card-row">
           <button class="game-card" type="button" data-detail-trigger="war-of-steel" data-detail-title="WAR OF STEEL">
             <div class="game-card-image">
-              <img src="assets/WAROfSTEELScreenshotThumbnail.png" alt="WAR OF STEEL screenshot">
+              <img src="assets/WAROfSTEELScreenshotThumbnail.webp" alt="WAR OF STEEL screenshot">
             </div>
             <div class="game-card-body">
               <h3 class="game-card-title">WAR OF STEEL</h3>
@@ -907,7 +931,7 @@
         <div class="game-card-row">
           <button class="game-card" type="button" data-detail-trigger="nexus" data-detail-title="NEXUS">
             <div class="game-card-image">
-              <img src="assets/NEXUSScreenshotThumbnail.png" alt="NEXUS screenshot">
+              <img src="assets/NEXUSScreenshotThumbnail.webp" alt="NEXUS screenshot">
             </div>
             <div class="game-card-body">
               <h3 class="game-card-title">NEXUS</h3>
@@ -1389,7 +1413,7 @@
           <li>
             <a class="link-row" href="https://ordinem.playa3ull.games/" target="_blank" rel="noopener">
               <span class="link-row-icon link-icon-game" aria-hidden="true">
-                <img src="assets/ORDINEMScreenshotThumbnail.png" alt="">
+                <img src="assets/ORDINEMScreenshotThumbnail.webp" alt="">
               </span>
               <span class="link-row-text">
                 <span class="link-row-name">ORDINEM</span>
@@ -1414,7 +1438,7 @@
           <li>
             <a class="link-row" href="https://nexus.playa3ull.games/" target="_blank" rel="noopener">
               <span class="link-row-icon link-icon-game" aria-hidden="true">
-                <img src="assets/NEXUSScreenshotThumbnail.png" alt="">
+                <img src="assets/NEXUSScreenshotThumbnail.webp" alt="">
               </span>
               <span class="link-row-text">
                 <span class="link-row-name">NEXUS</span>
@@ -1437,7 +1461,7 @@
           <li>
             <a class="link-row" href="https://starvinmartian.playa3ull.games/" target="_blank" rel="noopener">
               <span class="link-row-icon link-icon-game" aria-hidden="true">
-                <img src="assets/STARVINMARTIANScreenshotThumbnail.png" alt="">
+                <img src="assets/STARVINMARTIANScreenshotThumbnail.webp" alt="">
               </span>
               <span class="link-row-text">
                 <span class="link-row-name">STARVIN MARTIAN</span>
@@ -1459,7 +1483,7 @@
           <li>
             <a class="link-row" href="https://playa3ull.games/games/war-of-steel" target="_blank" rel="noopener">
               <span class="link-row-icon link-icon-game" aria-hidden="true">
-                <img src="assets/WAROfSTEELScreenshotThumbnail.png" alt="">
+                <img src="assets/WAROfSTEELScreenshotThumbnail.webp" alt="">
               </span>
               <span class="link-row-text">
                 <span class="link-row-name">WAR OF STEEL</span>
@@ -1508,7 +1532,7 @@
           </span>
           <span class="contact-copy-feedback">Copied!</span>
         </button>
-        <p class="contact-hint">Click to copy the address to your clipboard.</p>
+        <p class="contact-hint">Click or tap to copy the address.</p>
       </div>
 
       <!-- Doodles filling the bottom of the page below the email block.
@@ -1578,7 +1602,7 @@
     </article>
   </template>
 
-  <script src="js/clock.js"></script>
-  <script src="js/desktop.js"></script>
+  <script src="js/clock.js?v=3"></script>
+  <script src="js/desktop.js?v=3"></script>
 </body>
 </html>

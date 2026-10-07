@@ -12,27 +12,8 @@
   font-display: swap;
 }
 
-@font-face {
-  font-family: "Acid";
-  src: url("../assets/acid/acid.otf") format("opentype");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Acid";
-  src: url("../assets/acid/acid_medium.otf") format("opentype");
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Acid";
-  src: url("../assets/acid/acid_bold.otf") format("opentype");
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
+/* (Acid @font-face rules removed — the font wasn't used anywhere. The files
+   are still in assets/acid/ if a heading font is wanted later.) */
 
 /* Reset -------------------------------------------------------------------- */
 
@@ -46,14 +27,25 @@ img { display: block; max-width: 100%; }
 :root {
   --taskbar-height: 48px;
   --font-display: "Ethnocentric", "Orbitron", system-ui, sans-serif;
-  --font-heading: "Acid", "Be Vietnam Pro", system-ui, sans-serif;
   --font-body: "Be Vietnam Pro", system-ui, sans-serif;
+
+  /* Desktop sizing scales with the screen height so the layout fits laptops
+     and tablets, capped at the sizes tuned on Samuel's big monitor (so large
+     screens look exactly as before). `vh` first, then `dvh` for browsers that
+     support it (accounts for mobile browser toolbars). */
+  --screen-h: 100vh;
+  --icon-cell: clamp(104px, 15vh, 170px);
+  --shot-w: clamp(170px, min(19vw, 31vh), 361px);
   --font-hand: "Caveat", cursive;
 
   /* Ink color for sketchbook content (sketches, scribbles, frames).
      Currently OFF-WHITE because the desktop bg is dark; flip to a near-black
      when the bg eventually becomes light sketchbook paper. */
   --ink-color: rgba(244, 255, 253, 0.88);
+}
+
+@supports (height: 100dvh) {
+  :root { --screen-h: 100dvh; }
 }
 
 body {
@@ -72,7 +64,7 @@ body {
   display: grid;
   grid-template-columns: minmax(360px, 50%) 1fr;
   width: 100%;
-  height: calc(100vh - var(--taskbar-height));
+  height: calc(var(--screen-h) - var(--taskbar-height));
   overflow: hidden;
 
   background:
@@ -126,9 +118,11 @@ body {
 
 .portrait-image {
   position: relative;
-  /* Iter 20b: bumped 470 → 540 — Samuel still wanted them bigger after
-     the iter 20 bump. */
-  width: min(100%, 540px);
+  /* Up to 540px wide (Samuel's tuned size), but never so tall that the name
+     and tagline get pushed off the bottom: the photo is 3:4, so its width is
+     capped at 3/4 of (desktop height − ~320px reserved for name, tagline
+     and padding). */
+  width: min(100%, 540px, calc((var(--screen-h) - var(--taskbar-height) - 320px) * 0.75));
   transform: rotate(-1.5deg);
   filter: drop-shadow(0 12px 22px rgba(0, 0, 0, 0.5));
 }
@@ -181,14 +175,14 @@ body {
   grid-auto-flow: column;
   grid-template-rows: repeat(2, auto);
   grid-auto-columns: auto;
-  gap: 30px 38px;
+  gap: clamp(16px, 2.8vh, 30px) clamp(22px, 2.6vw, 38px);
   align-content: center;
   justify-content: center;
   padding: 40px;
   background: transparent;
   /* Nudge the whole icon cluster up + left from dead-centre — feels less
      "trapped in the corner" and frees up the bottom-right for the WoS polaroid. */
-  transform: translate(-40px, -50px);
+  transform: translate(-40px, -4.5vh);
 }
 
 .app-grid > *:nth-child(3),
@@ -197,21 +191,18 @@ body {
 .app-grid > *:nth-child(5),
 .app-grid > *:nth-child(6) { transform: translateY(10vh); }
 
-/* App icon — strict 170×170 cell with Windows-11-style colored tile inside.
-   Iter 20 → 20b: bumped 150 → 170 — still felt small at 100% browser zoom. */
+/* App icon — strict square cell (--icon-cell, max 170px). */
 .app-icon {
   --icon-accent: var(--theme-accent);
-  width: 170px;
-  height: 170px;
-  min-width: 170px; min-height: 170px;
-  max-width: 170px; max-height: 170px;
+  width: var(--icon-cell);
+  height: var(--icon-cell);
   aspect-ratio: 1 / 1;
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: calc(var(--icon-cell) * 0.06);
   padding: 12px;
   border-radius: 8px;
   border: 1px solid transparent;
@@ -244,8 +235,8 @@ body {
 .app-icon-face {
   display: grid;
   place-items: center;
-  width: 80px;
-  height: 80px;
+  width: calc(var(--icon-cell) * 0.47);
+  height: calc(var(--icon-cell) * 0.47);
   flex-shrink: 0;
   color: var(--theme-accent);
   filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.45));
@@ -258,15 +249,15 @@ body {
 }
 
 .app-icon-face svg {
-  width: 68px;
-  height: 68px;
+  width: 85%;
+  height: 85%;
   display: block;
 }
 
 .app-icon-label {
   font-family: "Be Vietnam Pro", system-ui, sans-serif;
   font-weight: 500;
-  font-size: 1.15rem;
+  font-size: clamp(0.92rem, 1.6vh, 1.15rem);
   letter-spacing: 0.02em;
   line-height: 1;
   color: var(--accent-off-white);
@@ -324,8 +315,8 @@ body {
 
 .screenshot-image {
   position: relative;
-  /* Iter 20c: 290 → 361 per Samuel's DevTools tuning. */
-  width: 361px;
+  /* Up to 361px (Samuel's DevTools tuning), shrinking on smaller screens. */
+  width: var(--shot-w);
   filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.55));
 }
 
@@ -349,7 +340,7 @@ body {
 .screenshot figcaption {
   font-family: var(--font-hand);
   font-weight: 600;
-  font-size: 1.85rem;
+  font-size: clamp(1.15rem, 2.6vh, 1.85rem);
   color: var(--ink-color);
   text-align: center;
   margin-top: 2px;
@@ -360,7 +351,6 @@ body {
 .screenshot-starvin  { top:  4%;  right: 2%;  transform: rotate(5deg); }
 .screenshot-ordinem  { bottom: 4%; left: 50%; transform: rotate(-4deg); }
 .screenshot-wos      { bottom: 2%; right: 1%; transform: rotate(6deg); }
-.screenshot-wos .screenshot-image { width: 365px; }
 
 /* Handwritten scribble notes and portrait caption removed in iter 9.
    Screenshot captions (in figcaption under each polaroid) are kept — they're
@@ -485,16 +475,25 @@ body {
   color: var(--taskbar-fg);
 }
 
+/* Text labels only show in the phone tab bar (see Responsive). */
+.taskbar-label { display: none; }
+
 .taskbar-clock #clock-time { font-weight: 600; font-size: 0.8rem; }
 .taskbar-clock #clock-date { opacity: 0.75; font-size: 0.65rem; }
 
 /* App icons — draggable feedback ----------------------------------------- */
 
-/* When the icon has been promoted to absolute positioning by JS, give it
-   a grab cursor at rest so users discover they can move it. The default
-   state is still :hover/:focus -> click-to-open. */
-.app-icon[style*="position: absolute"] {
+/* Desktop layout: JS "frees" each icon from the grid (.is-free) and places
+   it absolutely inside .desktop so it can be dragged. Grab cursor at rest so
+   users discover they can move it; touch-action: none lets a finger drag it
+   on touch-screen laptops / landscape tablets instead of scrolling. */
+.app-icon.is-free {
+  position: absolute;
+  margin: 0;
+  transform: none;
+  z-index: 3; /* above decor (1) and panels (2) */
   cursor: grab;
+  touch-action: none;
 }
 .app-icon.is-dragging {
   cursor: grabbing;
@@ -558,7 +557,10 @@ body.is-dragging-icon * { cursor: grabbing !important; }
   border-bottom: 1px solid rgba(244, 255, 253, 0.06);
   cursor: grab;
   user-select: none;
+  touch-action: none; /* finger-drag the window on touch-screen desktops */
 }
+
+.window:focus { outline: none; } /* focused programmatically on open */
 
 body.is-dragging-window,
 body.is-dragging-window * { cursor: grabbing !important; }
@@ -621,6 +623,7 @@ body.is-dragging-window * { cursor: grabbing !important; }
      .app-content don't trigger a horizontal scrollbar. */
   overflow-x: hidden;
   overflow-y: auto;
+  overscroll-behavior: contain; /* don't scroll the page behind it */
   padding: 28px 32px 36px;
   /* Themed bg uses both deep stops from BRAND.md so the bright accent
      (e.g. #8447FF on Links/Contacts) reads against a properly themed
@@ -1735,55 +1738,152 @@ button.game-card {
 
 /* Responsive -------------------------------------------------------------- */
 
+/* Phone + small tablet (<= 900px, matches PHONE in js/desktop.js).
+   Not a shrunken desktop: a scrolling home page (photo, name, big app tiles,
+   then the four game screenshots) with the taskbar turned into a bottom tab
+   bar. Apps open full screen, one at a time, like pages. */
 @media (max-width: 900px) {
+  :root { --taskbar-height: 62px; }
+
+  body { overflow-x: hidden; overflow-y: auto; }
+  body.has-open-window { overflow: hidden; } /* app open → freeze the page behind */
+
   .desktop {
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    min-height: calc(var(--screen-h) - var(--taskbar-height));
+    padding-bottom: var(--taskbar-height); /* clear the fixed tab bar */
+    overflow: visible;
     background:
       repeating-linear-gradient(118deg, transparent 0 160px, rgba(244, 255, 253, 0.022) 160px 178px),
-      radial-gradient(ellipse 70% 22% at 30% 50%, rgba(132, 71, 255, 0.2), transparent 70%),
-      radial-gradient(ellipse 70% 22% at 70% 50%, rgba(83, 252, 141, 0.16), transparent 70%),
+      radial-gradient(ellipse 80% 18% at 25% 22%, rgba(132, 71, 255, 0.22), transparent 70%),
+      radial-gradient(ellipse 80% 16% at 75% 55%, rgba(83, 252, 141, 0.14), transparent 70%),
+      radial-gradient(ellipse 70% 14% at 30% 85%, rgba(252, 205, 83, 0.08), transparent 70%),
       linear-gradient(180deg,
-        #2D0B3D 0%, #2D0B3D 30%, #221C32 42%, #182328 50%,
-        #102A23 58%, #05381D 70%, #05381D 100%);
+        #2D0B3D 0%, #2D0B3D 22%, #221C32 38%, #182328 50%,
+        #102A23 62%, #05381D 78%, #05381D 100%);
   }
-  .identity-panel { padding: 32px 24px 16px; gap: 14px; }
-  .portrait-figure { transform: none; } /* no shift on stacked mobile layout */
-  .portrait-image { width: min(70%, 240px); }
+
+  /* Home page order: identity → app tiles → screenshots. */
+  .identity-panel { order: 1; padding: 36px 20px 8px; gap: 12px; }
+  .app-grid       { order: 2; }
+  .desktop-decor  { order: 3; }
+
+  .portrait-image { width: min(54vw, 230px); }
+  .display-name { font-size: clamp(1.45rem, 7vw, 2.2rem); }
+  .tagline { font-size: clamp(0.95rem, 4.2vw, 1.25rem); }
+
+  /* App tiles: 2 columns on phones, 3 on wider (tablet portrait) screens. */
   .app-grid {
-    padding: 24px;
-    gap: 24px 28px;
-    transform: none; /* drop the desktop nudge — grid is full-width on mobile */
+    grid-auto-flow: row;
+    grid-template-rows: none;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    width: 100%;
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 20px 16px 8px;
+    transform: none;
   }
-  .app-grid > *:nth-child(3),
-  .app-grid > *:nth-child(4) { transform: translateY(4vh); }
-  .app-grid > *:nth-child(5),
-  .app-grid > *:nth-child(6) { transform: translateY(8vh); }
+  .app-grid > * { transform: none !important; }
 
-  /* Hide most decor on narrow screens to avoid clutter */
-  .sketch-mechanic, .sketch-card, .sketch-talents { display: none; }
-  .screenshot-image { width: 150px; }
-  .screenshot-wos .screenshot-image { width: 130px; }
+  .app-icon {
+    width: 100%;
+    height: auto;
+    aspect-ratio: auto;
+    min-height: 104px;
+    gap: 8px;
+    padding: 16px 10px;
+    border-radius: 14px;
+    background: rgba(0, 0, 0, 0.28);
+    border: 1px solid color-mix(in srgb, var(--theme-accent) 30%, transparent);
+  }
+  .app-icon:hover, .app-icon:focus-visible {
+    background: color-mix(in srgb, var(--theme-accent) 12%, rgba(0, 0, 0, 0.28));
+    border-color: color-mix(in srgb, var(--theme-accent) 55%, transparent);
+  }
+  .app-icon:active { background: color-mix(in srgb, var(--theme-accent) 22%, rgba(0, 0, 0, 0.28)); }
+  .app-icon-face { width: 52px; height: 52px; }
+  .app-icon-label { font-size: 1rem; }
 
-  .taskbar { padding: 0 8px; }
+  /* Screenshots: a 2×2 gallery under the tiles instead of scattered decor. */
+  .desktop-decor {
+    position: static;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px 16px;
+    width: 100%;
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 24px 20px 28px;
+  }
+  .sketch { display: none; }
+  .screenshot { position: static; min-width: 0; }
+  .screenshot-image { width: 100%; }
+  .screenshot figcaption { font-size: clamp(1.05rem, 4.6vw, 1.4rem); white-space: normal; }
 
-  /* Mobile windows: fullscreen-ish — drag isn't useful on a small screen,
-     and the JS leaves desktop icons in their packed grid layout. */
+  /* Tab bar: Home + the six apps, each a full-height, labelled button. */
+  .taskbar {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    padding: 0 2px;
+  }
+  .taskbar-apps { display: contents; }
+  .taskbar-clock { display: none; }
+  .taskbar-start,
+  .taskbar-app {
+    flex: 1 1 0;
+    min-width: 0;
+    width: auto;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    border-radius: 10px;
+    margin: 4px 0;
+  }
+  .taskbar-start svg { width: 20px; height: 20px; }
+  .taskbar-app svg { width: 24px; height: 24px; }
+  .taskbar-label {
+    display: block;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 0.6rem;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    color: rgba(244, 255, 253, 0.7);
+  }
+  .taskbar-app.is-active .taskbar-label { color: var(--theme-accent); }
+  .taskbar-app.is-open::after { display: none; } /* tabs only show the current one */
+
+  /* Apps: full screen above the tab bar, no rounded window chrome. */
   .window {
-    inset: 8px 8px auto 8px !important;
+    inset: 0 !important;
     width: auto !important;
-    height: calc(100vh - var(--taskbar-height) - 16px) !important;
-    left: 8px !important; top: 8px !important;
-    border-radius: 12px;
+    height: auto !important;
+    min-width: 0;
+    border-radius: 0;
+    border: 0;
   }
-  .window-titlebar { cursor: default; }
-  .window-body { padding: 22px 22px 28px; }
-  /* Mobile: phone-width screens don't have room for a 20% empty margin on
-     each side, so let articles use the full window-body width. */
+  .window-titlebar { height: 52px; padding: 0 4px 0 16px; cursor: default; touch-action: auto; }
+  .window-titlebar-icon, .window-titlebar-icon svg { width: 22px; height: 22px; }
+  .window-titlebar-title { font-size: 1rem; }
+  .window-min, .window-max { display: none; }
+  .window-close { width: 48px; height: 44px; }
+  .window-close svg { width: 16px; height: 16px; }
+  .window-body { padding: 22px 18px 32px; }
+
+  /* Phone-width screens don't have room for a 20% empty margin on each
+     side, so articles use the full window-body width. */
   .app-content { max-width: 100%; }
 
-  /* Per-app content tightening on tablet-ish screens */
-  /* Mobile: flip cards back to vertical (image on top, body below) since
-     320px image + body doesn't fit on a phone-width screen. */
+  /* Cards flip to vertical (image on top, body below). */
   .game-card { flex-direction: column; }
   .game-card-image {
     width: 100%;
@@ -1791,7 +1891,6 @@ button.game-card {
     aspect-ratio: 16 / 10;
   }
   .game-card-body { padding: 14px 16px 16px; }
-  /* Same idea for blogs: stack image below the text on phone widths. */
   .blog-entry { flex-direction: column; gap: 12px; padding: 18px 18px; }
   .blog-entry-image {
     width: 100%;
@@ -1799,13 +1898,12 @@ button.game-card {
     aspect-ratio: 16 / 9;
     min-height: 0;
   }
-  /* Section-header toolbar: stack the search below the title on narrow screens. */
+  /* Section-header toolbar: stack the search below the title. */
   .app-section-header.has-toolbar {
     flex-direction: column;
     align-items: stretch;
   }
-  .blog-search { width: 100%; }
-  /* WIP note: drop a touch lower so it doesn't sit awkwardly above a stacked header. */
+  .blog-search { width: 100%; padding-top: 11px; padding-bottom: 11px; font-size: 1rem; }
   .wip-note { font-size: 1.3rem; padding: 8px 16px; }
   .app-photo-strip { grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); }
   .link-row { padding: 16px 18px; gap: 14px; }
@@ -1813,33 +1911,35 @@ button.game-card {
   .link-row-name { font-size: 1.02rem; }
   .link-row-handle { font-size: 0.78rem; }
   .link-row-sketch { width: 44px; height: 30px; }
-  /* Skill tiers stack vertically (label above pills) on narrow screens */
   .skill-tier { grid-template-columns: 1fr; gap: 4px; }
   .exp-cross-link { flex-direction: column; align-items: flex-start; }
+  .detail-view-back { padding: 11px 16px; font-size: 0.95rem; }
+  .contact-block { padding: 36px 18px; }
+  .contact-email-button { font-size: clamp(0.95rem, 4.6vw, 1.55rem); padding: 18px 20px; max-width: 100%; }
+  .contact-email { overflow-wrap: anywhere; }
 }
 
-@media (max-width: 560px) {
-  .app-grid {
-    grid-auto-flow: row;
-    grid-template-rows: auto;
-    grid-template-columns: repeat(2, auto);
-    gap: 20px 18px;
-  }
-  .app-grid > * { transform: none !important; }
-  .app-grid > *:nth-child(even) { transform: translateY(20px) !important; }
-  .display-name { font-size: 1.4rem; }
-  .tagline { font-size: 0.85rem; }
-  .app-icon {
-    width: 100px; height: 100px;
-    min-width: 100px; min-height: 100px;
-    max-width: 100px; max-height: 100px;
-  }
-  .app-icon-face { width: 50px; height: 50px; }
-  .app-icon-face svg { width: 26px; height: 26px; }
+/* Tablet portrait: three tiles per row. */
+@media (min-width: 600px) and (max-width: 900px) {
+  .app-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
 
-  /* Drop most decor on phones */
-  .screenshot-nexus, .screenshot-ordinem, .screenshot-wos,
-  .sketch-dungeon, .sketch-pylon, .sketch-sword, .sketch-heart { display: none; }
-  .screenshot-starvin .screenshot-image { width: 130px; }
-  .screenshot-starvin { top: 2%; right: 4%; }
+/* Very narrow phones: drop the tab labels so the icons stay tappable. */
+@media (max-width: 359px) {
+  :root { --taskbar-height: 54px; }
+  .taskbar-label { display: none; }
+}
+
+/* Touch screens in the desktop layout (e.g. a landscape iPad): bigger
+   taskbar and window buttons so they meet the 44px touch-target size. */
+@media (pointer: coarse) and (min-width: 901px) {
+  :root { --taskbar-height: 56px; }
+  .taskbar-start, .taskbar-app { width: 44px; height: 44px; }
+  .window-titlebar { height: 46px; }
+  .window-control { width: 46px; height: 40px; }
+}
+
+/* Respect "reduce motion" system settings. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition-duration: 0.01ms !important; }
 }

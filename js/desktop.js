@@ -1,15 +1,25 @@
 /* ---------------------------------------------------------------------------
  * Desktop runtime: window manager + draggable desktop icons.
  *
- * Step 2 of the build (see memory/CONCEPT.md "Planned — step 2").
+ * Two layouts, switched live by the PHONE media query (also in style.css):
  *
+ * Desktop (> 900px wide)
  * - Clicking an app icon opens a draggable window with theme-colored chrome.
  * - Title bar has Win11-style minimise / maximise / close.
  * - Desktop icons themselves are draggable around the desktop surface
  *   (drag = move, click without drag = open the app).
  * - Taskbar: left-click open/focus/minimise (Win11 toggle), right-click
  *   context menu, Start = show desktop, .is-open class on open apps.
- * - No persistence — refresh resets icon positions and closes all windows.
+ *
+ * Phone / small tablet (<= 900px wide)
+ * - Scrolling home page of app tiles; the taskbar becomes a bottom tab bar.
+ * - Apps open one at a time, full screen, like pages. Opening an app adds a
+ *   history entry, so the phone's back button returns to the home page
+ *   instead of leaving the site.
+ *
+ * Both: pointer events (mouse + touch + pen), Escape closes the top window,
+ * focus moves into a window on open and back to its opener on close.
+ * No persistence — refresh resets icon positions and closes all windows.
  * ------------------------------------------------------------------------- */
 
 (() => {
@@ -31,7 +41,11 @@
   const OPEN_FRAC  = 0.85; // default size on open
   const SMALL_FRAC = 0.60; // size after clicking restore from maximised
 
-  const DRAG_THRESHOLD = 4; // px before a mousedown counts as a drag
+  const DRAG_THRESHOLD = 4; // px before a pointerdown counts as a drag
+
+  // Must match the phone breakpoint in style.css.
+  const PHONE = window.matchMedia("(max-width: 900px)");
+  const isPhone = () => PHONE.matches;
 
   // -- Window manager state -------------------------------------------------
 
@@ -43,19 +57,50 @@
     win.style.zIndex = String(++zCounter);
   }
 
-  function openApp(app) {
-    if (openWindows.has(app)) {
-      const win = openWindows.get(app);
-      win.classList.remove("is-minimised");
-      focusWindow(win);
-      updateTaskbarState();
-      return;
+  // The app named in the URL hash (`#games` or `#games:ordinem` → "games").
+  const hashApp = () => location.hash.slice(1).split(":")[0];
+
+  // Clear the hash without adding a history entry (used when the window the
+  // hash points at is closed or minimised).
+  function clearHashFor(app) {
+    if (hashApp() === app) {
+      history.replaceState(null, "", location.pathname + location.search);
     }
-    const win = createWindow(app);
-    openWindows.set(app, win);
-    windowsLayer.appendChild(win);
+  }
+
+  // `fromHash` is true when applyHash() is the caller — the URL is already
+  // right, so don't push another history entry.
+  function openApp(app, { fromHash = false } = {}) {
+    if (!fromHash && hashApp() !== app) {
+      history.pushState(null, "", "#" + app);
+    }
+
+    // Phone: one app at a time, like pages.
+    if (isPhone()) {
+      openWindows.forEach((w, a) => { if (a !== app) w.classList.add("is-minimised"); });
+    }
+
+    let win = openWindows.get(app);
+    if (win) {
+      win.classList.remove("is-minimised");
+    } else {
+      win = createWindow(app);
+      openWindows.set(app, win);
+      windowsLayer.appendChild(win);
+    }
+    // Remember where focus came from so closing can hand it back.
+    const opener = document.activeElement;
+    if (opener && opener !== document.body && !win.contains(opener)) win.opener = opener;
     focusWindow(win);
+    win.focus({ preventScroll: true });
     updateTaskbarState();
+  }
+
+  function restoreFocus(win, app) {
+    const target = win.opener && win.opener.isConnected && win.opener.offsetParent !== null
+      ? win.opener
+      : document.querySelector(`.taskbar-app[data-app="${app}"]`);
+    if (target) target.focus({ preventScroll: true });
   }
 
   function closeApp(app) {
@@ -63,14 +108,28 @@
     if (!win) return;
     win.remove();
     openWindows.delete(app);
+    clearHashFor(app);
     updateTaskbarState();
+    restoreFocus(win, app);
   }
 
   function minimiseApp(app) {
     const win = openWindows.get(app);
     if (!win) return;
     win.classList.add("is-minimised");
+    clearHashFor(app);
     updateTaskbarState();
+    if (win.contains(document.activeElement)) restoreFocus(win, app);
+  }
+
+  // Topmost visible window (highest z-index), for Escape-to-close.
+  function topWindowApp() {
+    let top = null, topZ = -1;
+    openWindows.forEach((w, a) => {
+      const z = Number(w.style.zIndex) || 0;
+      if (!w.classList.contains("is-minimised") && z > topZ) { top = a; topZ = z; }
+    });
+    return top;
   }
 
   // Maximise button toggles between fullscreen (100%) and a smaller
@@ -105,19 +164,31 @@
 
   function showDesktop() {
     openWindows.forEach((win) => win.classList.add("is-minimised"));
+    const app = hashApp();
+    if (app) clearHashFor(app);
     updateTaskbarState();
   }
 
   // is-open = window exists (underline persists, even when minimised).
   // is-active = window exists AND is not minimised (background highlight).
   // So multiple visible windows can all carry the highlight; only minimising
-  // (or closing) clears it.
+  // (or closing) clears it. Also flags <body> while any window is visible so
+  // the phone home page stops scrolling underneath it.
   function updateTaskbarState() {
+    let anyVisible = false;
     document.querySelectorAll(".taskbar-app").forEach((btn) => {
       const win = openWindows.get(btn.dataset.app);
+      const visible = !!win && !win.classList.contains("is-minimised");
       btn.classList.toggle("is-open", !!win);
-      btn.classList.toggle("is-active", !!win && !win.classList.contains("is-minimised"));
+      btn.classList.toggle("is-active", visible);
+      if (visible) {
+        btn.setAttribute("aria-current", "page");
+        anyVisible = true;
+      } else {
+        btn.removeAttribute("aria-current");
+      }
     });
+    document.body.classList.toggle("has-open-window", anyVisible);
   }
 
   // -- Window construction --------------------------------------------------
@@ -131,6 +202,7 @@
     win.setAttribute("data-theme", app);
     win.setAttribute("role", "dialog");
     win.setAttribute("aria-label", meta.title);
+    win.tabIndex = -1; // focusable so openApp() can move focus into it
 
     // Apps open at OPEN_FRAC of the viewport (85%) — big enough to read as a
     // real fullscreen app, but with enough margin around the edges that the
@@ -174,15 +246,16 @@
     win.querySelector(".window-min").addEventListener("click",   (e) => { e.stopPropagation(); minimiseApp(app); });
     win.querySelector(".window-max").addEventListener("click",   (e) => { e.stopPropagation(); toggleMaximise(app); });
 
-    // Focus on any mousedown inside the window
-    win.addEventListener("mousedown", () => focusWindow(win));
+    // Bring to front on any press inside the window
+    win.addEventListener("pointerdown", () => focusWindow(win));
 
     // Drag via title bar (background area, not buttons)
     makeWindowDraggable(win);
 
-    // Double-click title bar toggles maximise
+    // Double-click title bar toggles maximise (desktop only — on phones every
+    // window is already full screen)
     win.querySelector(".window-titlebar").addEventListener("dblclick", (e) => {
-      if (e.target.closest(".window-control")) return;
+      if (e.target.closest(".window-control") || isPhone()) return;
       toggleMaximise(app);
     });
 
@@ -399,25 +472,29 @@
 
   // -- Window dragging ------------------------------------------------------
 
+  // Pointer capture keeps move/up events flowing to the title bar even when
+  // the pointer leaves it, so no document-level listeners are needed (and
+  // nothing is left behind when the window closes).
   function makeWindowDraggable(win) {
     const titlebar = win.querySelector(".window-titlebar");
     let dragging = false;
     let sx = 0, sy = 0, startLeft = 0, startTop = 0;
 
-    titlebar.addEventListener("mousedown", (e) => {
+    titlebar.addEventListener("pointerdown", (e) => {
       if (e.button !== 0) return;
       if (e.target.closest(".window-control")) return;
-      if (win.classList.contains("is-maximised")) return;
+      if (win.classList.contains("is-maximised") || isPhone()) return;
       dragging = true;
       sx = e.clientX;
       sy = e.clientY;
       startLeft = parseFloat(win.style.left) || 0;
       startTop  = parseFloat(win.style.top)  || 0;
+      titlebar.setPointerCapture(e.pointerId);
       document.body.classList.add("is-dragging-window");
       e.preventDefault();
     });
 
-    document.addEventListener("mousemove", (e) => {
+    titlebar.addEventListener("pointermove", (e) => {
       if (!dragging) return;
       const layerRect = windowsLayer.getBoundingClientRect();
       let nx = startLeft + (e.clientX - sx);
@@ -429,34 +506,33 @@
       win.style.top  = ny + "px";
     });
 
-    document.addEventListener("mouseup", () => {
+    const endDrag = () => {
       if (!dragging) return;
       dragging = false;
       document.body.classList.remove("is-dragging-window");
-    });
+    };
+    titlebar.addEventListener("pointerup", endDrag);
+    titlebar.addEventListener("pointercancel", endDrag);
   }
 
   // -- Draggable desktop icons ---------------------------------------------
 
-  function setupDraggableIcons() {
-    const grid = document.querySelector(".app-grid");
-    const desktop = document.querySelector(".desktop");
-    if (!grid || !desktop) return;
+  // Desktop layout: icons are "freed" from the grid and become absolutely
+  // positioned, draggable children of .desktop. Phone layout: they sit back
+  // in the grid as plain tiles. setIconMode() switches between the two
+  // whenever the PHONE media query changes (rotating a tablet, resizing).
+  const iconLayout = { icons: [], clones: [], grid: null, desktop: null, freed: false };
 
-    const icons = Array.from(grid.querySelectorAll(".app-icon"));
+  function setupIcons() {
+    iconLayout.grid = document.querySelector(".app-grid");
+    iconLayout.desktop = document.querySelector(".desktop");
+    if (!iconLayout.grid || !iconLayout.desktop) return;
 
-    // On narrow screens, leave the grid layout alone — dragging icons in a
-    // packed phone layout feels bad and there's no room to move them.
-    if (window.innerWidth <= 900) {
-      icons.forEach((icon) => wireIconClick(icon));
-      return;
-    }
-
-    // Replace originals in the grid with invisible clones, so the grid still
-    // computes the staircase layout (and reflows on resize) and we can read
-    // each "would-be" position via getBoundingClientRect on the clones.
-    // The actual interactive icons go into .desktop as absolute children.
-    const measurementClones = icons.map((icon) => {
+    iconLayout.icons = Array.from(iconLayout.grid.querySelectorAll(".app-icon"));
+    // Invisible stand-ins that stay in the grid while the real icons are
+    // freed, so the grid still computes the staircase layout (and reflows on
+    // resize) and each "would-be" position can be read off a clone.
+    iconLayout.clones = iconLayout.icons.map((icon) => {
       const clone = icon.cloneNode(true);
       clone.style.visibility = "hidden";
       clone.removeAttribute("data-app");
@@ -464,58 +540,83 @@
       clone.tabIndex = -1;
       return clone;
     });
-    icons.forEach((icon, i) => grid.replaceChild(measurementClones[i], icon));
+    iconLayout.icons.forEach(wireIcon);
 
-    // Promote each original to absolute inside .desktop.
-    icons.forEach((icon) => {
-      icon.style.position = "absolute";
-      icon.style.transform = "none";
-      icon.style.margin = "0";
-      icon.style.zIndex = "3"; // above decor (1) and panels (2)
-      desktop.appendChild(icon);
-      makeIconDraggable(icon);
-    });
+    setIconMode();
+    PHONE.addEventListener("change", setIconMode);
+    // Re-place undragged icons whenever the desktop or the grid changes size
+    // (window resize, rotation, fonts loading). More reliable than the
+    // window "resize" event, which can fire before layout has settled.
+    const ro = new ResizeObserver(repositionUndragged);
+    ro.observe(iconLayout.desktop);
+    ro.observe(iconLayout.grid);
+  }
 
-    // Apply current clone positions, and re-apply on resize for any icon
-    // the user hasn't manually dragged.
-    function repositionUndragged() {
-      const desktopRect = desktop.getBoundingClientRect();
+  function setIconMode() {
+    const { icons, clones, grid, desktop } = iconLayout;
+    const wantFree = !isPhone();
+    if (wantFree === iconLayout.freed) return;
+
+    if (wantFree) {
       icons.forEach((icon, i) => {
-        if (icon.dataset.dragged === "true") return;
-        const r = measurementClones[i].getBoundingClientRect();
-        icon.style.left = (r.left - desktopRect.left) + "px";
-        icon.style.top  = (r.top  - desktopRect.top)  + "px";
+        grid.replaceChild(clones[i], icon);
+        icon.classList.add("is-free");
+        desktop.appendChild(icon);
       });
+      iconLayout.freed = true;
+      repositionUndragged();
+    } else {
+      icons.forEach((icon, i) => {
+        icon.classList.remove("is-free", "is-dragging");
+        icon.style.left = icon.style.top = "";
+        delete icon.dataset.dragged;
+        grid.replaceChild(icon, clones[i]);
+      });
+      iconLayout.freed = false;
     }
-    repositionUndragged();
-    window.addEventListener("resize", repositionUndragged);
   }
 
-  function wireIconClick(icon) {
-    icon.addEventListener("click", (e) => {
-      e.preventDefault();
-      openApp(icon.dataset.app);
+  // Apply current clone positions to any icon the user hasn't dragged.
+  function repositionUndragged() {
+    if (!iconLayout.freed) return;
+    const desktopRect = iconLayout.desktop.getBoundingClientRect();
+    iconLayout.icons.forEach((icon, i) => {
+      if (icon.dataset.dragged === "true") return;
+      const r = iconLayout.clones[i].getBoundingClientRect();
+      icon.style.left = (r.left - desktopRect.left) + "px";
+      icon.style.top  = (r.top  - desktopRect.top)  + "px";
     });
   }
 
-  function makeIconDraggable(icon) {
+  // One handler set for both layouts. `click` opens the app, so mouse, touch
+  // and keyboard (Enter / Space) all work; a drag swallows the click that
+  // follows it. Dragging is only active while the icon is freed.
+  function wireIcon(icon) {
     let pressed = false;
     let dragging = false;
+    let justDragged = false;
     let sx = 0, sy = 0, startLeft = 0, startTop = 0;
-    const desktop = document.querySelector(".desktop");
 
-    icon.addEventListener("mousedown", (e) => {
-      if (e.button !== 0) return;
+    icon.addEventListener("click", (e) => {
+      e.preventDefault();
+      if (justDragged) { justDragged = false; return; }
+      openApp(icon.dataset.app);
+    });
+
+    icon.addEventListener("pointerdown", (e) => {
+      if (e.button !== 0 || !iconLayout.freed) return;
       pressed = true;
       dragging = false;
+      justDragged = false;
       sx = e.clientX;
       sy = e.clientY;
       startLeft = parseFloat(icon.style.left) || 0;
       startTop  = parseFloat(icon.style.top)  || 0;
-      e.preventDefault();
+      icon.setPointerCapture(e.pointerId);
+      e.preventDefault(); // no text selection / native image drag
     });
 
-    document.addEventListener("mousemove", (e) => {
+    icon.addEventListener("pointermove", (e) => {
       if (!pressed) return;
       const dx = e.clientX - sx;
       const dy = e.clientY - sy;
@@ -527,7 +628,7 @@
       }
       if (!dragging) return;
 
-      const desktopRect = desktop.getBoundingClientRect();
+      const desktopRect = iconLayout.desktop.getBoundingClientRect();
       let nx = startLeft + dx;
       let ny = startTop  + dy;
       // Keep within desktop bounds
@@ -537,24 +638,21 @@
       icon.style.top  = ny + "px";
     });
 
-    document.addEventListener("mouseup", (e) => {
+    const endPress = () => {
       if (!pressed) return;
       pressed = false;
       if (dragging) {
+        dragging = false;
+        justDragged = true; // swallow the click that follows the drag
         icon.classList.remove("is-dragging");
         document.body.classList.remove("is-dragging-icon");
-        dragging = false;
-        // Suppress the click that may follow if mouseup landed on the icon.
-        // {once: true} cleans up if click fires; setTimeout cleans up if it doesn't
-        // (e.g. mouseup happened off-icon — no click would be dispatched).
-        const swallow = (ev) => { ev.stopPropagation(); ev.preventDefault(); };
-        icon.addEventListener("click", swallow, { capture: true, once: true });
-        setTimeout(() => icon.removeEventListener("click", swallow, true), 0);
-      } else {
-        // Treat as click → open the app
-        openApp(icon.dataset.app);
+        // If the pointer was released off the icon no click fires, so don't
+        // let the flag leak into the next real click.
+        setTimeout(() => { justDragged = false; }, 0);
       }
-    });
+    };
+    icon.addEventListener("pointerup", endPress);
+    icon.addEventListener("pointercancel", endPress);
   }
 
   // -- Taskbar wiring -------------------------------------------------------
@@ -566,8 +664,9 @@
       btn.addEventListener("click", (e) => {
         e.preventDefault();
         const win = openWindows.get(app);
-        if (win && !win.classList.contains("is-minimised")) {
-          // Already open and visible → minimise (Win11 behaviour)
+        if (win && !win.classList.contains("is-minimised") && !isPhone()) {
+          // Already open and visible → minimise (Win11 behaviour). On phones
+          // the taskbar is a tab bar, where tapping the current tab stays put.
           minimiseApp(app);
         } else {
           openApp(app);
@@ -634,11 +733,16 @@
   function applyHash() {
     const raw = location.hash.replace(/^#/, "");
 
-    // Empty hash → reset every open list/detail window back to its list view.
-    // Means clicking the browser back button from a detail view returns to
-    // the list (because the previous history entry typically had no hash or
-    // just `#<app>`).
+    // Empty hash (e.g. the back button after opening an app):
+    // - phone: back to the home page, so hide every open app;
+    // - desktop: reset every open list/detail window back to its list view
+    //   (windows stay open, like a real desktop).
     if (!raw) {
+      if (isPhone()) {
+        openWindows.forEach((w) => w.classList.add("is-minimised"));
+        updateTaskbarState();
+        return;
+      }
       openWindows.forEach((w) => {
         const list   = w.querySelector('[data-view="list"]');
         const detail = w.querySelector('[data-view="detail"]');
@@ -651,7 +755,7 @@
     if (!appId || !APPS[appId]) return;
 
     // Open the app (idempotent: focuses + un-minimises if already open).
-    openApp(appId);
+    openApp(appId, { fromHash: true });
 
     const win = openWindows.get(appId);
     if (!win) return;
@@ -691,8 +795,21 @@
     const taskbar = document.querySelector(".taskbar");
     document.body.insertBefore(windowsLayer, taskbar);
 
-    setupDraggableIcons();
+    setupIcons();
     wireTaskbar();
+
+    // Escape closes the topmost window. Inside a search box that still has
+    // text, Escape just clears the box (browser default) instead.
+    document.addEventListener("keydown", (e) => {
+      if (e.key !== "Escape") return;
+      if (e.target.matches?.("input, textarea") && e.target.value) return;
+      if (document.querySelector(".context-menu")) {
+        document.querySelectorAll(".context-menu").forEach((m) => m.remove());
+        return;
+      }
+      const app = topWindowApp();
+      if (app) closeApp(app);
+    });
 
     // Hash routing — keep UI in sync with location.hash so URLs like
     // `#blogs:blog-3` deep-link to a specific detail view. Runs once now to
