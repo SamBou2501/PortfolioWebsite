@@ -311,6 +311,15 @@
       });
     }
 
+    // In-page "Jump to" buttons on long detail pages. These scroll instead of
+    // using #anchors, because the URL hash is reserved for app routing.
+    win.querySelectorAll("[data-jump]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const target = win.querySelector(`[data-jump-id="${CSS.escape(btn.dataset.jump)}"]`);
+        if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    });
+
     // Blogs decoration: scatter a small game/design sketch into each <li>
     // alternating left/right margin. Pulls from a fixed pool so new rows
     // added later inherit the same scattered-sketchbook treatment with no
@@ -763,6 +772,21 @@
       if (trigger) {
         const titleTarget = detailView.querySelector("[data-detail-title-target]");
         if (titleTarget) titleTarget.textContent = trigger.dataset.detailTitle || detailId;
+        // Apps with per-item content (Games) hold one [data-detail-panel] per
+        // trigger; show only the matching one. Apps without panels (Blogs)
+        // keep their single shared detail view.
+        detailView.querySelectorAll("[data-detail-panel]").forEach((panel) => {
+          panel.hidden = panel.dataset.detailPanel !== detailId;
+          // Panel images carry data-src so opening the Games list doesn't
+          // download every game's images; load them the first time the
+          // panel is shown (loading="lazy" still staggers them by scroll).
+          if (!panel.hidden) {
+            panel.querySelectorAll("img[data-src]").forEach((img) => {
+              img.src = img.dataset.src;
+              img.removeAttribute("data-src");
+            });
+          }
+        });
         listView.hidden   = true;
         detailView.hidden = false;
       } else {

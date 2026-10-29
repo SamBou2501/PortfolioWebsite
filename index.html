@@ -25,8 +25,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Caveat:wght@500;600&family=Orbitron:wght@800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/themes.css?v=5">
-  <link rel="stylesheet" href="css/style.css?v=5">
+  <link rel="stylesheet" href="css/themes.css?v=6">
+  <link rel="stylesheet" href="css/style.css?v=6">
 </head>
 <body>
   <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -682,7 +682,8 @@
            sketches can sit in the side margins without getting clipped by
            the card's own overflow:hidden. Sketches are pure decoration
            (pointer-events: none, aria-hidden) and collapse on narrow windows. -->
-      <div class="games-grid" data-view="list">
+      <div class="games-list" data-view="list">
+      <div class="games-grid">
         <div class="game-card-row">
           <button class="game-card" type="button" data-detail-trigger="ordinem" data-detail-title="ORDINEM">
             <div class="game-card-image">
@@ -993,34 +994,580 @@
         </div>
       </div>
 
-      <!-- Detail view: shown when a card is clicked. js/desktop.js fills the title
-           from the card's data-detail-title; the rest of the panel is shared (same
-           sketch + "coming soon" copy as Blogs) until per-game content is written. -->
+      <!-- Study projects: smaller cards under the games, same detail routing. -->
+      <section class="study-section">
+        <h3 class="app-subtitle">Study projects</h3>
+        <div class="study-grid">
+          <button class="study-card" type="button" data-detail-trigger="capstone" data-detail-title="Ultra Modular Systems">
+            <span class="study-card-kicker">Capstone · UE5</span>
+            <span class="study-card-title">Ultra Modular Systems</span>
+            <span class="study-card-desc">A UE5 framework for fully modular abilities, effects, stats and art, built over 3 months.</span>
+          </button>
+          <button class="study-card has-image" type="button" data-detail-trigger="zorde" data-detail-title="ZORDE">
+            <img class="study-card-image" src="assets/games/zorde-moodboard.webp" width="1600" height="994" alt="" loading="lazy">
+            <span class="study-card-kicker">Assessment · Level design</span>
+            <span class="study-card-title">ZORDE's map</span>
+            <span class="study-card-desc">A huge medieval castle map with paranatural and eldritch elements, for a zombie horde shooter.</span>
+          </button>
+        </div>
+      </section>
+      </div>
+
+      <!-- Detail view: one .case-study panel per card. applyHash() in
+           js/desktop.js shows the panel whose data-detail-panel matches the
+           hash id (#games:ordinem etc.). Content is Samuel's "Website Portfolio"
+           draft (Obsidian, V3). Images live in assets/games/ (-full.webp = the
+           big click-to-open version), PDFs in assets/docs/. -->
       <div class="detail-view" data-view="detail" hidden>
         <button class="detail-view-back" type="button" data-detail-back>
           <span class="detail-view-back-arrow" aria-hidden="true">&larr;</span>
           Back to all games
         </button>
-        <div class="detail-view-stage">
-          <h3 class="detail-view-title" data-detail-title-target>[Game]</h3>
-          <div class="detail-view-sketch" aria-hidden="true">
-            <svg viewBox="0 0 220 180">
-              <g filter="url(#sketch-roughen)" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" transform="rotate(-3 110 90)">
-                <rect x="40" y="20" width="120" height="140" rx="3"/>
-                <path d="M 55 55 Q 75 52, 95 55 T 135 55 T 145 55"/>
-                <path d="M 55 75 Q 75 72, 95 75 T 135 75 T 145 75"/>
-                <path d="M 55 95 Q 75 92, 95 95 T 125 95"/>
-                <path d="M 55 115 Q 75 112, 95 115 T 145 115"/>
-              </g>
-              <g filter="url(#sketch-roughen)" stroke="currentColor" stroke-width="2" fill="currentColor" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="170" y1="155" x2="200" y2="120"/>
-                <line x1="170" y1="155" x2="167" y2="161"/>
-                <polygon points="200,120 207,123 202,129"/>
-              </g>
-            </svg>
-          </div>
-          <p class="detail-view-message">More info coming soon!</p>
-        </div>
+
+        <!-- ============================ ORDINEM ============================ -->
+        <article class="case-study" data-detail-panel="ordinem" hidden>
+          <header class="cs-header">
+            <h3 class="cs-title">ORDINEM</h3>
+            <p class="cs-meta">Digital trading card game · PC (Epic Games) · 2022–2026 · Lead Game Designer</p>
+            <p class="cs-lede">ORDINEM is a PvP trading card game in the vein of Magic: The Gathering, Hearthstone and Legends of Runeterra. You aren't a lone hero: you command an entire city, drawing on its weaves to summon followers and bear down on your opponent's city.</p>
+            <ul class="cs-highlights">
+              <li>Designed every core mechanic, including turn structure, player actions, card types, costs and resources.</li>
+              <li>Designed the full first set of ~210 cards.</li>
+              <li>Held the overall vision: wrote the lore, set the art direction and made sure it all came together with the gameplay and mechanics.</li>
+              <li>Shipped closed alpha (late 2023) → open beta (late 2024) → v1.0 (late 2025) → v1.5 (early 2026). Development is now paused.</li>
+            </ul>
+          </header>
+
+          <nav class="cs-jump" aria-label="Jump to a design problem">
+            <span class="cs-jump-label">Jump to</span>
+            <button type="button" data-jump="ordinem-p1">1 · Making lands feel good</button>
+            <button type="button" data-jump="ordinem-p2">2 · The UX of using mana</button>
+            <button type="button" data-jump="ordinem-p3">3 · Feeling like a city</button>
+            <button type="button" data-jump="ordinem-p4">4 · Each Order's mechanics</button>
+            <button type="button" data-jump="ordinem-p5">5 · Naming things</button>
+          </nav>
+
+          <section class="cs-section">
+            <h4 class="app-subtitle">Design overview: why ORDINEM isn't just MTG</h4>
+            <p>My brief was: "Make a similarly complex game to MTG so we can capture that market, but in crypto." So I wanted to keep the MTG mechanics that give it depth, the ones few other digital card games use, while still giving players a reason to pick ORDINEM over MTG Arena.</p>
+            <p>My research showed that almost every competitor sets itself apart by changing mana or lands. I didn't want to push those too far, or we'd lose the "MTG-ness" that was the whole point.</p>
+            <p>So I flipped the perspective instead. In MTG you're a single planeswalker. In ORDINEM you're an entire city. The main difference comes from the theme, lore and win conditions rather than the core rules. I then designed mechanics to support that shift and to fix some of the problems MTG Arena's best-of-one format is known for, such as having no sideboard (no 'flexible' card slots to give a horrible matchup a fighting chance). The results were <strong>city abilities</strong> (inspired by Hearthstone's hero powers) and a <strong>Market</strong> (inspired by the digital card game Eternal).</p>
+            <p class="cs-status">The Market and the full city design were never fully implemented because other work took priority, but Problem 3 below shows where the city design was heading.</p>
+          </section>
+
+          <section class="cs-section">
+            <h4 class="app-subtitle">What I did</h4>
+            <ul class="cs-did">
+              <li><strong>Lead Game Designer.</strong> Designed every mechanic (turn phases, player actions, card types, costs, resources) and all ~210 cards in the first set.</li>
+              <li><strong>Vision holder.</strong> Created the theming, lore and art style, and kept the whole team aligned to them through weekly meetings, Discord and Monday (our task manager).</li>
+              <li><strong>Balance and feedback.</strong> Sole owner of card balance. Triaged feedback from players and devs, and vetted and prioritised QA bugs.</li>
+              <li><strong>Documentation.</strong> Wrote and maintained the Game Design Document (Google Docs from Jan 2023, then GitBook, through early 2026). Built the card spreadsheet, the single source of truth for every card's numbers, and maintained it from Jan 2023 to early 2026 as player feedback, team feedback, technical limits and my own playtesting came in.</li>
+              <li><strong>Research.</strong> Played and studied MTG Arena, Hearthstone, Legends of Runeterra, Riftbound, Gods Unchained, Eternal and more, to find references, explain concepts and validate ideas.</li>
+              <li><strong>Hands-on polish.</strong> For v1.5 I implemented visual, UI, animation and sound-feedback improvements myself in Unity.</li>
+            </ul>
+            <div class="cs-docs">
+              <a class="cs-doc" href="assets/docs/ORIGINSCardsStats_ORDINEMTDD2026.pdf" target="_blank" rel="noopener">
+                <span class="cs-doc-badge" aria-hidden="true">PDF</span>
+                <span class="cs-doc-text"><strong>ORDINEM TDD: card stats</strong> Every card's stats, effect and dev status. Just one of the sheets in the TDD. (6.9 MB)</span>
+              </a>
+            </div>
+          </section>
+
+          <section class="cs-section">
+            <h4 class="app-subtitle">Glossary</h4>
+            <div class="cs-table-wrap">
+              <table class="cs-table">
+                <thead><tr><th>ORDINEM term</th><th>What it is</th></tr></thead>
+                <tbody>
+                  <tr><td>City</td><td>You, the player (like MTG's planeswalker or Hearthstone's hero)</td></tr>
+                  <tr><td>Weaves</td><td>Resource cards (like MTG lands)</td></tr>
+                  <tr><td>Enweave</td><td>Put a weave into play from the top of your weave deck</td></tr>
+                  <tr><td>Threads</td><td>Mana (like MTG, Hearthstone and LoR)</td></tr>
+                  <tr><td>Orders</td><td>The five factions (like MTG's colours)</td></tr>
+                  <tr><td>Followers</td><td>Creatures/units (like MTG creatures)</td></tr>
+                  <tr><td>Advancements</td><td>Non-weave cards. They 'advance' your city.</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="cs-problem" data-jump-id="ordinem-p1">
+            <p class="cs-problem-label">Problem 1</p>
+            <h4 class="cs-problem-title">Making lands feel good</h4>
+            <p><strong>The problem:</strong> In MTG, drawing too many or too few lands can decide a game by pure luck. Card games have been trying to fix this for decades. I wanted a system that balanced deckbuilding expression, meaningful choices during play, and being easy to understand.</p>
+            <h5 class="cs-subhead">The iterations</h5>
+            <ol class="cs-iterations">
+              <li><strong>Weaves in the main deck, like MTG.</strong> With how our thread system worked, this was far too close to MTG, so it was scrapped.</li>
+              <li><strong>A separate weave deck, with a free weave each turn on top of your draw.</strong> That's essentially Hearthstone or Legends of Runeterra. Those games make cheap cards stronger since you're guaranteed your resource each turn, and our cards weren't designed that way. It felt refreshing in testing, but I really wanted this to be a tactical decision, so I didn't go with it.</li>
+              <li><strong>Each turn, choose: draw a card <em>or</em> enweave.</strong> Much better for both feel and balance, but something was still missing. The choice didn't feel <em>meaningful</em>.</li>
+              <li><strong>Double every cost and give two picks per turn</strong> (draw + draw, draw + enweave, or enweave + enweave). Players disliked it at first but grew to like it. Two problems remained: double-enweaving was always correct until turn 3 or 4 (V3 had this too), and doing maths with doubled numbers in your head was a pain.</li>
+              <li><strong>Back to one deck, like V1, but draw two cards a turn.</strong> My final design, planned for the next update before development was paused.</li>
+            </ol>
+            <p class="cs-status">V4 is live. V5 was fully designed but not shipped.</p>
+            <p><strong>I also explored and paper-tested many other systems:</strong> "any card can be played as a land" (Duel Masters, Star Wars: Unlimited), dropped because of the awful 'but I want to play this card!' feeling; and a Riftbound-style system, where lands can be 'recycled' and shuffled back into the deck, which would at least give two separate decks a reason to exist.</p>
+            <p class="cs-takeaway"><span class="cs-takeaway-label">Takeaway</span> Sometimes simpler is better, but you still have to test things to find out what's fun <em>and</em> practical.</p>
+            <figure class="cs-figure">
+              <div class="cs-pair">
+                <a class="cs-shot" href="assets/games/ordinem-enweave-2024.webp" target="_blank" rel="noopener"><span class="cs-shot-label">2024</span><img data-src="assets/games/ordinem-enweave-2024.webp" width="1172" height="1002" alt="ORDINEM's enweave and draw choice in 2024, with one pick per turn" loading="lazy"></a>
+                <a class="cs-shot" href="assets/games/ordinem-enweave-2026.webp" target="_blank" rel="noopener"><span class="cs-shot-label">2026</span><img data-src="assets/games/ordinem-enweave-2026.webp" width="1200" height="781" alt="ORDINEM's enweave and draw choice in 2026, with two picks per turn" loading="lazy"></a>
+              </div>
+              <figcaption>Enweaving and drawing in 2024 (one pick per turn) vs 2026 (two picks per turn).</figcaption>
+            </figure>
+          </section>
+
+          <section class="cs-problem" data-jump-id="ordinem-p2">
+            <p class="cs-problem-label">Problem 2</p>
+            <h4 class="cs-problem-title">The UX of using mana</h4>
+            <p><strong>The problem:</strong> MTG-style coloured mana was hard enough to design around (see the design overview), and on a digital client it became a huge UX problem: players struggled to pay with the right colours.</p>
+            <h5 class="cs-subhead">The iterations</h5>
+            <ol class="cs-iterations">
+              <li><strong>Straight MTG mana.</strong> Tap weaves for the Orders of thread they produce, either when you need them or automatically. MTG Arena makes this look easy, but after only a little work on it I realised the UI behind it was far beyond our team's size and budget.</li>
+              <li><strong>Hybrid threads that count as more than one Order.</strong> How do you show hybrid colours clearly, and let players spend the colour they <em>meant</em> to? We actually built the UI, and only then saw how convoluted and messy it was.</li>
+              <li><strong>Weaves add threads to your pool automatically each turn.</strong> That raised a new question: pick the colour every time, or lock it in when the weave is played? Picking every turn became a chore as weaves piled up, so we switched to locking it in. This was better, but players kept locking in the wrong Order and regretting it.</li>
+              <li><strong>Influence, borrowed from Eternal.</strong> Threads become Orderless (colourless), and weaves give Influence instead, which unlocks cards of their Order. The trade-off is that once you meet a card's Influence requirement, you can cast as many copies as you like (in MTG every cast needs its coloured pips). But it's far simpler to use, and far easier to show in a digital UI.</li>
+            </ol>
+            <p class="cs-status">V4 was designed but never implemented, due to a team miscommunication and then the pause. The live game uses V3.</p>
+            <p class="cs-takeaway"><span class="cs-takeaway-label">Takeaway</span> Whether players can see and use something effectively in the UI <strong>is</strong> a design constraint, not an afterthought.</p>
+            <figure class="cs-figure">
+              <div class="cs-pair cs-pair-uneven">
+                <a class="cs-shot" href="assets/games/ordinem-hybrid-sketch.webp" target="_blank" rel="noopener"><span class="cs-shot-label">Sketch</span><img data-src="assets/games/ordinem-hybrid-sketch.webp" width="1200" height="994" alt="Sketch of hybrid mana shown as filled bars" loading="lazy"></a>
+                <a class="cs-shot" href="assets/games/ordinem-hybrid-mana-ui.webp" target="_blank" rel="noopener"><span class="cs-shot-label">Built</span><img data-src="assets/games/ordinem-hybrid-mana-ui.webp" width="1513" height="440" alt="The built hybrid mana UI: pips inside an expandable bar" loading="lazy"></a>
+              </div>
+              <figcaption>The initial sketch for hybrid mana as 'filled bars'. This was later changed to show the actual 'pips' you had inside an expandable bar. In practice, the bar became incredibly unwieldy, and I realised this was a mechanical design problem, not a UX one.</figcaption>
+            </figure>
+          </section>
+
+          <section class="cs-problem" data-jump-id="ordinem-p3">
+            <p class="cs-problem-label">Problem 3</p>
+            <h4 class="cs-problem-title">Making the player feel like a city</h4>
+            <p><strong>The problem:</strong> The player is meant to command an entire city, but neither the mechanics nor the flavour supported that, so players never felt like one.</p>
+            <h5 class="cs-subhead">The iterations</h5>
+            <ol class="cs-iterations">
+              <li><strong>One activated ability per city, paid with threads.</strong> Too simple, and too close to Hearthstone's hero powers. The choice wasn't interesting.</li>
+              <li><strong>The ability plus a change to starting life</strong>, to offset the wilder abilities. More interesting, but not there yet.</li>
+              <li><strong>Cities change several starting stats</strong> (life, starting cards and starting weaves) on top of the ability. More intriguing, and it gave me extra levers for balance, but it still felt lacking.</li>
+              <li><strong>Each city has a quest</strong> that powers you up as you complete it, or eventually wins you the game.</li>
+            </ol>
+            <p class="cs-status">V3 is live. V4 was fully designed but not implemented, as development was paused.</p>
+            <p><em>Also explored before settling on quests:</em> how the WoW TCG and Heroes of the Storm handle quests; buildable structures that give bonuses but double as objectives to attack (like MTG planeswalkers); places you capture and hold (like MTG Battles or Riftbound's battlefields).</p>
+            <p class="cs-takeaway"><span class="cs-takeaway-label">Takeaway</span> Stat tweaks can balance a city, but they can't make you feel like one. The fantasy has to come from what you do.</p>
+            <figure class="cs-figure cs-figure-narrow">
+              <a class="cs-shot" href="assets/games/ordinem-city.webp" target="_blank" rel="noopener"><img data-src="assets/games/ordinem-city.webp" width="1465" height="1026" alt="The Cultivator's Commune city card" loading="lazy"></a>
+              <figcaption>The Cultivator's Commune city gave you an ability to 'ramp' faster, plus more starting life but fewer starting cards.</figcaption>
+            </figure>
+          </section>
+
+          <section class="cs-problem" data-jump-id="ordinem-p4">
+            <p class="cs-problem-label">Problem 4</p>
+            <h4 class="cs-problem-title">Making each Order's mechanics work</h4>
+            <p><strong>The problem:</strong> I wanted each of the five Orders to have its own varied, useful set of keywords and effects that also came out of the lore. Some cards went through a dozen iterations.</p>
+            <h5 class="cs-subhead">The iterations</h5>
+            <ol class="cs-iterations">
+              <li><strong>Lots of unique, flavourful mechanics per Order.</strong> There were almost 20 keywords (e.g. <em>Decay</em> for Necros, our "black"), and many cards had several. They were fun to design, but hard to program, hard for players to learn, and spread too thin: each archetype had too few cards to actually work as a deck.</li>
+              <li><strong>A big prune.</strong> I simplified and streamlined the cards. But cutting that much power and complexity left some archetypes under-supported, and the surviving mechanics weren't memorable, partly from technical limits and partly because some just weren't fun in practice.</li>
+              <li><strong>Back to the roots.</strong> For v1.0 I reworked every Order's mechanics and many of its cards around a small set of signature mechanics (from over 20 keywords in total to under 10), with enough cards behind each to carry its archetypes. v1.5 added balance passes for playability and fun.</li>
+            </ol>
+            <p class="cs-takeaway"><span class="cs-takeaway-label">Takeaway</span> Complexity is fun for the designer, but it comes with a real cost to development <em>and</em> to players learning your game. Complexity has to be earnt and <em>needed</em>.</p>
+            <figure class="cs-figure">
+              <div class="cs-stack">
+                <a class="cs-shot" href="assets/games/ordinem-card-iterations-1.webp" target="_blank" rel="noopener"><span class="cs-shot-label">Mid 2024</span><img data-src="assets/games/ordinem-card-iterations-1.webp" width="1568" height="294" alt="Five cards in the card spreadsheet, mid 2024" loading="lazy"></a>
+                <a class="cs-shot" href="assets/games/ordinem-card-iterations-2.webp" target="_blank" rel="noopener"><span class="cs-shot-label">Mid 2025</span><img data-src="assets/games/ordinem-card-iterations-2.webp" width="1978" height="388" alt="The same five cards, mid 2025" loading="lazy"></a>
+                <a class="cs-shot" href="assets/games/ordinem-card-iterations-3.webp" target="_blank" rel="noopener"><span class="cs-shot-label">Mid 2026</span><img data-src="assets/games/ordinem-card-iterations-3.webp" width="1829" height="414" alt="The same five cards, mid 2026" loading="lazy"></a>
+              </div>
+              <figcaption>The same 5 cards at different points in development: mid 2024 → mid 2025 → mid 2026. A small example of the many iterations some cards went through.</figcaption>
+            </figure>
+          </section>
+
+          <section class="cs-problem" data-jump-id="ordinem-p5">
+            <p class="cs-problem-label">Problem 5</p>
+            <h4 class="cs-problem-title">Naming things</h4>
+            <p><strong>The problem:</strong> Honestly, the hardest part of the job for me. Every name had to tell most players what it does, be flavourful, <em>and</em> not copy another popular game's term. That's... really hard.</p>
+            <p>I'm still not happy with a lot of the names! Some I meant to change in the next big update, but development was paused before I got the chance. Most mechanics, card types, actions and phases were renamed several times. The breakthrough was to stop hunting for a middle ground and lean fully into the lore of 'cities at war':</p>
+            <div class="cs-table-wrap">
+              <table class="cs-table">
+                <thead><tr><th>Generic term</th><th>Earlier name(s)</th><th>ORDINEM name</th></tr></thead>
+                <tbody>
+                  <tr><td>Player / hero</td><td>Enclave, Commander</td><td>City</td></tr>
+                  <tr><td>Graveyard</td><td>Boneyard, Cemetery</td><td>Graveyard</td></tr>
+                  <tr><td>Lifelink</td><td>Siphon</td><td>Lifesteal</td></tr>
+                  <tr><td>Enchantment</td><td>Twine</td><td>Confluence</td></tr>
+                  <tr><td>Creature</td><td>Unit</td><td>Follower</td></tr>
+                  <tr><td>Artifact</td><td>Artefact, Relic</td><td>Works</td></tr>
+                  <tr><td>Tap</td><td>Exert</td><td>Exhaust</td></tr>
+                  <tr><td>Destroyed</td><td>Ruined, Killed</td><td>Destroyed</td></tr>
+                  <tr><td>'Second chance'</td><td>Reanimate</td><td>Undying</td></tr>
+                  <tr><td>Power</td><td>Strength</td><td>Attack</td></tr>
+                  <tr><td>Toughness</td><td>Resilience, Defence</td><td>Health</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="cs-takeaway"><span class="cs-takeaway-label">Takeaway</span> Committing fully to the fiction helped a ton, even without changing any of the mechanics. But it didn't always work: some words just need to be simple so players understand them immediately, and the extra flavour doesn't make up for losing that.</p>
+            <figure class="cs-figure">
+              <div class="cs-stack">
+                <a class="cs-shot" href="assets/games/ordinem-card-before-naming.webp" target="_blank" rel="noopener"><span class="cs-shot-label">Before</span><img data-src="assets/games/ordinem-card-before-naming.webp" width="956" height="52" alt="A card's rules text before the naming pass" loading="lazy"></a>
+                <a class="cs-shot" href="assets/games/ordinem-card-after-naming.webp" target="_blank" rel="noopener"><span class="cs-shot-label">After</span><img data-src="assets/games/ordinem-card-after-naming.webp" width="657" height="48" alt="The same card's rules text after the naming and icons pass" loading="lazy"></a>
+              </div>
+              <figcaption>A card before and after the second large naming and icons pass.</figcaption>
+            </figure>
+          </section>
+        </article>
+
+        <!-- ========================= STARVIN MARTIAN ========================= -->
+        <article class="case-study" data-detail-panel="starvin" hidden>
+          <header class="cs-header">
+            <h3 class="cs-title">STARVIN MARTIAN</h3>
+            <p class="cs-meta">Farming sim · PC (Epic Games) + Android · 2022–2025 · Lead Game Designer</p>
+            <p class="cs-lede">STARVIN MARTIAN is a PvE farming game in the vein of Township and Stardew Valley. You lead a brand-new colony on Mars, growing crazily spliced crops and animals and turning them into food to give your colonists a fighting chance.</p>
+            <ul class="cs-highlights">
+              <li>Took an acquired, generic mobile farming game and turned it into a Mars game, with a new theme, lore and art direction.</li>
+              <li>Rebuilt the progression curve and tech tree, reworked mechanics that weren't fun, designed new ones and designed the tutorial.</li>
+              <li>Shipped closed alpha (late 2023) → closed beta (late 2024) → open beta (v0.9, late 2025). Development is now paused.</li>
+            </ul>
+          </header>
+
+          <nav class="cs-jump" aria-label="Jump to a design problem">
+            <span class="cs-jump-label">Jump to</span>
+            <button type="button" data-jump="starvin-p1">1 · A curve built for microtransactions</button>
+            <button type="button" data-jump="starvin-p2">2 · Making it feel like Mars</button>
+            <button type="button" data-jump="starvin-p3">3 · Improving mechanics</button>
+            <button type="button" data-jump="starvin-p4">4 · UI and UX</button>
+          </nav>
+
+          <section class="cs-section">
+            <h4 class="app-subtitle">Design overview</h4>
+            <p>The company bought a successful mobile farming game and could reuse it with an entirely new theme. My brief was to turn it into a Mars game, at first just by directing new names and art. (I directed the art; I wasn't the artist.)</p>
+            <p>Early testing showed the bigger problem was underneath: the game's pacing was built around mobile microtransactions, and without them it wasn't fun or deep. I spent the next three years rebuilding its curve, reworking its mechanics and adding new ones.</p>
+          </section>
+
+          <section class="cs-section">
+            <h4 class="app-subtitle">What I did</h4>
+            <ul class="cs-did">
+              <li><strong>Lead Game Designer.</strong> Overhauled existing mechanics and added new ones, and retuned every build time, cost, XP amount and unlock for a smoother curve. Designed the tutorial to introduce new players to each mechanic.</li>
+              <li><strong>Vision holder.</strong> Created the theme, lore and art style. I made it sillier than my other games because that suited the gameplay and let us be crazier with designs ('Galaxy Grain', 'Orion Onion', 'Radiation Rabbit' and 'Gyroscopic Goat', to name a few). Kept the team aligned through weekly meetings, Discord and Monday.</li>
+              <li><strong>Documentation.</strong> Owned the GDD (Google Docs from early 2023, then GitBook, through late 2025). Built a master spreadsheet of every building, crop and animal and its build time (the most important number in a game like this), plus levels, XP and unlocks. Built a Miro tech tree showing what builds what, overhauled several times until it showed progression clearly.</li>
+              <li><strong>Balance and feedback.</strong> Sole owner of economy and progression balance. Triaged player and dev feedback and QA bugs, and decided what to implement, tweak or discard.</li>
+              <li><strong>Research.</strong> Studied Township, Town Star and other farming games (which I don't usually play), plus real research into what a Mars colony would actually need.</li>
+            </ul>
+            <figure class="cs-figure">
+              <a class="cs-shot" href="assets/games/starvin-tech-tree-full.webp" target="_blank" rel="noopener"><img data-src="assets/games/starvin-tech-tree.webp" width="2000" height="438" alt="STARVIN MARTIAN's tech tree, mapped out in Miro" loading="lazy"></a>
+              <figcaption>STARVIN MARTIAN's tech tree in visual form. Click to open it full size.</figcaption>
+            </figure>
+            <div class="cs-docs">
+              <a class="cs-doc" href="assets/docs/Levels_SMTDDEconomyStats.pdf" target="_blank" rel="noopener">
+                <span class="cs-doc-badge" aria-hidden="true">PDF</span>
+                <span class="cs-doc-text"><strong>Level and XP progression</strong> The XP each level needs and what it unlocks. (0.5 MB)</span>
+              </a>
+              <a class="cs-doc" href="assets/docs/Products_SMTDDEconomyStats.pdf" target="_blank" rel="noopener">
+                <span class="cs-doc-badge" aria-hidden="true">PDF</span>
+                <span class="cs-doc-text"><strong>Products</strong> Every product's unlock level, processing time and XP. (3.3 MB)</span>
+              </a>
+            </div>
+          </section>
+
+          <section class="cs-problem" data-jump-id="starvin-p1">
+            <p class="cs-problem-label">Problem 1</p>
+            <h4 class="cs-problem-title">A curve built for microtransactions</h4>
+            <p><strong>The problem:</strong> The base game's progression was built for mobile monetisation: a very non-linear curve that players were expected to skip by paying. Without the microtransactions, and played on PC, it felt grindy and uneven.</p>
+            <h5 class="cs-subhead">The iterations</h5>
+            <ol class="cs-iterations">
+              <li><strong>Reskin it with the original numbers.</strong> Playtesting wasn't favourable: it still felt very "mobile" and shallow.</li>
+              <li><strong>Retune the numbers.</strong> When the game was rebuilt in 2024, I reworked build times, costs and unlocks in the master spreadsheet and updated the docs as mechanics shifted after testing and budget changes. This made the game's curve feel much less grindy and uneven, but the mechanical depth and interesting choices were still lacking. For reference, reaching max level used to take months of playtime, most of it in the last few levels. My reshuffle cut that to weeks <em>and</em> made it far less back-ended.</li>
+              <li><strong>Overhaul construction items and expanding.</strong> These were two of the worst bottleneck mechanics in the game, and felt horrible when they went badly.</li>
+              <li><strong>Rebuild the curve and tech tree.</strong> In 2025 I overhauled the whole progression: an updated curve, a reorganised tech tree (mapped out in Miro) and simpler loops, both for budget and to make play smoother. Then came lots of testing to iron out bugs and make sure it felt good.</li>
+            </ol>
+            <p class="cs-status">V4 shipped in v0.9 on Epic Games and Android.</p>
+            <p class="cs-takeaway"><span class="cs-takeaway-label">Takeaway</span> Sometimes tuning numbers just isn't enough, even though it <em>does</em> help a lot.</p>
+            <figure class="cs-figure cs-figure-narrow">
+              <a class="cs-shot" href="assets/games/starvin-time-smoothing.webp" target="_blank" rel="noopener"><img data-src="assets/games/starvin-time-smoothing.webp" width="1645" height="1488" alt="Charts from the time-smoothing proposal comparing items' XP and build times with an ideal curve" loading="lazy"></a>
+              <figcaption>Part of my proposal to improve the game's overall curve, showing how far the XP and build times of many items were from where they ideally should be.</figcaption>
+            </figure>
+          </section>
+
+          <section class="cs-problem" data-jump-id="starvin-p2">
+            <p class="cs-problem-label">Problem 2</p>
+            <h4 class="cs-problem-title">Making it feel like Mars</h4>
+            <p><strong>The problem:</strong> The original game had almost no lore or explanation for anything. Our Mars version technically worked, but it didn't <em>feel</em> like feeding and building a colony.</p>
+            <h5 class="cs-subhead">The iterations</h5>
+            <ol class="cs-iterations">
+              <li><strong>Mars versions of standard farm items.</strong> It worked, but a lot of it was uninspired.</li>
+              <li><strong>Rework the lore and names.</strong> I made the lore less vague and more fun and playful, and researched fun references for names. Better, but something was still missing.</li>
+              <li><strong>Rebuild from the ground up.</strong> With brand-new art coming, I researched what terraforming Mars would actually require, plus other space concepts, and rebuilt the buildings and items around it (Wheat → Galaxy Grain, Cow → Cosmic Cow, Bread → Beacon Bread, Orange Tree → Meteorange Tree). I also made sure every asset could be identified at a glance, thinking about gameplay as well as looks.</li>
+              <li><strong>Use the tech-tree reshuffle.</strong> When the 2025 tech-tree overhaul reshuffled everything, I re-examined each item's place in both the tree and the fiction, so that progression and theme told the same story and fed into each other instead of being entirely separate. This helped a ton, but something was still missing.</li>
+              <li><strong>Add mechanics that add flavour.</strong> To close the gap we were still feeling, we added new mechanics. Colonists became a number you actually cared about, tied to your progression, and you could now see them wandering around. We also added the food quota: you had to put food into your Colony Hall to keep your colonists happy and fed. You're literally feeding the "Starvin' Martians"! This last one especially was a big improvement to flavour and game feel.</li>
+            </ol>
+            <p class="cs-status">Some mechanics from iteration 5 weren't shipped, as development was paused before they were fully implemented.</p>
+            <p class="cs-takeaway"><span class="cs-takeaway-label">Takeaway</span> Theme sticks best when progression and fiction tell the same story.</p>
+          </section>
+
+          <section class="cs-problem" data-jump-id="starvin-p3">
+            <p class="cs-problem-label">Problem 3</p>
+            <h4 class="cs-problem-title">Improving mechanics</h4>
+            <p><strong>The problem:</strong> With the way the tech tree was set up, many things were ginormous bottlenecks (on purpose, to drive microtransactions). Redoing the tech tree helped, but some mechanics had to be overhauled entirely. The depth just wasn't there.</p>
+            <h5 class="cs-subhead">The iterations</h5>
+            <ol class="cs-iterations">
+              <li><strong>Reshuffle numbers and remove unwanted mechanics.</strong> Definitely helpful, but it didn't fix the core issues, and we were still missing the depth we wanted. Feeling I was missing something, I went back to basics: I drew out the game's entire gameplay loop(s) and picked them apart.</li>
+              <li><strong>Add building upgrades.</strong> These helped, and gave players a real choice of what to upgrade, since each building had its own bonuses. But because of how they were implemented and tied to our own monetisation, they still left something to be desired.</li>
+              <li><strong>Add power and water.</strong> The main problem I identified was too few avenues for choice, and so no depth: the game was very 'railroady' by design. Power and water gave players things they had to manage, which added depth. Good in theory, but it didn't solve players not feeling like they had much choice.</li>
+              <li><strong>Add research.</strong> Permanent research you could unlock at a dedicated building. In dev testing this definitely helped, giving players more divergent paths to take.</li>
+              <li><strong>Move to a 'town hall' approach.</strong> Like Town Halls in Clash of Clans, the Colony Hall became upgradable, and each level gave you brand-new toys to build in any order, instead of each level handing you specific buildings and items.</li>
+            </ol>
+            <p class="cs-status">Iterations 4 and 5 were never properly released, as development was paused first.</p>
+            <p class="cs-takeaway"><span class="cs-takeaway-label">Takeaway</span> Sometimes fixing something that's broken means adding complementary pieces. Fixing one part isn't always enough.</p>
+            <figure class="cs-figure cs-figure-narrow">
+              <a class="cs-shot" href="assets/games/starvin-gameplay-loops-full.webp" target="_blank" rel="noopener"><img data-src="assets/games/starvin-gameplay-loops.webp" width="1438" height="1480" alt="A Miro flowchart of STARVIN MARTIAN's gameplay loops" loading="lazy"></a>
+              <figcaption>Working through STARVIN MARTIAN's gameplay loop(s) to figure out what specifically was causing problems.</figcaption>
+            </figure>
+          </section>
+
+          <section class="cs-problem" data-jump-id="starvin-p4">
+            <p class="cs-problem-label">Problem 4</p>
+            <h4 class="cs-problem-title">UI and UX</h4>
+            <p><strong>The problem:</strong> The inherited UI was uninspired, hard to extend, had real gaps in the player experience and didn't work on mobile.</p>
+            <h5 class="cs-subhead">The iterations</h5>
+            <ol class="cs-iterations">
+              <li><strong>Reskinned.</strong> Testing quickly showed gaps in the player experience.</li>
+              <li><strong>Usability pass</strong> to make the game easier to play. Good, but it could be better.</li>
+              <li><strong>Re-themed</strong> to fix the expandability issues.</li>
+              <li><strong>Mobile overhaul</strong>, visually and mechanically, with the lessons carried back into the PC version.</li>
+            </ol>
+            <p class="cs-status"><strong>My part:</strong> I didn't design the UI. I did the initial research into similar games for the designers, gave vision and gameplay feedback through each pass, and directed the new icons for buildings and products.</p>
+            <p class="cs-takeaway"><span class="cs-takeaway-label">Takeaway</span> UI/UX is often overlooked until the last minute, but it's a huge part of a game's experience. Game designers need to be aware of it because it impacts gameplay so much.</p>
+          </section>
+        </article>
+
+        <!-- ========================== WAR OF STEEL ========================== -->
+        <article class="case-study" data-detail-panel="war-of-steel" hidden>
+          <header class="cs-header">
+            <h3 class="cs-title">WAR OF STEEL</h3>
+            <p class="cs-meta">Mech battle royale · PC (Epic Games) · 2022–2025 · Lead Game Designer</p>
+            <p class="cs-lede">WAR OF STEEL is a battle royale where players pilot mechs and blow each other up, entertaining a world that's watching an event commemorating the extra-terrestrial war these mechs won for humanity over a century ago.</p>
+            <ul class="cs-highlights">
+              <li>Designed the map, mech types, weapons, pickups and battle-royale mechanics, and wrote the lore.</li>
+              <li>Worked across three development teams.</li>
+              <li>Reached closed alpha in late Q2 2025, before development was paused due to loss of funding.</li>
+            </ul>
+          </header>
+
+          <nav class="cs-jump" aria-label="Jump to a design problem">
+            <span class="cs-jump-label">Jump to</span>
+            <button type="button" data-jump="wos-p1">1 · Creating the map</button>
+            <button type="button" data-jump="wos-p2">2 · Making mechs feel good</button>
+            <button type="button" data-jump="wos-p3">3 · How much should the mech do?</button>
+          </nav>
+
+          <section class="cs-section">
+            <h4 class="app-subtitle">Design overview</h4>
+            <p>There was no real template for this game. Mech games aren't battle royales, and battle royales don't have mechs. So much of my job was research and translation: what Titanfall 2 and Armored Core VI do for mech feel, what Fortnite and Apex Legends do for battle-royale flow, and how to combine them.</p>
+            <p>The first prototype didn't look or feel promising, and I was part of the decision to stop it. Across the next two teams I rebuilt the design docs, lore, map plans and references, all the way to a closed alpha in 2025.</p>
+          </section>
+
+          <section class="cs-section">
+            <h4 class="app-subtitle">What I did</h4>
+            <ul class="cs-did">
+              <li><strong>Lead Game Designer.</strong> Designed all of the game's mechanics, gameplay elements and story, and was heavily involved in designing the map layout and feel. I explained the reasoning behind every design so it could be debated, because some final calls weren't mine.</li>
+              <li><strong>Documentation.</strong> GDD (Google Docs from mid 2022, then GitBook, through mid 2025). It was the source of truth for me, the devs and the other vision holders, detailing the gameplay, the design and the more technical numbers.</li>
+              <li><strong>Research.</strong> Titanfall 2, Armored Core VI, War Robots and War Robots: Frontiers for mechs. Fortnite, Apex Legends and CS:GO for battle royales and gunplay. Spellbreak and Vampire: The Masquerade – Bloodhunt for class-based battle royales.</li>
+              <li><strong>Map design.</strong> Planned and drew both versions of the map, and researched map designs and assets that would fit our theme and gameplay.</li>
+              <li><strong>Vision.</strong> Wrote the lore and theming for the initial prototypes, then improved and expanded them as we moved to new teams and got closer to the closed alpha.</li>
+              <li><strong>Feedback loop.</strong> Iterated on feedback from the team, higher-ups and closed-alpha players.</li>
+            </ul>
+          </section>
+
+          <section class="cs-problem" data-jump-id="wos-p1">
+            <p class="cs-problem-label">Problem 1</p>
+            <h4 class="cs-problem-title">Creating the map</h4>
+            <p><strong>The problem:</strong> A battle-royale map is played over and over and shapes everything that happens in a match. On top of that, we weren't sure of the core mech mechanics yet, so the map needed memorable zones that could survive big mechanics changes during testing.</p>
+            <h5 class="cs-subhead">The iterations</h5>
+            <ol class="cs-iterations">
+              <li><strong>The 2024 map.</strong> The layout was a set of distinct, unique, themed Points of Interest (POIs) across several biomes. It was also built so each POI and major biome would be as simple as possible to create, since we had few dedicated modellers and artists and would largely be using asset packs. It fulfilled my vision, but the implementation just wasn't done very well, so for the next iteration I did more research and gathered more references for the team to build from.</li>
+              <li><strong>The 2025 map.</strong> Had many more specific references, from Fortnite, Apex Legends, Destiny 2 and others.</li>
+            </ol>
+            <p class="cs-status">Closed alpha in 2025, then development was paused.</p>
+            <p class="cs-takeaway"><span class="cs-takeaway-label">Takeaway</span> Map-making is a whole job in itself for games like this. In 3D games especially, maps have a huge impact on gameplay and game design.</p>
+            <figure class="cs-figure cs-figure-narrow">
+              <a class="cs-shot" href="assets/games/wos-map-2024-full.webp" target="_blank" rel="noopener"><img data-src="assets/games/wos-map-2024.webp" width="1400" height="1400" alt="Samuel's hand-drawn WAR OF STEEL map design from 2024" loading="lazy"></a>
+              <figcaption>My map sketch and design from 2024.</figcaption>
+            </figure>
+            <figure class="cs-figure">
+              <div class="cs-grid">
+                <a class="cs-shot" href="assets/games/wos-map-asset-ideas-full.webp" target="_blank" rel="noopener"><span class="cs-shot-label">Map asset ideas</span><img data-src="assets/games/wos-map-asset-ideas.webp" width="1600" height="822" alt="2025 mood board of map asset ideas" loading="lazy"></a>
+                <a class="cs-shot" href="assets/games/wos-map-references-full.webp" target="_blank" rel="noopener"><span class="cs-shot-label">Map references</span><img data-src="assets/games/wos-map-references.webp" width="1600" height="1026" alt="2025 map reference board" loading="lazy"></a>
+                <a class="cs-shot" href="assets/games/wos-mech-ideas-full.webp" target="_blank" rel="noopener"><span class="cs-shot-label">Mechs</span><img data-src="assets/games/wos-mech-ideas.webp" width="1600" height="677" alt="2025 mech reference board" loading="lazy"></a>
+                <a class="cs-shot" href="assets/games/wos-ui-references-full.webp" target="_blank" rel="noopener"><span class="cs-shot-label">UI/UX</span><img data-src="assets/games/wos-ui-references.webp" width="1600" height="1095" alt="2025 UI and UX reference board" loading="lazy"></a>
+              </div>
+              <figcaption>My 2025 map design references and mood board, plus the reference images I added for UI/UX, key gameplay elements and the mechs themselves. These were all detailed in the GDD; this is a snippet. Click any board to open it full size.</figcaption>
+            </figure>
+          </section>
+
+          <section class="cs-problem" data-jump-id="wos-p2">
+            <p class="cs-problem-label">Problem 2</p>
+            <h4 class="cs-problem-title">Mech point of view, and making mechs feel good</h4>
+            <p><strong>The problem:</strong> First person or third? And how do you make a mech feel good in either?</p>
+            <p>We chose <strong>third person</strong> so players could see their own badass mech in action. The drawback is that gameplay feedback and immersion are harder to do well.</p>
+            <h5 class="cs-subhead">The iterations</h5>
+            <ol class="cs-iterations">
+              <li><strong>First pass.</strong> It didn't feel good, and I wasn't sure exactly why, as "feel" is one of those nebulous things with any number of causes. I went back to research, mainly Titanfall 2, Armored Core VI and War Robots.</li>
+              <li><strong>Second pass.</strong> We improved the camera, animations and movement feedback, which made it a lot better, but the guns still felt weak, and again I wasn't sure exactly why. I went back for more specific references, this time for weapon sound and VFX, and found the answer: guns that hit like wet noodles, with poor sound and visual feedback, just don't feel good to use.</li>
+              <li><strong>Third pass.</strong> We improved the gun animations, firing SFX/VFX and hit SFX/VFX, which really improved their "kick" and feel.</li>
+            </ol>
+            <p class="cs-status">Development was paused before this was fully finished.</p>
+            <p class="cs-takeaway"><span class="cs-takeaway-label">Takeaway</span> Game feel is mostly feedback. A mech is only as powerful as it looks and sounds when it fires.</p>
+          </section>
+
+          <section class="cs-problem" data-jump-id="wos-p3">
+            <p class="cs-problem-label">Problem 3</p>
+            <h4 class="cs-problem-title">How much should the mech do?</h4>
+            <p><strong>The problem:</strong> With no game quite like this to 'copy', how much should the mech itself shape a match, compared with the pilot's skill and the loot they find? In a battle royale, can we even let mechs have different abilities, stats and loot?</p>
+            <h5 class="cs-subhead">The iterations</h5>
+            <ol class="cs-iterations">
+              <li><strong>Fortnite and CS:GO as references.</strong> Neither had real pre-match customisation at the time (funnily enough, Fortnite has since added Sprites), so they couldn't answer the question.</li>
+              <li><strong>Class-based battle royales.</strong> I turned to Spellbreak, Apex Legends and Vampire: The Masquerade – Bloodhunt (sadly, two of the three no longer exist). All of them let players pick and customise classes or abilities before a match, and they really helped me shape my initial mech classes and types.</li>
+              <li><strong>Bring back simplicity.</strong> As fun as it was to go all out and design lots of mech-specific mechanics, once development started properly it was obvious this was too convoluted and complicated. So the complexity of mech types and classes was dialled back, and that 'complexity budget' went into things like more interesting items to find.</li>
+            </ol>
+            <p class="cs-takeaway"><span class="cs-takeaway-label">Takeaway</span> The line can be wherever you want it to be, but you have to account for it and build your game around it. Don't half-implement something this fundamental.</p>
+          </section>
+        </article>
+
+        <!-- ============================== NEXUS ============================== -->
+        <article class="case-study" data-detail-panel="nexus" hidden>
+          <header class="cs-header">
+            <h3 class="cs-title">NEXUS</h3>
+            <p class="cs-meta">5v5 third-person shooter MOBA · PC (Epic Games) · 2022–2025 · Lead Game Designer</p>
+            <p class="cs-lede">NEXUS is a 5v5 third-person shooter MOBA. Two teams fight to capture each other's Nexus, the source of one of the universe's most wondrous substances: Flow or Flux.</p>
+            <ul class="cs-highlights">
+              <li>Designed the core mechanics, guns, abilities and items, and built the gun-balance spreadsheet.</li>
+              <li>Led balance through open alpha (Q3 2023) and full release with play-to-earn (2024).</li>
+              <li>Wrote the initial lore and theming, including the name NEXUS.</li>
+            </ul>
+          </header>
+
+          <nav class="cs-jump" aria-label="Jump to a design problem">
+            <span class="cs-jump-label">Jump to</span>
+            <button type="button" data-jump="nexus-p1">1 · Live exploits</button>
+            <button type="button" data-jump="nexus-p2">2 · Power scaling and the economy</button>
+            <button type="button" data-jump="nexus-p3">3 · Roles and build diversity</button>
+          </nav>
+
+          <section class="cs-section">
+            <h4 class="app-subtitle">Design overview</h4>
+            <p>NEXUS started when the company acquired an existing shooter MOBA. After testing it and doing early redesigns, we decided to rebuild the game ourselves in Unreal Engine 5, on Epic's then brand-new Lyra framework.</p>
+            <p>I wrote the initial design: mechanics, numbers, lore, theming and art direction. From there, most of my work was making three systems (guns, abilities and items) work together as a MOBA, then keeping a live PvP game fair once a flood of players (over a thousand) and real money arrived.</p>
+            <p>My rule throughout was to fix the cause, not the symptom. Early on, many "balance" problems were really missing mechanics, and no amount of band-aiding numbers would fix them.</p>
+            <p>I was the lead designer but not the only decision maker, so a big part of the job was presenting and explaining my designs to the other vision holders so we could debate them properly.</p>
+            <figure class="cs-figure">
+              <div class="cs-pair">
+                <a class="cs-shot" href="assets/games/nexus-design-discussion-1.webp" target="_blank" rel="noopener"><img data-src="assets/games/nexus-design-discussion-1.webp" width="1342" height="1302" alt="A NEXUS design discussion document, part 1" loading="lazy"></a>
+                <a class="cs-shot" href="assets/games/nexus-design-discussion-2.webp" target="_blank" rel="noopener"><img data-src="assets/games/nexus-design-discussion-2.webp" width="1354" height="871" alt="A NEXUS design discussion document, part 2" loading="lazy"></a>
+              </div>
+            </figure>
+          </section>
+
+          <section class="cs-section">
+            <h4 class="app-subtitle">What I did</h4>
+            <ul class="cs-did">
+              <li><strong>Lead Game Designer.</strong> Designed mechanics and documented them for the other vision holders, then polished them for the devs to implement. I explained the reasoning behind every design so it could be debated, because some final calls weren't mine.</li>
+              <li><strong>Documentation.</strong> GDD (Google Docs from mid 2022, then GitBook, through mid 2025). A gun spreadsheet holding every gun's numbers, so non-devs could read and tweak them.</li>
+              <li><strong>Research.</strong> Predecessor, Paragon: Overprime and Destiny 2 for gun and ability feel. Valorant and other hero shooters for abilities. League of Legends, Dota 2 and Heroes of the Storm to validate MOBA mechanics.</li>
+              <li><strong>Balance and exploit-hunting.</strong> Combed through proposed changes for knock-on effects before they shipped. When exploits got through anyway, reverted or fixed them fast, and worked on buffing underused strategies without creating new problems.</li>
+              <li><strong>Vision (shared).</strong> Wrote the initial lore and theming (which gave us the name NEXUS) and the initial art direction, then updated the lore and art direction for the map, structures, abilities and items in 2024.</li>
+            </ul>
+          </section>
+
+          <section class="cs-problem" data-jump-id="nexus-p1">
+            <p class="cs-problem-label">Problem 1</p>
+            <h4 class="cs-problem-title">Live exploits</h4>
+            <p><strong>The problem:</strong> However much you test internally, the moment a PvP game launches, players find things you never planned for. And once play-to-earn launched it got more intense: players behave very differently when money is involved.</p>
+            <div class="cs-table-wrap">
+              <table class="cs-table">
+                <thead><tr><th>Exploit</th><th>Why it happened</th><th>Fix</th></tr></thead>
+                <tbody>
+                  <tr><td>Healing grenades enabled endless pushes</td><td>They healed minions too</td><td>Halved the healing they did to minions.</td></tr>
+                  <tr><td>A 5-stack pushing mid could end the game in 5 minutes</td><td>Towers were far too weak against a full-team push</td><td>Gave players reasons not to group up. Adding levels and XP sharing helped greatly.</td></tr>
+                  <tr><td>Grenade launchers dominated farming</td><td>Splash damage cleared minion waves far too easily</td><td>Moved them to a support role when we reworked guns: less damage, more utility.</td></tr>
+                  <tr><td>Hugging your tower was too strong</td><td>Caused by increasing the healing towers gave</td><td>Slightly reduced the healing towers gave. Compensated with 'homeguard', so backing wasn't punished, and with base regen for players.</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="cs-takeaway"><span class="cs-takeaway-label">Takeaway</span> Every fix becomes a new system that players will push to its limit. Ship fixes fast, then watch what players do with them.</p>
+          </section>
+
+          <section class="cs-problem" data-jump-id="nexus-p2">
+            <p class="cs-problem-label">Problem 2</p>
+            <h4 class="cs-problem-title">Power scaling and the economy</h4>
+            <p><strong>The problem:</strong> Player power across a match was unpredictable and all over the place.</p>
+            <ul class="cs-did">
+              <li>Guns, abilities <em>and</em> items all cost money to buy and upgrade, so gold was stretched three ways.</li>
+              <li>Base stats like health and energy never grew unless you bought items for them, when really they should grow as you play a match.</li>
+              <li>In lane, poke was far too strong (everyone has a gun), so you spent the laning phase hiding behind your tower.</li>
+            </ul>
+            <h5 class="cs-subhead">The iterations</h5>
+            <ol class="cs-iterations">
+              <li><strong>Regeneration around the base of your tower.</strong> It eased laning, but it only treated a symptom.
+                <ul><li>It also caused the tower-hugging exploit above, where it was almost impossible to kill players under their tower.</li></ul>
+              </li>
+              <li><strong>Levels.</strong> Players now gain base stats "for free" as the match goes on, so power grows predictably and gold goes further. It helped a ton.
+                <ul><li>Levels also replaced buying abilities and their upgrades. That streamlined the game, left more gold for everything else, and delivered the 'you get stronger as the match goes on' fantasy we'd been missing. Three birds, one stone!</li></ul>
+              </li>
+            </ol>
+            <p class="cs-takeaway"><span class="cs-takeaway-label">Takeaway</span> When several problems trace back to a single system, fix the system, not each problem.</p>
+          </section>
+
+          <section class="cs-problem" data-jump-id="nexus-p3">
+            <p class="cs-problem-label">Problem 3</p>
+            <h4 class="cs-problem-title">Roles and build diversity</h4>
+            <p><strong>The problem:</strong> Guns, abilities and items weren't exciting to buy, upgrade, use or play against. Some were overpowered (the grenade launcher farmed like nothing else), others were useless (the healing gun just didn't do enough). Together they left no real tank or support playstyle. You <em>could</em> play one, but it was so unfun that nobody did, unless it was busted.</p>
+            <h5 class="cs-subhead">The iterations</h5>
+            <ol class="cs-iterations">
+              <li><strong>The starting point.</strong> Tanks and supports existed on paper, but nobody played them. Items had unlimited slots and were simple stat buffs.</li>
+              <li><strong>Huge buffs.</strong> They became overpowered and had to be tuned back, and they still didn't feel good to play. More numbers couldn't make up for missing tools or uninteresting effects.</li>
+              <li><strong>More abilities and ultimates, and limited item slots.</strong> We launched with only three ultimates, so many playstyles were stuck with a mediocre one. Adding more helped a lot.
+                <ul><li>Limiting item slots added creativity. We could make items much stronger, and having limited slots to spend on what you needed in a given game felt much better. It also capped how far ahead someone could get, as they couldn't just keep buying items.</li></ul>
+              </li>
+              <li><strong>New gun passives, new guns and new item effects</strong>, built around tank and support play. For example, the shotgun became a <em>proper</em> tank gun that slowed and granted max HP, and the healing gun gave a small damage buff to allies it healed and a damage-dealt debuff to enemies it hit.
+                <ul><li>With limited slots in place, and players used to the new items and economy, we had room to properly buff items. Every item got new effects and stats, so none was just "buff a single stat" any more.</li></ul>
+              </li>
+            </ol>
+            <p class="cs-status">A bigger item update was planned: moving items to a proper component system like most MOBAs, instead of the simple Rank 1/2/3 upgrades everything had to be balanced around. I was designing it when I moved to other games and development was paused.</p>
+          </section>
+        </article>
+
+        <!-- ========================= STUDY: CAPSTONE ========================= -->
+        <article class="case-study" data-detail-panel="capstone" hidden>
+          <header class="cs-header">
+            <p class="cs-problem-label">Study project · Capstone</p>
+            <h3 class="cs-title">Ultra Modular Systems</h3>
+            <p class="cs-meta">Framework for UE5 abilities and stats · C++ and Blueprint · 3 months</p>
+          </header>
+          <section class="cs-section">
+            <p>'Ultra Modular Systems' was my capstone project: a framework for UE5, built over 3 months. I was sick of constantly going back to redo core logic in my projects because I hadn't designed things "modularly enough", so I created a framework that takes modularity and reusability to their extremes while staying usable and approachable in Blueprint. It combines C++ base classes with a lot of Blueprint to create fully modular abilities, effects, stats and art.</p>
+            <p>It was a huge project, with a ton of research, development, testing and iteration.</p>
+            <p class="cs-status">It isn't fully launched yet, but is planned to be by the end of 2026.</p>
+            <a class="cs-external" href="https://sites.google.com/cgspectrum.institute/ultra-modular-systems-capstone/about-ums" target="_blank" rel="noopener">Read the full research and development breakdown <span aria-hidden="true">↗</span></a>
+          </section>
+        </article>
+
+        <!-- ========================== STUDY: ZORDE ========================== -->
+        <article class="case-study" data-detail-panel="zorde" hidden>
+          <header class="cs-header">
+            <p class="cs-problem-label">Study project · Assessment</p>
+            <h3 class="cs-title">Making ZORDE's map</h3>
+            <p class="cs-meta">Level design · zombie horde shooter</p>
+          </header>
+          <section class="cs-section">
+            <p>For another assessment, I created a huge medieval castle map with paranatural and eldritch elements, as part of the zombie horde shooter (dubbed ZORDE) I was making at the time.</p>
+            <p>The level went through many iterations and improvements, but it still wasn't close to done, mostly because level design isn't my strongest skill.</p>
+            <p>However, I'm incredibly proud of the research and time that went into visualising and realising not only the map and level design but the game as a whole.</p>
+            <figure class="cs-figure">
+              <a class="cs-shot" href="assets/games/zorde-moodboard-full.webp" target="_blank" rel="noopener"><img data-src="assets/games/zorde-moodboard.webp" width="1600" height="994" alt="ZORDE's final mood board" loading="lazy"></a>
+              <figcaption>The final mood board. Click to open it full size.</figcaption>
+            </figure>
+          </section>
+        </article>
+
+        <button class="detail-view-back cs-back-bottom" type="button" data-detail-back>
+          <span class="detail-view-back-arrow" aria-hidden="true">&larr;</span>
+          Back to all games
+        </button>
       </div>
     </article>
   </template>
@@ -1574,7 +2121,7 @@
     </article>
   </template>
 
-  <script src="js/clock.js?v=5"></script>
-  <script src="js/desktop.js?v=5"></script>
+  <script src="js/clock.js?v=6"></script>
+  <script src="js/desktop.js?v=6"></script>
 </body>
 </html>

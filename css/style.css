@@ -991,6 +991,406 @@ button.game-card {
   color: rgba(244, 255, 253, 0.75);
 }
 
+/* Games: study projects + per-game case studies -------------------------- */
+
+/* The Games list view wraps the game cards and the study projects. */
+.games-list {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+.study-section {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.study-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 14px;
+}
+.study-card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 16px 18px;
+  text-align: left;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  background: rgba(0, 0, 0, 0.32);
+  border: 1px dashed color-mix(in srgb, var(--theme-accent) 40%, transparent);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 140ms ease, border-color 140ms ease, box-shadow 140ms ease;
+}
+.study-card:hover {
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--theme-accent) 70%, transparent);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+.study-card:focus-visible { outline: 2px solid var(--theme-accent); outline-offset: 2px; }
+.study-card-image {
+  display: block;
+  width: calc(100% + 36px);
+  height: 110px;
+  margin: -16px -18px 6px;
+  object-fit: cover;
+}
+.study-card-kicker {
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(244, 255, 253, 0.55);
+}
+.study-card-title {
+  font-family: var(--font-display);
+  font-weight: var(--display-weight);
+  text-transform: uppercase;
+  font-size: 0.95rem;
+  letter-spacing: 0.04em;
+  color: var(--theme-accent);
+}
+.study-card-desc {
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: rgba(244, 255, 253, 0.82);
+}
+
+/* On a case study the "Games I've worked on" header is redundant, so the
+   page starts straight at the back button and the game title. */
+.app-games:has(> .detail-view:not([hidden])) > .app-section-header { display: none; }
+
+/* Case study (one per game, shown in the Games detail view). */
+.case-study {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+.cs-header {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid color-mix(in srgb, var(--theme-accent) 22%, transparent);
+}
+.cs-header p { margin: 0; }
+.cs-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: var(--display-weight);
+  text-transform: uppercase;
+  font-size: 1.8rem;
+  letter-spacing: 0.05em;
+  color: var(--theme-accent);
+  text-shadow: 0 2px 0 rgba(0, 0, 0, 0.35);
+}
+.cs-meta {
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(244, 255, 253, 0.65);
+}
+.cs-lede {
+  font-size: 1.02rem;
+  color: rgba(244, 255, 253, 0.92);
+}
+.cs-highlights {
+  margin: 4px 0 0;
+  padding: 14px 18px 14px 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.93rem;
+  color: rgba(244, 255, 253, 0.9);
+  background: rgba(0, 0, 0, 0.22);
+  border-left: 3px solid var(--theme-accent);
+  border-radius: 0 6px 6px 0;
+}
+.cs-highlights li::marker { color: var(--theme-accent); }
+
+/* "Jump to" chips: scroll to a problem (wired by [data-jump] in desktop.js). */
+.cs-jump {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+.cs-jump-label {
+  margin-right: 4px;
+  font-family: var(--font-hand);
+  font-size: 1.35rem;
+  line-height: 1;
+  color: var(--theme-accent);
+}
+.cs-jump button {
+  padding: 5px 11px;
+  font: inherit;
+  font-size: 0.8rem;
+  color: var(--accent-off-white);
+  background: color-mix(in srgb, var(--theme-accent) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--theme-accent) 32%, transparent);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background-color 120ms ease, border-color 120ms ease;
+}
+.cs-jump button:hover {
+  background: color-mix(in srgb, var(--theme-accent) 24%, transparent);
+  border-color: var(--theme-accent);
+}
+
+.cs-section,
+.cs-problem {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  font-size: 0.95rem;
+  color: rgba(244, 255, 253, 0.88);
+}
+.cs-section p,
+.cs-problem p { margin: 0; }
+.cs-section strong,
+.cs-problem strong { color: var(--accent-off-white); }
+
+/* Each design problem is its own panel so the page skims as a list of them. */
+.cs-problem {
+  padding: 22px 24px;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid color-mix(in srgb, var(--theme-accent) 18%, transparent);
+  border-radius: 10px;
+  scroll-margin-top: 12px;
+}
+.cs-problem-label {
+  margin: 0;
+  font-family: var(--font-hand);
+  font-size: 1.4rem;
+  line-height: 1;
+  color: var(--theme-accent);
+}
+.cs-problem-title {
+  margin: -4px 0 0;
+  font-family: var(--font-display);
+  font-weight: var(--display-weight);
+  text-transform: uppercase;
+  font-size: 1.12rem;
+  letter-spacing: 0.04em;
+  color: var(--accent-off-white);
+}
+.cs-subhead {
+  margin: 6px 0 0;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(244, 255, 253, 0.7);
+}
+.cs-iterations,
+.cs-did {
+  margin: 0;
+  padding-left: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.cs-iterations li::marker { color: var(--theme-accent); font-weight: 700; }
+.cs-did li::marker { color: var(--theme-accent); }
+.cs-iterations ul {
+  margin: 6px 0 0;
+  padding-left: 18px;
+  color: rgba(244, 255, 253, 0.78);
+}
+.cs-status {
+  padding-left: 12px;
+  font-size: 0.88rem;
+  font-style: italic;
+  color: rgba(244, 255, 253, 0.68);
+  border-left: 2px dashed color-mix(in srgb, var(--theme-accent) 45%, transparent);
+}
+.cs-takeaway {
+  padding: 12px 16px;
+  font-weight: 500;
+  color: var(--accent-off-white);
+  background: color-mix(in srgb, var(--theme-accent) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--theme-accent) 35%, transparent);
+  border-radius: 8px;
+}
+.cs-takeaway-label {
+  display: block;
+  margin-bottom: 4px;
+  font-family: var(--font-hand);
+  font-size: 1.3rem;
+  line-height: 1;
+  color: var(--theme-accent);
+}
+
+/* Figures: every image links to its full-size file in a new tab. */
+.cs-figure {
+  margin: 6px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.cs-figure-narrow {
+  width: 100%;
+  max-width: 720px;
+  align-self: center;
+}
+.cs-figure figcaption {
+  font-size: 0.82rem;
+  font-style: italic;
+  text-align: center;
+  color: rgba(244, 255, 253, 0.7);
+}
+.cs-shot {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  /* Light backing so boards exported with transparent backgrounds stay readable. */
+  background: var(--accent-off-white);
+  border: 1px solid color-mix(in srgb, var(--theme-accent) 25%, transparent);
+  border-radius: 6px;
+  cursor: zoom-in;
+  transition: border-color 120ms ease;
+}
+.cs-shot:hover { border-color: color-mix(in srgb, var(--theme-accent) 70%, transparent); }
+.cs-shot:focus-visible { outline: 2px solid var(--theme-accent); outline-offset: 2px; }
+.cs-shot img { display: block; width: 100%; height: auto; }
+.cs-shot-label {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  padding: 0 8px;
+  font-family: var(--font-hand);
+  font-size: 1.15rem;
+  color: var(--theme-accent);
+  background: rgba(5, 27, 29, 0.88);
+  border-radius: 4px;
+}
+.cs-pair,
+.cs-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: start;
+  gap: 12px;
+}
+/* A tall image beside a wide strip: give the strip most of the width. */
+.cs-pair-uneven {
+  grid-template-columns: 2fr 3fr;
+  align-items: center;
+}
+.cs-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+/* Stacked strips are short, so the label sits above the image, not on it. */
+.cs-stack .cs-shot {
+  background: transparent;
+  border: none;
+}
+.cs-stack .cs-shot-label {
+  position: static;
+  display: inline-block;
+  margin-bottom: 2px;
+  padding: 0;
+  background: none;
+}
+.cs-stack .cs-shot img {
+  width: auto;
+  max-width: 100%;
+  background: var(--accent-off-white);
+  border: 1px solid color-mix(in srgb, var(--theme-accent) 25%, transparent);
+  border-radius: 6px;
+}
+.cs-stack .cs-shot:hover img { border-color: color-mix(in srgb, var(--theme-accent) 70%, transparent); }
+
+/* PDF links. */
+.cs-docs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.cs-doc {
+  flex: 1 1 280px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  color: inherit;
+  text-decoration: none;
+  background: rgba(0, 0, 0, 0.28);
+  border: 1px solid color-mix(in srgb, var(--theme-accent) 30%, transparent);
+  border-radius: 8px;
+  transition: background-color 120ms ease, border-color 120ms ease, transform 120ms ease;
+}
+.cs-doc:hover {
+  background: color-mix(in srgb, var(--theme-accent) 14%, rgba(0, 0, 0, 0.28));
+  border-color: var(--theme-accent);
+  transform: translateY(-1px);
+}
+.cs-doc-badge {
+  flex: none;
+  padding: 6px 7px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--bg-deep);
+  background: var(--theme-accent);
+  border-radius: 4px;
+}
+.cs-doc-text { font-size: 0.85rem; color: rgba(244, 255, 253, 0.78); }
+.cs-doc-text strong { display: block; font-size: 0.92rem; color: var(--accent-off-white); }
+
+/* Tables scroll sideways on narrow screens instead of squashing. */
+.cs-table-wrap {
+  overflow-x: auto;
+  border: 1px solid color-mix(in srgb, var(--theme-accent) 22%, transparent);
+  border-radius: 8px;
+}
+.cs-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+}
+.cs-table th {
+  padding: 9px 12px;
+  text-align: left;
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--theme-accent);
+  background: color-mix(in srgb, var(--theme-accent) 16%, transparent);
+}
+.cs-table td {
+  padding: 8px 12px;
+  vertical-align: top;
+  border-top: 1px solid rgba(244, 255, 253, 0.08);
+}
+.cs-table tbody tr:nth-child(even) { background: rgba(0, 0, 0, 0.15); }
+
+.cs-external {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  font-weight: 500;
+  font-size: 0.88rem;
+  letter-spacing: 0.04em;
+  color: var(--theme-accent);
+  text-decoration: none;
+  background: color-mix(in srgb, var(--theme-accent) 18%, transparent);
+  border: 1px solid color-mix(in srgb, var(--theme-accent) 38%, transparent);
+  border-radius: 6px;
+}
+.cs-external:hover {
+  background: color-mix(in srgb, var(--theme-accent) 28%, transparent);
+  border-color: var(--theme-accent);
+}
+.cs-back-bottom { margin-top: 4px; }
+
 /* Diagonal sketch sticky-note, centred horizontally over the title row.
    Used so far on Blogs (work-in-progress indicator); reusable on any app
    via .wip-note. Positioned absolutely; parent must be position:relative
@@ -1866,6 +2266,10 @@ button.game-card {
   .skill-tier { grid-template-columns: 1fr; gap: 4px; }
   .exp-cross-link { flex-direction: column; align-items: flex-start; }
   .detail-view-back { padding: 11px 16px; font-size: 0.95rem; }
+  .cs-title { font-size: 1.35rem; }
+  .cs-problem { padding: 18px 14px; }
+  .cs-pair, .cs-grid { grid-template-columns: 1fr; }
+  .cs-jump button { padding: 8px 12px; }
   .contact-block { padding: 36px 18px; }
   .contact-email-button { font-size: clamp(0.95rem, 4.6vw, 1.55rem); padding: 18px 20px; max-width: 100%; }
   .contact-email { overflow-wrap: anywhere; }
