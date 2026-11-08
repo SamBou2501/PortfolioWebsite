@@ -29,19 +29,30 @@ img { display: block; max-width: 100%; }
      Ethnocentric only had capitals. */
   --font-body: "Be Vietnam Pro", system-ui, sans-serif;
 
-  /* Desktop sizing scales with the screen height so the layout fits laptops
-     and tablets, capped at the sizes tuned on Samuel's big monitor (so large
-     screens look exactly as before). `vh` first, then `dvh` for browsers that
-     support it (accounts for mobile browser toolbars). */
+  /* `vh` first, then `dvh` for browsers that support it (accounts for mobile
+     browser toolbars). */
   --screen-h: 100vh;
-  --icon-cell: clamp(104px, 15vh, 170px);
-  --shot-w: clamp(170px, min(19vw, 31vh), 361px);
+
+  /* Desktop landing page = one composition scaled as a whole. It was tuned
+     on a 2304×1152 desktop area (the space above the taskbar), where
+     1 --u = 1px. On any other screen --u shrinks or grows by whichever of
+     width / height is tighter, so every part (photo, name, icons, sketches,
+     screenshots, gaps) keeps the same proportions. The taskbar and windows
+     stay in normal px: they're UI chrome, like the real Windows taskbar. */
+  --u: min(calc(100vw / 2304), calc((var(--screen-h) - var(--taskbar-height)) / 1152));
+  --icon-cell: calc(170 * var(--u));
+  --shot-w: calc(361 * var(--u));
   --font-hand: "Caveat", cursive;
 
   /* Ink color for sketchbook content (sketches, scribbles, frames).
-     Currently OFF-WHITE because the desktop bg is dark; flip to a near-black
-     when the bg eventually becomes light sketchbook paper. */
+     OFF-WHITE inside windows; the desktop overrides it with purple. */
   --ink-color: rgba(244, 255, 253, 0.88);
+
+  /* Desktop wallpaper: sleek near-black (the taskbar's dark teal) with
+     purple sketch ink and green paint splotches on top. */
+  --wall-base: #0B1717;
+  --wall-ink: rgba(163, 120, 255, 0.9);
+  --wall-splotch: #53FC8D;
 }
 
 @supports (height: 100dvh) {
@@ -66,26 +77,14 @@ body {
   width: 100%;
   height: calc(var(--screen-h) - var(--taskbar-height));
   overflow: hidden;
+  --ink-color: var(--wall-ink); /* sketches, frames and captions go purple */
 
+  /* Sleek dark base: a faint dot grid and a soft vignette. The colour lives
+     in the decor layer on top (purple sketches, green .splotch paint). */
   background:
-    repeating-linear-gradient(
-      118deg, transparent 0, transparent 160px,
-      rgba(244, 255, 253, 0.022) 160px, rgba(244, 255, 253, 0.022) 178px
-    ),
-    repeating-linear-gradient(
-      62deg, transparent 0, transparent 240px,
-      rgba(132, 71, 255, 0.03) 240px, rgba(132, 71, 255, 0.03) 254px
-    ),
-    radial-gradient(ellipse 38% 32% at 32% 68%, rgba(132, 71, 255, 0.22), transparent 70%),
-    radial-gradient(ellipse 32% 28% at 60% 28%, rgba(83, 252, 141, 0.18), transparent 65%),
-    radial-gradient(ellipse 25% 22% at 78% 78%, rgba(252, 205, 83, 0.13), transparent 70%),
-    radial-gradient(ellipse 26% 22% at 18% 24%, rgba(252, 205, 83, 0.10), transparent 70%),
-    radial-gradient(ellipse 30% 26% at 52% 76%, rgba(83, 252, 141, 0.11), transparent 70%),
-    radial-gradient(ellipse 22% 18% at 76% 18%, rgba(132, 71, 255, 0.13), transparent 70%),
-    radial-gradient(ellipse 20% 18% at 8% 60%, rgba(252, 205, 83, 0.06), transparent 70%),
-    linear-gradient(95deg,
-      #2D0B3D 0%, #2D0B3D 22%, #2A1338 30%, #221C32 40%,
-      #182328 50%, #102A23 60%, #082F1F 70%, #05381D 78%, #05381D 100%);
+    radial-gradient(circle, rgba(244, 255, 253, 0.05) 1px, transparent 1.5px) 0 0 / 28px 28px,
+    radial-gradient(ellipse 75% 70% at 50% 45%, transparent 40%, rgba(0, 0, 0, 0.45) 100%),
+    linear-gradient(160deg, #0F2020 0%, var(--wall-base) 55%, #081111 100%);
 }
 
 /* Identity panel (left) --------------------------------------------------- */
@@ -97,8 +96,8 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 18px;
-  padding: 56px 56px 64px;
+  gap: calc(18 * var(--u));
+  padding: calc(56 * var(--u)) calc(56 * var(--u)) calc(64 * var(--u));
   text-align: center;
   background: transparent;
 }
@@ -118,11 +117,7 @@ body {
 
 .portrait-image {
   position: relative;
-  /* Up to 540px wide (Samuel's tuned size), but never so tall that the name
-     and tagline get pushed off the bottom: the photo is 3:4, so its width is
-     capped at 3/4 of (desktop height − ~320px reserved for name, tagline
-     and padding). */
-  width: min(100%, 540px, calc((var(--screen-h) - var(--taskbar-height) - 320px) * 0.75));
+  width: calc(540 * var(--u));
   transform: rotate(-1.5deg);
   filter: drop-shadow(0 12px 22px rgba(0, 0, 0, 0.5));
 }
@@ -150,7 +145,7 @@ body {
   font-family: var(--font-display);
   font-weight: var(--display-weight);
   text-transform: uppercase; /* Ethnocentric was caps-only; keep that look */
-  font-size: clamp(2.1rem, 3.4vw, 3.6rem);
+  font-size: calc(57.6 * var(--u));
   letter-spacing: 0.04em;
   line-height: 1;
   color: var(--accent-off-white);
@@ -161,7 +156,7 @@ body {
   margin: 0;
   font-family: var(--font-body);
   font-weight: 400;
-  font-size: clamp(1.15rem, 2vw, 2.2rem);
+  font-size: max(14px, calc(35.2 * var(--u)));
   letter-spacing: 0.04em;
   line-height: 1.2;
   color: var(--accent-off-white);
@@ -176,23 +171,23 @@ body {
   grid-auto-flow: column;
   grid-template-rows: repeat(2, auto);
   grid-auto-columns: auto;
-  gap: clamp(16px, 2.8vh, 30px) clamp(22px, 2.6vw, 38px);
+  gap: calc(30 * var(--u)) calc(38 * var(--u));
   align-content: center;
   justify-content: center;
-  padding: 40px;
+  padding: calc(40 * var(--u));
   background: transparent;
   /* Nudge the whole icon cluster up + left from dead-centre — feels less
      "trapped in the corner" and frees up the bottom-right for the WoS polaroid. */
-  transform: translate(-40px, -4.5vh);
+  transform: translate(calc(-40 * var(--u)), calc(-54 * var(--u)));
 }
 
 .app-grid > *:nth-child(3),
-.app-grid > *:nth-child(4) { transform: translateY(5vh); }
+.app-grid > *:nth-child(4) { transform: translateY(calc(60 * var(--u))); }
 
 .app-grid > *:nth-child(5),
-.app-grid > *:nth-child(6) { transform: translateY(10vh); }
+.app-grid > *:nth-child(6) { transform: translateY(calc(120 * var(--u))); }
 
-/* App icon — strict square cell (--icon-cell, max 170px). */
+/* App icon — strict square cell (--icon-cell, 170px at the reference size). */
 .app-icon {
   --icon-accent: var(--theme-accent);
   width: var(--icon-cell);
@@ -204,7 +199,7 @@ body {
   align-items: center;
   justify-content: center;
   gap: calc(var(--icon-cell) * 0.06);
-  padding: 12px;
+  padding: calc(12 * var(--u));
   border-radius: 8px;
   border: 1px solid transparent;
   color: var(--desktop-fg);
@@ -244,6 +239,27 @@ body {
   transition: transform 120ms ease, filter 120ms ease;
 }
 
+/* Apps that aren't ready yet (Blogs): greyed out with a "coming soon" note.
+   Still focusable and draggable, but desktop.js won't open them. */
+.app-icon.is-disabled .app-icon-face,
+.taskbar-app.is-disabled svg { filter: grayscale(1); opacity: 0.4; }
+.app-icon.is-disabled .app-icon-label { opacity: 0.5; }
+.app-icon.is-disabled,
+.taskbar-app.is-disabled { cursor: not-allowed; }
+.app-icon.is-disabled:hover,
+.app-icon.is-disabled:active,
+.taskbar-app.is-disabled:hover,
+.taskbar-app.is-disabled:active { background: transparent; border-color: transparent; }
+.app-icon-soon {
+  margin-top: calc(-2 * var(--u));
+  font-family: var(--font-hand);
+  font-weight: 600;
+  font-size: max(13px, calc(20 * var(--u)));
+  line-height: 1;
+  color: var(--desktop-muted);
+  white-space: nowrap;
+}
+
 .app-icon:active .app-icon-face {
   transform: translateY(1px);
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.45));
@@ -258,7 +274,7 @@ body {
 .app-icon-label {
   font-family: "Be Vietnam Pro", system-ui, sans-serif;
   font-weight: 500;
-  font-size: clamp(0.92rem, 1.6vh, 1.15rem);
+  font-size: max(12px, calc(18.4 * var(--u)));
   letter-spacing: 0.02em;
   line-height: 1;
   color: var(--accent-off-white);
@@ -280,8 +296,20 @@ body {
   position: absolute;
   color: var(--ink-color);
   opacity: 0.85;
-  filter: drop-shadow(0 0 1px rgba(0, 0, 0, 0.4));
+  filter: drop-shadow(0 0 6px rgba(132, 71, 255, 0.45));
 }
+
+/* Green paint splotches: the bottom layer of the decor, under the sketches
+   and screenshots. Ragged edges come from the #paint-splatter filter. */
+.splotch {
+  position: absolute;
+  color: var(--wall-splotch);
+}
+.splotch-photo   { width: calc(560 * var(--u)); top: 40%;  left: 2%;   opacity: 0.2;  transform: rotate(-20deg); }
+.splotch-top     { width: calc(420 * var(--u)); top: -9%;  left: 64%;  opacity: 0.17; transform: rotate(35deg); }
+.splotch-mid     { width: calc(300 * var(--u)); top: 60%;  left: 33%;  opacity: 0.15; transform: rotate(160deg); }
+.splotch-corner  { width: calc(260 * var(--u)); top: -7%;  left: -3%;  opacity: 0.16; transform: rotate(80deg); }
+.splotch-bottom  { width: calc(380 * var(--u)); bottom: -14%; right: -5%; opacity: 0.18; transform: rotate(-110deg); }
 
 /* Position each sketch to avoid the photo, name, icons, polaroids.
    Castle removed — its slot at top-center is now free for the polaroids. */
@@ -290,13 +318,13 @@ body {
    bottom:2% (so it sits below the title text rather than over it) and
    slimmed slightly so the visual footprint is more contained. */
 /* Iter 20c: positions tuned by Samuel in DevTools. */
-.sketch-dungeon   { width: 165px; bottom: 2%; left: 20%;  transform: rotate(-6deg); }
-.sketch-talents   { width: 140px; top: 52%;   right: 4%;  transform: rotate(5deg); }
-.sketch-mechanic  { width: 195px; top: 19%;   left: 40%;  transform: rotate(-3deg); }
-.sketch-heart     { width: 120px; top: 3%;    left: 4%;   transform: rotate(-8deg); }
-.sketch-card      { width:  93px; top: 21%;   right: 22%; transform: rotate(7deg); }
-.sketch-pylon     { width: 100px; top: 38%;   left: 4%;   transform: rotate(3deg); }
-.sketch-sword     { width:  94px; top: 52%;   left: 43%;  transform: rotate(-12deg); }
+.sketch-dungeon   { width: calc(165 * var(--u)); bottom: 2%; left: 20%;  transform: rotate(-6deg); }
+.sketch-talents   { width: calc(140 * var(--u)); top: 52%;   right: 4%;  transform: rotate(5deg); }
+.sketch-mechanic  { width: calc(195 * var(--u)); top: 19%;   left: 40%;  transform: rotate(-3deg); }
+.sketch-heart     { width: calc(120 * var(--u)); top: 3%;    left: 4%;   transform: rotate(-8deg); }
+.sketch-card      { width: calc( 93 * var(--u)); top: 21%;   right: 22%; transform: rotate(7deg); }
+.sketch-pylon     { width: calc(100 * var(--u)); top: 38%;   left: 4%;   transform: rotate(3deg); }
+.sketch-sword     { width: calc( 94 * var(--u)); top: 52%;   left: 43%;  transform: rotate(-12deg); }
 
 /* Game screenshots — image with sketchy hand-drawn border + Caveat caption.
    No white polaroid backdrop; sits directly on the desktop. */
@@ -311,7 +339,6 @@ body {
 
 .screenshot-image {
   position: relative;
-  /* Up to 361px (Samuel's DevTools tuning), shrinking on smaller screens. */
   width: var(--shot-w);
   filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.55));
 }
@@ -336,7 +363,7 @@ body {
 .screenshot figcaption {
   font-family: var(--font-hand);
   font-weight: 600;
-  font-size: clamp(1.15rem, 2.6vh, 1.85rem);
+  font-size: max(14px, calc(29.6 * var(--u)));
   color: var(--ink-color);
   text-align: center;
   margin-top: 2px;
@@ -1056,6 +1083,25 @@ button.game-card {
   line-height: 1.5;
   color: rgba(244, 255, 253, 0.82);
 }
+
+/* "Read the case study →" on game and study cards, so it's obvious the
+   cards open something. The arrow nudges right on hover. */
+.card-cta {
+  align-self: flex-start;
+  margin-top: 4px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--theme-accent);
+}
+.card-cta > span {
+  display: inline-block;
+  transition: transform 140ms ease;
+}
+.game-card:hover .card-cta > span,
+.study-card:hover .card-cta > span,
+.game-card:focus-visible .card-cta > span,
+.study-card:focus-visible .card-cta > span { transform: translateX(4px); }
 
 /* On a case study the "Games I've worked on" header is redundant, so the
    page starts straight at the back button and the game title. */
@@ -2103,14 +2149,14 @@ button.game-card {
     min-height: calc(var(--screen-h) - var(--taskbar-height));
     padding-bottom: var(--taskbar-height); /* clear the fixed tab bar */
     overflow: visible;
+    /* Same dark wallpaper; the SVG splotches are hidden here, so soft
+       green glows stand in for them. */
     background:
-      repeating-linear-gradient(118deg, transparent 0 160px, rgba(244, 255, 253, 0.022) 160px 178px),
-      radial-gradient(ellipse 80% 18% at 25% 22%, rgba(132, 71, 255, 0.22), transparent 70%),
-      radial-gradient(ellipse 80% 16% at 75% 55%, rgba(83, 252, 141, 0.14), transparent 70%),
-      radial-gradient(ellipse 70% 14% at 30% 85%, rgba(252, 205, 83, 0.08), transparent 70%),
-      linear-gradient(180deg,
-        #2D0B3D 0%, #2D0B3D 22%, #221C32 38%, #182328 50%,
-        #102A23 62%, #05381D 78%, #05381D 100%);
+      radial-gradient(circle, rgba(244, 255, 253, 0.05) 1px, transparent 1.5px) 0 0 / 24px 24px,
+      radial-gradient(ellipse 70% 14% at 20% 20%, rgba(83, 252, 141, 0.10), transparent 70%),
+      radial-gradient(ellipse 60% 12% at 85% 52%, rgba(83, 252, 141, 0.08), transparent 70%),
+      radial-gradient(ellipse 70% 12% at 25% 86%, rgba(83, 252, 141, 0.07), transparent 70%),
+      linear-gradient(180deg, #0F2020 0%, var(--wall-base) 50%, #081111 100%);
   }
 
   /* Home page order: identity → app tiles → screenshots. */
@@ -2154,6 +2200,10 @@ button.game-card {
   .app-icon:active { background: color-mix(in srgb, var(--theme-accent) 22%, rgba(0, 0, 0, 0.28)); }
   .app-icon-face { width: 52px; height: 52px; }
   .app-icon-label { font-size: 1rem; }
+  .app-icon-soon { margin-top: -4px; font-size: 1.05rem; }
+  .app-icon.is-disabled,
+  .app-icon.is-disabled:hover,
+  .app-icon.is-disabled:active { background: rgba(0, 0, 0, 0.18); border-color: rgba(244, 255, 253, 0.08); }
 
   /* Screenshots: a 2×2 gallery under the tiles instead of scattered decor. */
   .desktop-decor {
@@ -2166,7 +2216,7 @@ button.game-card {
     margin: 0 auto;
     padding: 24px 20px 28px;
   }
-  .sketch { display: none; }
+  .sketch, .splotch { display: none; }
   .screenshot { position: static; min-width: 0; }
   .screenshot-image { width: 100%; }
   .screenshot figcaption { font-size: clamp(1.05rem, 4.6vw, 1.4rem); white-space: normal; }
@@ -2208,6 +2258,7 @@ button.game-card {
     color: rgba(244, 255, 253, 0.7);
   }
   .taskbar-app.is-active .taskbar-label { color: var(--theme-accent); }
+  .taskbar-app.is-disabled .taskbar-label { opacity: 0.5; }
   .taskbar-app.is-open::after { display: none; } /* tabs only show the current one */
 
   /* Apps: full screen above the tab bar, no rounded window chrome. */

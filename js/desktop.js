@@ -32,7 +32,7 @@
   const APPS = {
     about:      { title: "About Me"   },
     games:      { title: "Games"      },
-    blogs:      { title: "Blogs"      },
+    blogs:      { title: "Blogs", disabled: true }, // greyed out until real posts exist
     experience: { title: "Experience" },
     links:      { title: "Links"      },
     contacts:   { title: "Contacts"   },
@@ -71,6 +71,7 @@
   // `fromHash` is true when applyHash() is the caller — the URL is already
   // right, so don't push another history entry.
   function openApp(app, { fromHash = false } = {}) {
+    if (APPS[app] && APPS[app].disabled) return;
     if (!fromHash && hashApp() !== app) {
       history.pushState(null, "", "#" + app);
     }
@@ -678,7 +679,7 @@
 
       btn.addEventListener("contextmenu", (e) => {
         e.preventDefault();
-        showContextMenu(e.clientX, e.clientY, app);
+        if (!APPS[app].disabled) showContextMenu(e.clientX, e.clientY, app);
       });
     });
 
@@ -755,7 +756,7 @@
     }
 
     const [appId, detailId] = raw.split(":");
-    if (!appId || !APPS[appId]) return;
+    if (!appId || !APPS[appId] || APPS[appId].disabled) return;
 
     // Open the app (idempotent: focuses + un-minimises if already open).
     openApp(appId, { fromHash: true });

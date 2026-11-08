@@ -25,8 +25,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Caveat:wght@500;600&family=Orbitron:wght@800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/themes.css?v=6">
-  <link rel="stylesheet" href="css/style.css?v=6">
+  <link rel="stylesheet" href="css/themes.css?v=7">
+  <link rel="stylesheet" href="css/style.css?v=7">
 </head>
 <body>
   <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -39,6 +39,33 @@
         <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="2" seed="5"/>
         <feDisplacementMap in="SourceGraphic" scale="1.6"/>
       </filter>
+      <!-- Ragged paint edges for the green desktop splotches. -->
+      <filter id="paint-splatter" x="-20%" y="-20%" width="140%" height="140%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.06" numOctaves="3" seed="7"/>
+        <feDisplacementMap in="SourceGraphic" scale="14"/>
+      </filter>
+
+      <!-- Paint splotches (blob + droplets), placed by .splotch in the decor. -->
+      <symbol id="splotch-a" viewBox="0 0 200 200">
+        <g fill="currentColor" filter="url(#paint-splatter)">
+          <path d="M100 38 C128 36 150 52 158 76 C170 82 176 98 164 110 C170 132 150 156 124 156 C112 170 88 168 80 154 C56 158 36 140 42 116 C28 104 32 82 50 76 C56 52 76 38 100 38 Z"/>
+          <path d="M150 140 C158 150 166 164 170 178 C172 186 164 188 162 180 C158 166 150 154 146 146 Z"/>
+          <circle cx="172" cy="58" r="7"/><circle cx="182" cy="126" r="4"/>
+          <circle cx="30" cy="150" r="8"/><circle cx="22" cy="62" r="4"/>
+          <circle cx="62" cy="22" r="4.5"/><circle cx="188" cy="94" r="2.5"/>
+          <circle cx="96" cy="188" r="3.5"/><circle cx="14" cy="112" r="2.5"/>
+        </g>
+      </symbol>
+      <symbol id="splotch-b" viewBox="0 0 200 200">
+        <g fill="currentColor" filter="url(#paint-splatter)">
+          <path d="M96 46 C120 30 156 44 160 72 C182 86 172 118 156 124 C158 150 128 166 106 152 C86 172 52 160 54 136 C30 130 30 98 50 88 C46 64 72 48 96 46 Z"/>
+          <path d="M60 140 C50 152 40 168 30 176 C24 180 20 174 26 168 C36 158 46 146 54 136 Z"/>
+          <circle cx="176" cy="44" r="6"/><circle cx="150" cy="176" r="7"/>
+          <circle cx="24" cy="70" r="5"/><circle cx="110" cy="20" r="3"/>
+          <circle cx="188" cy="150" r="3"/><circle cx="70" cy="186" r="2.5"/>
+          <circle cx="14" cy="120" r="3.5"/>
+        </g>
+      </symbol>
 
       <!-- App icons, defined once and reused (via <use>) by the desktop icons,
            the taskbar buttons and the window title bars. -->
@@ -85,6 +112,12 @@
   <main class="desktop" aria-label="Desktop">
 
     <div class="desktop-decor" aria-hidden="true">
+
+      <svg class="splotch splotch-corner" viewBox="0 0 200 200"><use href="#splotch-b"/></svg>
+      <svg class="splotch splotch-photo"  viewBox="0 0 200 200"><use href="#splotch-a"/></svg>
+      <svg class="splotch splotch-top"    viewBox="0 0 200 200"><use href="#splotch-b"/></svg>
+      <svg class="splotch splotch-mid"  viewBox="0 0 200 200"><use href="#splotch-a"/></svg>
+      <svg class="splotch splotch-bottom" viewBox="0 0 200 200"><use href="#splotch-b"/></svg>
 
       <svg class="sketch sketch-dungeon" viewBox="0 0 110 80" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" filter="url(#sketch-roughen)">
         <rect x="6" y="10" width="22" height="18"/>
@@ -294,14 +327,16 @@
         <span class="app-icon-label">About Me</span>
       </button>
 
-      <!-- Blogs — document with folded corner + text lines (now green-themed
-           per iter 16; text-lines retinted from dark-gold to dark-green to
-           match the new accent). -->
-      <button class="app-icon" data-app="blogs" data-theme="blogs" type="button">
+      <!-- Blogs — document with folded corner + text lines. Greyed out until
+           real posts exist (desktop.js: APPS.blogs.disabled); to re-enable,
+           drop is-disabled / aria-disabled / title and the "coming soon"
+           span here and on the taskbar button. -->
+      <button class="app-icon is-disabled" data-app="blogs" data-theme="blogs" type="button" aria-disabled="true" title="Blogs: coming soon">
         <span class="app-icon-face">
           <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false"><use href="#icon-blogs"/></svg>
         </span>
         <span class="app-icon-label">Blogs</span>
+        <span class="app-icon-soon">coming soon</span>
       </button>
 
       <!-- Games — pill-shape gamepad (yellow-themed per iter 16; D-pad and
@@ -358,7 +393,7 @@
         <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false"><use href="#icon-about"/></svg>
         <span class="taskbar-label">About Me</span>
       </button>
-      <button class="taskbar-app" data-app="blogs" data-theme="blogs" type="button" aria-label="Blogs">
+      <button class="taskbar-app is-disabled" data-app="blogs" data-theme="blogs" type="button" aria-label="Blogs (coming soon)" aria-disabled="true" title="Blogs: coming soon">
         <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false"><use href="#icon-blogs"/></svg>
         <span class="taskbar-label">Blogs</span>
       </button>
@@ -701,6 +736,7 @@
                 <span class="game-tag">Player Experience</span>
                 <span class="game-tag">Systems</span>
               </div>
+              <span class="card-cta">Read the case study <span aria-hidden="true">&rarr;</span></span>
             </div>
           </button>
           <!-- ORDINEM decorations: a fanned MTG-style card on the left and a
@@ -757,6 +793,7 @@
                 <span class="game-tag">Narrative</span>
                 <span class="game-tag">Visuals</span>
               </div>
+              <span class="card-cta">Read the case study <span aria-hidden="true">&rarr;</span></span>
             </div>
           </button>
           <!-- STARVIN MARTIAN: base-building grid with a futuristic dome,
@@ -851,6 +888,7 @@
                 <span class="game-tag">Narrative</span>
                 <span class="game-tag">Visuals</span>
               </div>
+              <span class="card-cta">Read the case study <span aria-hidden="true">&rarr;</span></span>
             </div>
           </button>
           <!-- WAR OF STEEL: brainstormed gun on the left + explosion
@@ -919,6 +957,7 @@
                 <span class="game-tag">Narrative</span>
                 <span class="game-tag">Visuals</span>
               </div>
+              <span class="card-cta">Read the case study <span aria-hidden="true">&rarr;</span></span>
             </div>
           </button>
           <!-- NEXUS: futuristic SMG on the left, sci-fi grenade with pin
@@ -1002,12 +1041,14 @@
             <span class="study-card-kicker">Capstone · UE5</span>
             <span class="study-card-title">Ultra Modular Systems</span>
             <span class="study-card-desc">A UE5 framework for fully modular abilities, effects, stats and art, built over 3 months.</span>
+            <span class="card-cta">Read more <span aria-hidden="true">&rarr;</span></span>
           </button>
           <button class="study-card has-image" type="button" data-detail-trigger="zorde" data-detail-title="ZORDE">
             <img class="study-card-image" src="assets/games/zorde-moodboard.webp" width="1600" height="994" alt="" loading="lazy">
             <span class="study-card-kicker">Assessment · Level design</span>
             <span class="study-card-title">ZORDE's map</span>
             <span class="study-card-desc">A huge medieval castle map with paranatural and eldritch elements, for a zombie horde shooter.</span>
+            <span class="card-cta">Read more <span aria-hidden="true">&rarr;</span></span>
           </button>
         </div>
       </section>
@@ -2121,7 +2162,7 @@
     </article>
   </template>
 
-  <script src="js/clock.js?v=6"></script>
-  <script src="js/desktop.js?v=6"></script>
+  <script src="js/clock.js?v=7"></script>
+  <script src="js/desktop.js?v=7"></script>
 </body>
 </html>
