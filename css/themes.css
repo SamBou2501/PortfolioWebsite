@@ -1,44 +1,56 @@
 /* ---------------------------------------------------------------------------
  * Theme tokens — brand palette + per-app accent colors.
  * Attach [data-theme="<app>"] to an element to inherit that app's accent.
+ * The full brand palette (including colours the site doesn't use yet) is in
+ * wiki/brand.md.
  *
  * Per-theme slots:
- *   --theme-accent       = bright icon/text color (on dark bg)
- *   --theme-accent-deep  = darker surface color (window headers later)
- *   --theme-accent-soft  = translucent tint     (hover / open-state chips)
+ *   --theme-accent           = bright icon/text color (on dark bg)
+ *   --theme-accent-deep      = darker surface color (window body gradient)
+ *   --theme-accent-deep-alt  = second surface stop for the same gradient
+ *   --theme-accent-soft      = translucent tint (hover / open-state chips)
  *
- * Exact icon hex values confirmed by Samuel 2026-04-22 (see BRAND.md).
+ * Exact icon hex values confirmed by Samuel 2026-04-22.
  * ------------------------------------------------------------------------- */
 
 :root {
   /* Brand backgrounds */
   --bg-deep: #051B1D;
-  --bg-olive: #313715;
   --bg-teal: #1A3A3A;
   --bg-purple-dark: #2E2836;
   --bg-purple-deep: #2D0B3D;
   --bg-green-deep: #05381D;
 
   /* Brand accents */
-  --accent-blue: #1D336C;
-  --accent-green: #13FC8D;
   --accent-off-white: #F4FFFD;
-  --accent-pink: #B64F7F;
-  --accent-gold-brand: #FCCD93;
 
   /* Icon-system accents (brighter, specific to UI) */
   --icon-green: #53FC8D;
   --icon-gold: #FCCD53;
   --icon-purple: #8447FF;
 
+  /* Off-white at fixed strengths. Text shades by role; tints (lines,
+     hover fills, glows) by strength. Use these instead of typing
+     rgba(244, 255, 253, …) so the same job always gets the same shade. */
+  --text-strong: rgba(244, 255, 253, 0.92);
+  --text:        rgba(244, 255, 253, 0.86);
+  --text-soft:   rgba(244, 255, 253, 0.75);
+  --text-muted:  rgba(244, 255, 253, 0.6);
+  --text-faint:  rgba(244, 255, 253, 0.45);
+  --tint-05: rgba(244, 255, 253, 0.05);
+  --tint-08: rgba(244, 255, 253, 0.08);
+  --tint-10: rgba(244, 255, 253, 0.10);
+  --tint-14: rgba(244, 255, 253, 0.14);
+  --tint-18: rgba(244, 255, 253, 0.18);
+  --tint-22: rgba(244, 255, 253, 0.22);
+  --tint-32: rgba(244, 255, 253, 0.32);
+
   /* Desktop */
   --desktop-fg: var(--accent-off-white);
-  --desktop-muted: rgba(244, 255, 253, 0.65);
 
   /* Taskbar */
-  --taskbar-bg: rgba(15, 32, 32, 0.95);
+  --taskbar-bg: rgba(15, 32, 32, 0.92);
   --taskbar-fg: var(--accent-off-white);
-  --taskbar-hover: rgba(244, 255, 253, 0.08);
 
   /* Default theme accent (used by unthemed elements) */
   --theme-accent: var(--icon-green);
@@ -47,28 +59,12 @@
   --theme-accent-soft: rgba(83, 252, 141, 0.18);
 }
 
-/* Per-app theme accents.
-   --theme-accent-deep / --theme-accent-deep-alt are the two darker bg
-   purples / greens called out in BRAND.md. Window bodies blend both so
-   the bright accent (#8447FF / #53FC8D / #FCCD53) reads vibrantly against
-   a properly themed surface instead of the underlying teal glass. */
+/* Per-app theme accents, in colour pairs. Window bodies blend the two deep
+   stops so the bright accent reads against a properly themed surface
+   instead of the underlying teal glass. */
 
-[data-theme="about"] {
-  --theme-accent: var(--icon-green);
-  --theme-accent-deep: var(--bg-green-deep);
-  --theme-accent-deep-alt: var(--bg-teal);
-  --theme-accent-soft: rgba(83, 252, 141, 0.18);
-}
-
-/* Games + Experience are the "experience-related" pair (iter 16): yellow.
-   Blogs joined the "personal/me" pair (with About): green. */
-[data-theme="games"] {
-  --theme-accent: var(--icon-gold);
-  --theme-accent-deep: #6B5420;
-  --theme-accent-deep-alt: #3A2D10;
-  --theme-accent-soft: rgba(252, 205, 83, 0.2);
-}
-
+/* "Personal" pair: green. */
+[data-theme="about"],
 [data-theme="blogs"] {
   --theme-accent: var(--icon-green);
   --theme-accent-deep: var(--bg-green-deep);
@@ -76,6 +72,8 @@
   --theme-accent-soft: rgba(83, 252, 141, 0.18);
 }
 
+/* "Work" pair: yellow. */
+[data-theme="games"],
 [data-theme="experience"] {
   --theme-accent: var(--icon-gold);
   --theme-accent-deep: #6B5420;
@@ -83,13 +81,8 @@
   --theme-accent-soft: rgba(252, 205, 83, 0.2);
 }
 
-[data-theme="links"] {
-  --theme-accent: var(--icon-purple);
-  --theme-accent-deep: var(--bg-purple-deep);
-  --theme-accent-deep-alt: var(--bg-purple-dark);
-  --theme-accent-soft: rgba(132, 71, 255, 0.22);
-}
-
+/* "Reach me" pair: purple. */
+[data-theme="links"],
 [data-theme="contacts"] {
   --theme-accent: var(--icon-purple);
   --theme-accent-deep: var(--bg-purple-deep);

@@ -4,13 +4,8 @@
 
 /* Fonts -------------------------------------------------------------------- */
 
-/* Display font: Orbitron (Google Fonts, SIL Open Font License), loaded in
-   index.html. Replaced Ethnocentric, whose free licence doesn't allow web
-   embedding. */
-
-/* (Ethnocentric and Acid were removed from the site — Ethnocentric's free
-   licence forbids web embedding and Acid is non-commercial only. The files
-   are kept outside the site in raw/archive/fonts/.) */
+/* Display font: Orbitron 800 from Google Fonts (loaded in index.html),
+   always uppercase. Fonts and their licences: wiki/brand.md. */
 
 /* Reset -------------------------------------------------------------------- */
 
@@ -18,15 +13,15 @@
 html, body { margin: 0; padding: 0; height: 100%; }
 button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
 img { display: block; max-width: 100%; }
+[hidden] { display: none !important; }
 
 /* Base --------------------------------------------------------------------- */
 
 :root {
   --taskbar-height: 48px;
   --font-display: "Orbitron", system-ui, sans-serif;
-  --display-weight: 800; /* Orbitron is lighter than Ethnocentric was; 800 matches its weight */
-  /* Every --font-display rule also sets text-transform: uppercase, since
-     Ethnocentric only had capitals. */
+  --display-weight: 800;
+  /* Every --font-display rule also sets text-transform: uppercase. */
   --font-body: "Be Vietnam Pro", system-ui, sans-serif;
 
   /* `vh` first, then `dvh` for browsers that support it (accounts for mobile
@@ -82,7 +77,7 @@ body {
   /* Sleek dark base: a faint dot grid and a soft vignette. The colour lives
      in the decor layer on top (purple sketches, green .splotch paint). */
   background:
-    radial-gradient(circle, rgba(244, 255, 253, 0.05) 1px, transparent 1.5px) 0 0 / 28px 28px,
+    radial-gradient(circle, var(--tint-05) 1px, transparent 1.5px) 0 0 / 28px 28px,
     radial-gradient(ellipse 75% 70% at 50% 45%, transparent 40%, rgba(0, 0, 0, 0.45) 100%),
     linear-gradient(160deg, #0F2020 0%, var(--wall-base) 55%, #081111 100%);
 }
@@ -105,10 +100,8 @@ body {
 /* Photo: no white polaroid frame; just the image with a hand-drawn sketchy
    border around it and a handwritten caption. */
 .portrait-figure {
-  /* Iter 20c: explicit centred-column layout so the photo is anchored
-     above the name/title without relying on the parent flex's shrink
-     behaviour. The previous flex-shrink-to-content layout was leaving
-     the figure off-centre on some viewport sizes. */
+  /* Explicit centred column, so the photo stays centred above the name at
+     every viewport size (flex shrink-to-content left it off-centre). */
   margin: 0 auto;
   width: 100%;
   display: flex;
@@ -124,6 +117,7 @@ body {
 
 .portrait-image img {
   width: 100%;
+  height: auto;
   aspect-ratio: 3 / 4;
   object-fit: cover;
   display: block;
@@ -144,7 +138,7 @@ body {
   margin: 0;
   font-family: var(--font-display);
   font-weight: var(--display-weight);
-  text-transform: uppercase; /* Ethnocentric was caps-only; keep that look */
+  text-transform: uppercase;
   font-size: calc(57.6 * var(--u));
   letter-spacing: 0.04em;
   line-height: 1;
@@ -210,8 +204,8 @@ body {
 
 .app-icon:hover,
 .app-icon:focus-visible {
-  background: rgba(244, 255, 253, 0.07);
-  border-color: rgba(244, 255, 253, 0.22);
+  background: var(--tint-08);
+  border-color: var(--tint-22);
   outline: none;
 }
 
@@ -220,8 +214,8 @@ body {
 }
 
 .app-icon:active {
-  background: rgba(244, 255, 253, 0.14);
-  border-color: rgba(244, 255, 253, 0.32);
+  background: var(--tint-14);
+  border-color: var(--tint-32);
   cursor: progress;
 }
 
@@ -256,7 +250,7 @@ body {
   font-weight: 600;
   font-size: max(13px, calc(20 * var(--u)));
   line-height: 1;
-  color: var(--desktop-muted);
+  color: var(--text-muted);
   white-space: nowrap;
 }
 
@@ -272,7 +266,7 @@ body {
 }
 
 .app-icon-label {
-  font-family: "Be Vietnam Pro", system-ui, sans-serif;
+  font-family: var(--font-body);
   font-weight: 500;
   font-size: max(12px, calc(18.4 * var(--u)));
   letter-spacing: 0.02em;
@@ -311,23 +305,20 @@ body {
 .splotch-corner  { width: calc(260 * var(--u)); top: -7%;  left: -3%;  opacity: 0.16; transform: rotate(80deg); }
 .splotch-bottom  { width: calc(380 * var(--u)); bottom: -14%; right: -5%; opacity: 0.18; transform: rotate(-110deg); }
 
-/* Position each sketch to avoid the photo, name, icons, polaroids.
-   Castle removed — its slot at top-center is now free for the polaroids. */
-/* Original position was bottom:8%;left:26% — that landed it directly under
-   the tagline ("Game Designer • Systems • Narrative"). Pushed down to
-   bottom:2% (so it sits below the title text rather than over it) and
-   slimmed slightly so the visual footprint is more contained. */
-/* Iter 20c: positions tuned by Samuel in DevTools. */
+/* Each sketch sits clear of the photo, name, icons and screenshots (the
+   dungeon stays below the tagline). Positions tuned by Samuel in DevTools;
+   the pylon sits at 35% to leave room for the ZORDE tile. */
 .sketch-dungeon   { width: calc(165 * var(--u)); bottom: 2%; left: 20%;  transform: rotate(-6deg); }
 .sketch-talents   { width: calc(140 * var(--u)); top: 52%;   right: 4%;  transform: rotate(5deg); }
 .sketch-mechanic  { width: calc(195 * var(--u)); top: 19%;   left: 40%;  transform: rotate(-3deg); }
 .sketch-heart     { width: calc(120 * var(--u)); top: 3%;    left: 4%;   transform: rotate(-8deg); }
 .sketch-card      { width: calc( 93 * var(--u)); top: 21%;   right: 22%; transform: rotate(7deg); }
-.sketch-pylon     { width: calc(100 * var(--u)); top: 38%;   left: 4%;   transform: rotate(3deg); }
+.sketch-pylon     { width: calc(100 * var(--u)); top: 35%;   left: 4%;   transform: rotate(3deg); }
 .sketch-sword     { width: calc( 94 * var(--u)); top: 52%;   left: 43%;  transform: rotate(-12deg); }
 
 /* Game screenshots — image with sketchy hand-drawn border + Caveat caption.
-   No white polaroid backdrop; sits directly on the desktop. */
+   No white polaroid backdrop; sits directly on the desktop. Each one is a
+   link to its case study, so it lifts on hover / focus. */
 .screenshot {
   position: absolute;
   margin: 0;
@@ -335,9 +326,24 @@ body {
   flex-direction: column;
   align-items: center;
   gap: 4px;
+  pointer-events: auto; /* the decor layer itself ignores the pointer */
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  transition: translate 160ms ease;
 }
+.screenshot:hover,
+.screenshot:focus-visible { translate: 0 calc(-8 * var(--u)); }
+.screenshot:focus-visible { outline: none; }
+.screenshot:focus-visible .screenshot-image {
+  outline: 2px solid var(--wall-ink);
+  outline-offset: 6px;
+}
+.screenshot:hover .screenshot-caption,
+.screenshot:focus-visible .screenshot-caption { color: var(--accent-off-white); }
 
 .screenshot-image {
+  display: block;
   position: relative;
   width: var(--shot-w);
   filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.55));
@@ -345,6 +351,7 @@ body {
 
 .screenshot-image img {
   width: 100%;
+  height: auto;
   aspect-ratio: 16 / 10;
   object-fit: cover;
   display: block;
@@ -360,7 +367,7 @@ body {
   pointer-events: none;
 }
 
-.screenshot figcaption {
+.screenshot-caption {
   font-family: var(--font-hand);
   font-weight: 600;
   font-size: max(14px, calc(29.6 * var(--u)));
@@ -368,6 +375,7 @@ body {
   text-align: center;
   margin-top: 2px;
   white-space: nowrap;
+  transition: color 160ms ease;
 }
 
 .screenshot-nexus    { top:  3%;  left: 51%;  transform: rotate(-3deg); }
@@ -375,9 +383,41 @@ body {
 .screenshot-ordinem  { bottom: 4%; left: 50%; transform: rotate(-4deg); }
 .screenshot-wos      { bottom: 2%; right: 1%; transform: rotate(6deg); }
 
-/* Handwritten scribble notes and portrait caption removed in iter 9.
-   Screenshot captions (in figcaption under each polaroid) are kept — they're
-   styled via the `.screenshot figcaption` rule above. */
+/* Study projects: smaller tiles on the left edge, beside the photo. */
+.study-tile { --shot-w: calc(250 * var(--u)); }
+.study-tile .screenshot-caption { font-size: max(13px, calc(24 * var(--u))); }
+.study-ums   { top: 15%; left: 1.2%; transform: rotate(-4deg); }
+.study-zorde { top: 56%; left: 1.2%; transform: rotate(3deg); }
+
+/* UMS has no screenshot: a dark note card with a modular-blocks doodle. */
+.ums-card {
+  aspect-ratio: 16 / 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: calc(6 * var(--u));
+  padding: calc(14 * var(--u));
+  background: #0F2020;
+  text-align: center;
+}
+.ums-blocks { width: 46%; color: var(--ink-color); }
+.ums-card-title {
+  font-family: var(--font-display);
+  font-weight: var(--display-weight);
+  text-transform: uppercase;
+  font-size: max(9px, calc(17 * var(--u)));
+  letter-spacing: 0.04em;
+  line-height: 1.15;
+  color: var(--accent-off-white);
+}
+.ums-card-kicker {
+  font-family: var(--font-hand);
+  font-weight: 600;
+  font-size: max(11px, calc(20 * var(--u)));
+  line-height: 1;
+  color: var(--ink-color);
+}
 
 /* Taskbar ----------------------------------------------------------------- */
 
@@ -392,10 +432,10 @@ body {
   align-items: center;
   gap: 12px;
   padding: 0 14px;
-  background: rgba(15, 32, 32, 0.92);
+  background: var(--taskbar-bg);
   backdrop-filter: blur(18px) saturate(150%);
   -webkit-backdrop-filter: blur(18px) saturate(150%);
-  border-top: 1px solid rgba(244, 255, 253, 0.05);
+  border-top: 1px solid var(--tint-05);
   color: var(--taskbar-fg);
   z-index: 100;
 }
@@ -415,12 +455,12 @@ body {
 
 .taskbar-start:hover,
 .taskbar-start:focus-visible {
-  background: var(--taskbar-hover);
+  background: var(--tint-08);
   outline: none;
 }
 
 .taskbar-start:active {
-  background: rgba(244, 255, 253, 0.18);
+  background: var(--tint-18);
 }
 
 .taskbar-apps {
@@ -552,11 +592,11 @@ body.is-dragging-icon * { cursor: grabbing !important; }
   background: rgba(15, 32, 32, 0.88);
   backdrop-filter: blur(22px) saturate(160%);
   -webkit-backdrop-filter: blur(22px) saturate(160%);
-  border: 1px solid rgba(244, 255, 253, 0.10);
+  border: 1px solid var(--tint-10);
   box-shadow:
     0 22px 50px rgba(0, 0, 0, 0.55),
     0 6px 18px rgba(0, 0, 0, 0.35),
-    inset 0 1px 0 rgba(244, 255, 253, 0.04);
+    inset 0 1px 0 var(--tint-05);
   color: var(--accent-off-white);
 }
 
@@ -577,7 +617,7 @@ body.is-dragging-icon * { cursor: grabbing !important; }
   height: 38px;
   padding: 0 4px 0 12px;
   background: var(--theme-accent-soft);
-  border-bottom: 1px solid rgba(244, 255, 253, 0.06);
+  border-bottom: 1px solid var(--tint-05);
   cursor: grab;
   user-select: none;
   touch-action: none; /* finger-drag the window on touch-screen desktops */
@@ -628,8 +668,8 @@ body.is-dragging-window * { cursor: grabbing !important; }
   transition: background-color 120ms ease, color 120ms ease;
 }
 .window-control svg { width: 12px; height: 12px; display: block; }
-.window-control:hover { background: rgba(244, 255, 253, 0.10); }
-.window-control:focus-visible { outline: none; background: rgba(244, 255, 253, 0.10); }
+.window-control:hover { background: var(--tint-10); }
+.window-control:focus-visible { outline: none; background: var(--tint-10); }
 .window-close:hover { background: #c42b1c; color: #fff; }
 
 /* Maximise button shows one of two icons depending on window state:
@@ -648,13 +688,17 @@ body.is-dragging-window * { cursor: grabbing !important; }
   overflow-y: auto;
   overscroll-behavior: contain; /* don't scroll the page behind it */
   padding: 28px 32px 36px;
-  /* Themed bg uses both deep stops from BRAND.md so the bright accent
+  /* Themed bg blends both deep stops (themes.css) so the bright accent
      (e.g. #8447FF on Links/Contacts) reads against a properly themed
-     surface instead of the underlying teal glass. (Iter 20f.) */
+     surface instead of the underlying teal glass. */
   background: linear-gradient(180deg,
     color-mix(in srgb, var(--theme-accent-deep) 78%, transparent) 0%,
     color-mix(in srgb, var(--theme-accent-deep-alt) 60%, transparent) 60%,
     rgba(0, 0, 0, 0.22) 100%);
+  /* Scrollbar themed per app via the inherited --theme-accent (the
+     ::-webkit-scrollbar rules further down do the same for Chrome/Safari). */
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in srgb, var(--theme-accent) 60%, transparent) rgba(0, 0, 0, 0.22);
 }
 
 /* App content — shared base ---------------------------------------------- */
@@ -671,10 +715,17 @@ body.is-dragging-window * { cursor: grabbing !important; }
      scales proportionally with screen size instead of being stuck at a
      fixed pixel cap. Leaves ~10% margin on each side for future decorative
      sketches and stops content from sprawling edge-to-edge on huge
-     monitors. Uniform across all apps (iter 16c). */
+     monitors. Uniform across all apps. */
   max-width: 80%;
   margin-inline: auto;
 }
+
+/* Keep long-form text to a readable line length (~90 characters) on wide
+   windows. Images, tables and cards still use the full width. */
+.case-study p, .case-study li,
+.app-bio p, .app-bullets li,
+.exp-role-summary, .exp-bullets li { max-width: 75ch; }
+.cs-highlights { width: fit-content; } /* box hugs its capped lines */
 
 .app-section-header {
   display: flex;
@@ -703,7 +754,7 @@ body.is-dragging-window * { cursor: grabbing !important; }
   margin: 0;
   font-family: var(--font-display);
   font-weight: var(--display-weight);
-  text-transform: uppercase; /* Ethnocentric was caps-only; keep that look */
+  text-transform: uppercase;
   font-size: 1.45rem;
   letter-spacing: 0.05em;
   color: var(--theme-accent);
@@ -715,7 +766,7 @@ body.is-dragging-window * { cursor: grabbing !important; }
   font-size: 0.78rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: rgba(244, 255, 253, 0.55);
+  color: var(--text-muted);
 }
 
 .app-subtitle {
@@ -726,7 +777,7 @@ body.is-dragging-window * { cursor: grabbing !important; }
   letter-spacing: 0.06em;
   color: var(--theme-accent);
   text-transform: uppercase;
-  /* Themed underline (iter 16b) — gives subsection titles ("Tools", "Skills",
+  /* Themed underline — gives subsection titles ("Tools", "Skills",
      "Introduction / TLDR", etc.) enough visual weight to read as proper
      section breaks rather than just bigger body text. */
   padding-bottom: 8px;
@@ -761,12 +812,11 @@ body.is-dragging-window * { cursor: grabbing !important; }
 }
 .bio-sketch svg { width: 100%; height: auto; display: block; }
 
-/* Intro — smiley on the LEFT. (Wave hand sketch removed iter 20.) */
+/* Intro — smiley on the LEFT. */
 .bio-sketch-smiley  { top: 50px;  left:  -160px; width: 120px; transform: rotate(-6deg); }
 
 /* Love of Gaming — left margin: shield + sword. Right margin: Game Boy
-   + keyboard. Iter 20c: positions tuned by Samuel in DevTools. The
-   minerals (crystal cluster) was removed at his request. */
+   + keyboard. Positions tuned by Samuel in DevTools. */
 .bio-sketch-shield   { top: 113px; left:  -288px; width: 243px; transform: rotate(-8deg); }
 .bio-sketch-sword    { top: 300px; left:  -143px; width: 131px; transform: rotate(14deg); }
 .bio-sketch-gameboy  { top:  40px; right: -194px; width: 115px; transform: rotate(6deg); }
@@ -785,7 +835,7 @@ body.is-dragging-window * { cursor: grabbing !important; }
   .bio-sketch { display: none; }
 }
 
-/* Iter 20c: ensure body text and cards always paint *above* their
+/* Ensure body text and cards always paint *above* their
    decorative sketches, so when a window narrows enough that a sketch
    bleeds over the content the text still reads cleanly. The sketches
    already use z-index: 0; these rules give the in-flow content z-index:
@@ -801,7 +851,7 @@ body.is-dragging-window * { cursor: grabbing !important; }
   flex-direction: column;
   gap: 12px;
   font-size: 0.95rem;
-  color: rgba(244, 255, 253, 0.88);
+  color: var(--text);
 }
 .app-bio p { margin: 0; }
 
@@ -812,13 +862,13 @@ body.is-dragging-window * { cursor: grabbing !important; }
   flex-direction: column;
   gap: 6px;
   font-size: 0.95rem;
-  color: rgba(244, 255, 253, 0.88);
+  color: var(--text);
 }
 .app-bullets li::marker { color: var(--theme-accent); }
 
 /* Games ------------------------------------------------------------------ */
 
-/* Row layout (iter 16): one card per row, image on the left, body on the
+/* Row layout: one card per row, image on the left, body on the
    right. Cards are capped + centred so they don't span absurdly wide on
    huge monitors. Mobile flips back to vertical (image on top of body). */
 .games-grid {
@@ -843,8 +893,7 @@ body.is-dragging-window * { cursor: grabbing !important; }
 }
 .game-sketch svg { width: 100%; height: auto; display: block; }
 
-/* Iter 20c: positions tuned by Samuel in DevTools. The bullet sketch
-   was removed at his request. */
+/* Positions tuned by Samuel in DevTools. */
 
 /* ORDINEM — fanned card (left) + stat sheet (right). */
 .game-sketch-card  { left: -103px; top: 30px; width: 70px;  transform: rotate(-12deg); }
@@ -920,7 +969,7 @@ button.game-card {
   margin: 0;
   font-family: var(--font-display);
   font-weight: var(--display-weight);
-  text-transform: uppercase; /* Ethnocentric was caps-only; keep that look */
+  text-transform: uppercase;
   font-size: 1.05rem;
   letter-spacing: 0.05em;
   color: var(--theme-accent);
@@ -928,7 +977,7 @@ button.game-card {
 .game-card-desc {
   margin: 0;
   font-size: 0.85rem;
-  color: rgba(244, 255, 253, 0.82);
+  color: var(--text);
   line-height: 1.5;
 }
 .game-card-tags {
@@ -950,9 +999,8 @@ button.game-card {
 }
 
 /* Generic list/detail view, shared between Games and Blogs (and any future
-   app that wants a click-into-detail pattern). The [hidden] attribute is
-   toggled by JS in createWindow's wireDetailView block. */
-[hidden] { display: none !important; }
+   app that wants a click-into-detail pattern). applyHash() in desktop.js
+   toggles the [hidden] attribute on the two views. */
 
 .detail-view {
   display: flex;
@@ -996,14 +1044,14 @@ button.game-card {
   margin: 0;
   font-family: var(--font-display);
   font-weight: var(--display-weight);
-  text-transform: uppercase; /* Ethnocentric was caps-only; keep that look */
+  text-transform: uppercase;
   font-size: 1.6rem;
   letter-spacing: 0.06em;
   color: var(--theme-accent);
   text-shadow: 0 2px 0 rgba(0, 0, 0, 0.35);
 }
 .detail-view-sketch {
-  color: var(--ink-color, rgba(244, 255, 253, 0.85));
+  color: var(--ink-color);
   opacity: 0.85;
 }
 .detail-view-sketch svg {
@@ -1015,7 +1063,7 @@ button.game-card {
   margin: 0;
   font-family: var(--font-body);
   font-size: 1rem;
-  color: rgba(244, 255, 253, 0.75);
+  color: var(--text-soft);
 }
 
 /* Games: study projects + per-game case studies -------------------------- */
@@ -1068,7 +1116,7 @@ button.game-card {
   font-size: 0.7rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: rgba(244, 255, 253, 0.55);
+  color: var(--text-muted);
 }
 .study-card-title {
   font-family: var(--font-display);
@@ -1081,7 +1129,7 @@ button.game-card {
 .study-card-desc {
   font-size: 0.85rem;
   line-height: 1.5;
-  color: rgba(244, 255, 253, 0.82);
+  color: var(--text);
 }
 
 /* "Read the case study →" on game and study cards, so it's obvious the
@@ -1135,11 +1183,11 @@ button.game-card {
   font-size: 0.8rem;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: rgba(244, 255, 253, 0.65);
+  color: var(--text-muted);
 }
 .cs-lede {
   font-size: 1.02rem;
-  color: rgba(244, 255, 253, 0.92);
+  color: var(--text-strong);
 }
 .cs-highlights {
   margin: 4px 0 0;
@@ -1148,7 +1196,7 @@ button.game-card {
   flex-direction: column;
   gap: 6px;
   font-size: 0.93rem;
-  color: rgba(244, 255, 253, 0.9);
+  color: var(--text-strong);
   background: rgba(0, 0, 0, 0.22);
   border-left: 3px solid var(--theme-accent);
   border-radius: 0 6px 6px 0;
@@ -1191,7 +1239,7 @@ button.game-card {
   flex-direction: column;
   gap: 12px;
   font-size: 0.95rem;
-  color: rgba(244, 255, 253, 0.88);
+  color: var(--text);
 }
 .cs-section p,
 .cs-problem p { margin: 0; }
@@ -1229,7 +1277,7 @@ button.game-card {
   font-size: 0.78rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: rgba(244, 255, 253, 0.7);
+  color: var(--text-soft);
 }
 .cs-iterations,
 .cs-did {
@@ -1244,13 +1292,13 @@ button.game-card {
 .cs-iterations ul {
   margin: 6px 0 0;
   padding-left: 18px;
-  color: rgba(244, 255, 253, 0.78);
+  color: var(--text-soft);
 }
 .cs-status {
   padding-left: 12px;
   font-size: 0.88rem;
   font-style: italic;
-  color: rgba(244, 255, 253, 0.68);
+  color: var(--text-soft);
   border-left: 2px dashed color-mix(in srgb, var(--theme-accent) 45%, transparent);
 }
 .cs-takeaway {
@@ -1286,7 +1334,7 @@ button.game-card {
   font-size: 0.82rem;
   font-style: italic;
   text-align: center;
-  color: rgba(244, 255, 253, 0.7);
+  color: var(--text-soft);
 }
 .cs-shot {
   position: relative;
@@ -1385,7 +1433,7 @@ button.game-card {
   background: var(--theme-accent);
   border-radius: 4px;
 }
-.cs-doc-text { font-size: 0.85rem; color: rgba(244, 255, 253, 0.78); }
+.cs-doc-text { font-size: 0.85rem; color: var(--text-soft); }
 .cs-doc-text strong { display: block; font-size: 0.92rem; color: var(--accent-off-white); }
 
 /* Tables scroll sideways on narrow screens instead of squashing. */
@@ -1412,7 +1460,7 @@ button.game-card {
 .cs-table td {
   padding: 8px 12px;
   vertical-align: top;
-  border-top: 1px solid rgba(244, 255, 253, 0.08);
+  border-top: 1px solid var(--tint-08);
 }
 .cs-table tbody tr:nth-child(even) { background: rgba(0, 0, 0, 0.15); }
 
@@ -1467,17 +1515,14 @@ button.game-card {
   transform: translateX(-50%) rotate(-3deg);
   width: 50px;
   height: 14px;
-  background: color-mix(in srgb, var(--theme-accent) 35%, rgba(244, 255, 253, 0.18));
+  background: color-mix(in srgb, var(--theme-accent) 35%, var(--tint-18));
   border-radius: 1px;
   opacity: 0.75;
 }
 
-/* Window-body scrollbar — themed per-app via the inherited --theme-accent.
-   Yellow on Blogs/Experience, mint on About/Games, purple on Links/Contacts. */
-.window-body {
-  scrollbar-width: thin;
-  scrollbar-color: color-mix(in srgb, var(--theme-accent) 60%, transparent) rgba(0, 0, 0, 0.22);
-}
+/* Window-body scrollbar in Chrome/Safari — themed per app via the inherited
+   --theme-accent: green on About/Blogs, yellow on Games/Experience, purple
+   on Links/Contacts. */
 .window-body::-webkit-scrollbar {
   width: 12px;
   height: 12px;
@@ -1590,7 +1635,7 @@ button.game-card {
   margin: 0;
   font-family: var(--font-display);
   font-weight: var(--display-weight);
-  text-transform: uppercase; /* Ethnocentric was caps-only; keep that look */
+  text-transform: uppercase;
   font-size: 1.05rem;
   letter-spacing: 0.04em;
   color: var(--theme-accent);
@@ -1600,12 +1645,12 @@ button.game-card {
   font-size: 0.72rem;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: rgba(244, 255, 253, 0.5);
+  color: var(--text-muted);
 }
 .blog-preview {
   margin: 4px 0 0;
   font-size: 0.88rem;
-  color: rgba(244, 255, 253, 0.78);
+  color: var(--text-soft);
   line-height: 1.5;
 }
 
@@ -1638,7 +1683,7 @@ button.game-card {
   transition: border-color 120ms ease, background-color 120ms ease;
 }
 .blog-search::placeholder {
-  color: rgba(244, 255, 253, 0.45);
+  color: var(--text-faint);
 }
 .blog-search:focus {
   border-color: var(--theme-accent);
@@ -1671,7 +1716,7 @@ button.game-card {
   margin: 0;
   font-family: var(--font-display);
   font-weight: var(--display-weight);
-  text-transform: uppercase; /* Ethnocentric was caps-only; keep that look */
+  text-transform: uppercase;
   font-size: 1rem;
   letter-spacing: 0.04em;
   color: var(--theme-accent);
@@ -1680,7 +1725,7 @@ button.game-card {
   font-size: 0.78rem;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: rgba(244, 255, 253, 0.55);
+  color: var(--text-muted);
 }
 .exp-role-subhead {
   margin: 8px 0 0;
@@ -1689,12 +1734,12 @@ button.game-card {
   font-size: 0.78rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: rgba(244, 255, 253, 0.78);
+  color: var(--text-soft);
 }
 .exp-role-summary {
   margin: 0;
   font-size: 0.92rem;
-  color: rgba(244, 255, 253, 0.85);
+  color: var(--text);
   line-height: 1.55;
 }
 .exp-bullets {
@@ -1704,7 +1749,7 @@ button.game-card {
   flex-direction: column;
   gap: 4px;
   font-size: 0.88rem;
-  color: rgba(244, 255, 253, 0.85);
+  color: var(--text);
 }
 .exp-bullets li::marker { color: var(--theme-accent); }
 
@@ -1725,7 +1770,7 @@ button.game-card {
 .exp-cross-link-text {
   margin: 0;
   font-size: 0.95rem;
-  color: rgba(244, 255, 253, 0.86);
+  color: var(--text);
 }
 .exp-cross-link-button {
   display: inline-flex;
@@ -1788,7 +1833,7 @@ button.game-card {
   letter-spacing: 0.04em;
   padding: 4px 10px;
   border-radius: 4px;
-  color: rgba(244, 255, 253, 0.92);
+  color: var(--text-strong);
 }
 .skill-tier[data-tier="high"] .skill-list li {
   background: color-mix(in srgb, var(--theme-accent) 22%, transparent);
@@ -1801,7 +1846,7 @@ button.game-card {
 .skill-tier[data-tier="low"] .skill-list li {
   background: rgba(0, 0, 0, 0.22);
   border: 1px solid color-mix(in srgb, var(--theme-accent) 14%, transparent);
-  color: rgba(244, 255, 253, 0.7);
+  color: var(--text-soft);
 }
 
 /* Links ------------------------------------------------------------------ */
@@ -1810,7 +1855,7 @@ button.game-card {
    positioned within .app-links (which is position:relative via
    .app-content) and pushed off the page edges so they read as
    scattered scrapbook decoration. The link sections sit above them
-   via z-index. (Iter 20.) */
+   via z-index. */
 .app-links { position: relative; }
 .link-decor {
   position: absolute;
@@ -1847,7 +1892,7 @@ button.game-card {
   letter-spacing: 0.1em;
   text-transform: uppercase;
   /* Same accent-into-off-white blend as .link-row-handle for legibility
-     against the dark purple window body. (Iter 20.) */
+     against the dark purple window body. */
   color: color-mix(in srgb, var(--theme-accent) 60%, var(--accent-off-white));
 }
 .link-items {
@@ -1866,8 +1911,7 @@ button.game-card {
   align-items: center;
   gap: 22px;
   padding: 22px 26px;
-  /* Iter 20: darker row bg for stronger contrast against the dark
-     purple body — without it the row was too close to the bg lum. */
+  /* Darker row bg for contrast against the dark purple body. */
   background: rgba(0, 0, 0, 0.42);
   border: 1px solid color-mix(in srgb, var(--theme-accent) 28%, transparent);
   border-radius: 8px;
@@ -1933,7 +1977,7 @@ button.game-card {
 .link-row-name {
   font-family: var(--font-display);
   font-weight: var(--display-weight);
-  text-transform: uppercase; /* Ethnocentric was caps-only; keep that look */
+  text-transform: uppercase;
   font-size: 1.15rem;
   letter-spacing: 0.04em;
   color: var(--accent-off-white);
@@ -1942,7 +1986,7 @@ button.game-card {
   font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
   font-size: 0.92rem;
   font-weight: 600;
-  /* Iter 20: blend accent toward off-white so the handle reads against
+  /* Blend accent toward off-white so the handle reads against
      the dark purple body. Pure --theme-accent (#8447FF) was sitting too
      close to the bg luminance to be easily legible. */
   color: color-mix(in srgb, var(--theme-accent) 55%, var(--accent-off-white));
@@ -1990,10 +2034,9 @@ button.game-card {
   margin: 0;
   font-family: var(--font-display);
   font-weight: var(--display-weight);
-  text-transform: uppercase; /* Ethnocentric was caps-only; keep that look */
+  text-transform: uppercase;
   font-size: 1.3rem;
   letter-spacing: 0.22em;
-  text-transform: uppercase;
   color: var(--theme-accent);
   text-shadow: 0 2px 0 rgba(0, 0, 0, 0.35);
 }
@@ -2045,14 +2088,22 @@ button.game-card {
 .contact-hint {
   margin: 0;
   font-size: 0.95rem;
-  color: rgba(244, 255, 253, 0.6);
+  color: var(--text-muted);
 }
+/* Fallback for when copying is blocked, or for people who'd rather click. */
+.contact-mailto {
+  margin-top: -10px;
+  font-size: 0.95rem;
+  color: color-mix(in srgb, var(--theme-accent) 55%, var(--accent-off-white));
+  text-underline-offset: 3px;
+}
+.contact-mailto:hover { color: var(--accent-off-white); }
 
 /* Friendly hand-written doodles filling the empty space below the email
    block — "thank you" with a heart, "click here" with an arrow,
    "let's chat" with a scroll. Captions use the same Caveat handwriting
-   font as the desktop polaroid captions. (Iter 20 → 20b: scaled up
-   substantially because the bottom 1/3 of the page was empty.) */
+   font as the desktop screenshot captions. Sized large to fill the
+   bottom third of the page. */
 .contact-doodles {
   display: flex;
   flex-wrap: wrap;
@@ -2107,7 +2158,7 @@ button.game-card {
   background: rgba(20, 36, 36, 0.96);
   backdrop-filter: blur(18px) saturate(150%);
   -webkit-backdrop-filter: blur(18px) saturate(150%);
-  border: 1px solid rgba(244, 255, 253, 0.10);
+  border: 1px solid var(--tint-10);
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.5);
   color: var(--accent-off-white);
 }
@@ -2132,11 +2183,12 @@ button.game-card {
 
 /* Responsive -------------------------------------------------------------- */
 
-/* Phone + small tablet (<= 900px, matches PHONE in js/desktop.js).
+/* Phone + small tablet (<= 900px wide, or under 500px tall = a phone held
+   sideways; matches PHONE in js/desktop.js).
    Not a shrunken desktop: a scrolling home page (photo, name, big app tiles,
-   then the four game screenshots) with the taskbar turned into a bottom tab
+   then the screenshot gallery) with the taskbar turned into a bottom tab
    bar. Apps open full screen, one at a time, like pages. */
-@media (max-width: 900px) {
+@media (max-width: 900px), (max-height: 500px) {
   :root { --taskbar-height: 62px; }
 
   body { overflow-x: hidden; overflow-y: auto; }
@@ -2152,7 +2204,7 @@ button.game-card {
     /* Same dark wallpaper; the SVG splotches are hidden here, so soft
        green glows stand in for them. */
     background:
-      radial-gradient(circle, rgba(244, 255, 253, 0.05) 1px, transparent 1.5px) 0 0 / 24px 24px,
+      radial-gradient(circle, var(--tint-05) 1px, transparent 1.5px) 0 0 / 24px 24px,
       radial-gradient(ellipse 70% 14% at 20% 20%, rgba(83, 252, 141, 0.10), transparent 70%),
       radial-gradient(ellipse 60% 12% at 85% 52%, rgba(83, 252, 141, 0.08), transparent 70%),
       radial-gradient(ellipse 70% 12% at 25% 86%, rgba(83, 252, 141, 0.07), transparent 70%),
@@ -2203,7 +2255,7 @@ button.game-card {
   .app-icon-soon { margin-top: -4px; font-size: 1.05rem; }
   .app-icon.is-disabled,
   .app-icon.is-disabled:hover,
-  .app-icon.is-disabled:active { background: rgba(0, 0, 0, 0.18); border-color: rgba(244, 255, 253, 0.08); }
+  .app-icon.is-disabled:active { background: rgba(0, 0, 0, 0.18); border-color: var(--tint-08); }
 
   /* Screenshots: a 2×2 gallery under the tiles instead of scattered decor. */
   .desktop-decor {
@@ -2219,7 +2271,11 @@ button.game-card {
   .sketch, .splotch { display: none; }
   .screenshot { position: static; min-width: 0; }
   .screenshot-image { width: 100%; }
-  .screenshot figcaption { font-size: clamp(1.05rem, 4.6vw, 1.4rem); white-space: normal; }
+  .screenshot-caption,
+  .study-tile .screenshot-caption { font-size: clamp(1.05rem, 4.6vw, 1.4rem); white-space: normal; }
+  .ums-card { gap: 6px; padding: 10px; }
+  .ums-card-title { font-size: clamp(0.62rem, 2.6vw, 0.9rem); }
+  .ums-card-kicker { font-size: clamp(0.9rem, 3.6vw, 1.15rem); }
 
   /* Tab bar: Home + the six apps, each a full-height, labelled button. */
   .taskbar {
@@ -2255,7 +2311,7 @@ button.game-card {
     font-size: 0.6rem;
     font-weight: 500;
     letter-spacing: -0.01em;
-    color: rgba(244, 255, 253, 0.7);
+    color: var(--text-soft);
   }
   .taskbar-app.is-active .taskbar-label { color: var(--theme-accent); }
   .taskbar-app.is-disabled .taskbar-label { opacity: 0.5; }
@@ -2326,8 +2382,14 @@ button.game-card {
   .contact-email { overflow-wrap: anywhere; }
 }
 
-/* Tablet portrait: three tiles per row. */
-@media (min-width: 600px) and (max-width: 900px) {
+/* Sideways phones: a smaller photo so the name and tiles aren't a full
+   screen-height scroll away. */
+@media (max-height: 500px) {
+  .portrait-image { width: min(30vw, 150px); }
+}
+
+/* Tablet portrait and sideways phones: three tiles per row. */
+@media (min-width: 600px) and (max-width: 900px), (min-width: 600px) and (max-height: 500px) {
   .app-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 
@@ -2339,7 +2401,7 @@ button.game-card {
 
 /* Touch screens in the desktop layout (e.g. a landscape iPad): bigger
    taskbar and window buttons so they meet the 44px touch-target size. */
-@media (pointer: coarse) and (min-width: 901px) {
+@media (pointer: coarse) and (min-width: 901px) and (min-height: 501px) {
   :root { --taskbar-height: 56px; }
   .taskbar-start, .taskbar-app { width: 44px; height: 44px; }
   .window-titlebar { height: 46px; }

@@ -43,8 +43,9 @@
 
   const DRAG_THRESHOLD = 4; // px before a pointerdown counts as a drag
 
-  // Must match the phone breakpoint in style.css.
-  const PHONE = window.matchMedia("(max-width: 900px)");
+  // Phones, small tablets, and any screen under 500px tall (phones held
+  // sideways). Must match the phone breakpoint in style.css.
+  const PHONE = window.matchMedia("(max-width: 900px), (max-height: 500px)");
   const isPhone = () => PHONE.matches;
 
   // -- Window manager state -------------------------------------------------
@@ -60,20 +61,50 @@
   // The app named in the URL hash (`#games` or `#games:ordinem` → "games").
   const hashApp = () => location.hash.slice(1).split(":")[0];
 
-  // Clear the hash without adding a history entry (used when the window the
-  // hash points at is closed or minimised).
+  // Every history entry the site adds remembers the hash it was added from
+  // and how many site entries came before it (`depth`), so going back or
+  // closing can step back through history instead of piling up duplicate
+  // entries the back button then has to wade through.
+  // `base` is the hash the chain started from ("" = the home page).
+  function nextState() {
+    const s = history.state;
+    const here = location.hash.slice(1);
+    return s && s.site
+      ? { site: true, from: here, depth: s.depth + 1, base: s.base }
+      : { site: true, from: here, depth: 1, base: here };
+  }
+
+  // In-app navigation. pushState doesn't fire hashchange, so apply it here.
+  function pushHash(hash) {
+    history.pushState(nextState(), "", "#" + hash);
+    applyHash();
+  }
+
+  // Take the app out of the URL when its window is closed or minimised. If
+  // the site's entries lead straight back to the home page, step back there
+  // rather than leaving a duplicate; never step back onto an app's entry,
+  // which on desktop would re-open a window the visitor may have closed.
   function clearHashFor(app) {
-    if (hashApp() === app) {
+    if (hashApp() !== app) return;
+    const s = history.state;
+    if (s && s.site && s.base === "") {
+      quietHome = true; // this isn't the visitor pressing back: change nothing else
+      history.go(-s.depth);
+    } else {
       history.replaceState(null, "", location.pathname + location.search);
     }
   }
+  let quietHome = false;
 
   // `fromHash` is true when applyHash() is the caller — the URL is already
-  // right, so don't push another history entry.
+  // right, so don't push another history entry. Otherwise the URL names the
+  // detail the window is showing (e.g. reopening a minimised case study).
   function openApp(app, { fromHash = false } = {}) {
     if (APPS[app] && APPS[app].disabled) return;
-    if (!fromHash && hashApp() !== app) {
-      history.pushState(null, "", "#" + app);
+    const existing = openWindows.get(app);
+    const target = existing && existing.dataset.detail ? `${app}:${existing.dataset.detail}` : app;
+    if (!fromHash && location.hash.slice(1) !== target) {
+      history.pushState(nextState(), "", "#" + target);
     }
 
     // Phone: one app at a time, like pages.
@@ -190,6 +221,9 @@
       }
     });
     document.body.classList.toggle("has-open-window", anyVisible);
+    // On phones an open app covers the home page, so take the home page out
+    // of the keyboard / screen-reader order too.
+    document.querySelector(".desktop").inert = anyVisible && isPhone();
   }
 
   // -- Window construction --------------------------------------------------
@@ -261,53 +295,63 @@
     });
 
     // Wire any [data-copy] elements in the body (e.g. the Contacts email
-    // button). Click → copy the value to clipboard, briefly flag the
-    // element with .is-copied for visual feedback.
+    // button). Click → copy the value to clipboard and say whether it worked:
+    // .is-copied flashes "Copied!", and an optional [data-copy-status] line in
+    // the same window is updated (it's aria-live, so screen readers hear it).
     win.querySelectorAll("[data-copy]").forEach((el) => {
       el.addEventListener("click", async () => {
         const value = el.dataset.copy;
-        try { await navigator.clipboard.writeText(value); } catch (_) { /* no-op */ }
-        el.classList.add("is-copied");
-        setTimeout(() => el.classList.remove("is-copied"), 1400);
-      });
-    });
-
-    // Cross-app anchor links (e.g. Experience → Games "Browse the portfolio").
-    // We can't rely on the bare `<a href="#games">` because if the hash is
-    // already `#games` (user opened, closed, re-clicked) no hashchange fires
-    // and the window never re-opens. Intercept and route through openApp().
-    win.querySelectorAll('a[href^="#"]').forEach((link) => {
-      const href = link.getAttribute("href");
-      const target = href.slice(1).split(":")[0];
-      if (!APPS[target]) return;
-      link.addEventListener("click", (e) => {
-        e.preventDefault();
-        if (location.hash === href) {
-          openApp(target);
-        } else {
-          location.hash = href.slice(1);
+        let copied = true;
+        try { await navigator.clipboard.writeText(value); } catch (_) { copied = false; }
+        if (!copied) {
+          // Clipboard blocked (old browser, insecure page): select the text
+          // so Ctrl+C / long-press copy still works.
+          const range = document.createRange();
+          range.selectNodeContents(el.querySelector("[data-copy-text]") || el);
+          const sel = getSelection();
+          sel.removeAllRanges();
+          sel.addRange(range);
+        }
+        el.classList.add(copied ? "is-copied" : "is-copy-failed");
+        setTimeout(() => el.classList.remove("is-copied", "is-copy-failed"), 1400);
+        const status = win.querySelector("[data-copy-status]");
+        if (status) {
+          status.textContent = copied
+            ? "Copied to your clipboard."
+            : "Couldn't copy automatically, so the address is selected for you to copy.";
         }
       });
     });
 
+    wireAppLinks(win);
+
     // Generic list/detail view swap, hash-routed so each detail view has a
     // shareable URL (e.g. #blogs:blog-3 → opens Blogs with that post showing,
     // #games:ordinem → opens Games on the ORDINEM detail). The click handlers
-    // here ONLY mutate location.hash; the actual UI swap happens inside the
-    // top-level applyHash() function (called on hashchange + page load), so
-    // there's a single source of truth for the visible state.
+    // here ONLY change the URL; the actual UI swap happens inside the
+    // top-level applyHash() function, so there's a single source of truth for
+    // the visible state.
     const listView   = win.querySelector('[data-view="list"]');
     const detailView = win.querySelector('[data-view="detail"]');
     if (listView && detailView) {
       win.querySelectorAll("[data-detail-trigger]").forEach((trigger) => {
         trigger.addEventListener("click", (e) => {
           e.preventDefault();
-          location.hash = `${app}:${trigger.dataset.detailTrigger}`;
+          pushHash(`${app}:${trigger.dataset.detailTrigger}`);
         });
       });
       win.querySelectorAll("[data-detail-back]").forEach((btn) => {
         btn.addEventListener("click", () => {
-          location.hash = app;
+          // Opened from the list: step back, so the phone's back button
+          // doesn't return to this detail. Otherwise (a deep link from the
+          // resume, say) swap the entry in place.
+          const s = history.state;
+          if (s && s.site && s.from === app) {
+            history.back();
+          } else {
+            history.replaceState(s, "", "#" + app);
+            applyHash();
+          }
         });
       });
     }
@@ -317,7 +361,8 @@
     win.querySelectorAll("[data-jump]").forEach((btn) => {
       btn.addEventListener("click", () => {
         const target = win.querySelector(`[data-jump-id="${CSS.escape(btn.dataset.jump)}"]`);
-        if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+        const behavior = matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth";
+        if (target) target.scrollIntoView({ behavior, block: "start" });
       });
     });
 
@@ -474,6 +519,22 @@
     return tpl ? tpl.innerHTML : "";
   }
 
+  // Links to an app (e.g. Experience → Games "Browse the portfolio", or a
+  // desktop screenshot → its case study). Routed through pushHash so they
+  // still work when the URL already points there (no hashchange would fire)
+  // and so they join the site's history bookkeeping.
+  function wireAppLinks(root) {
+    root.querySelectorAll('a[href^="#"]').forEach((link) => {
+      const hash = link.getAttribute("href").slice(1);
+      if (!APPS[hash.split(":")[0]]) return;
+      link.addEventListener("click", (e) => {
+        e.preventDefault();
+        if (location.hash.slice(1) === hash) applyHash();
+        else pushHash(hash);
+      });
+    });
+  }
+
   // -- Window dragging ------------------------------------------------------
 
   // Pointer capture keeps move/up events flowing to the title bar even when
@@ -578,14 +639,22 @@
       });
       iconLayout.freed = false;
     }
+    updateTaskbarState(); // the phone-only inert home page depends on the layout
   }
 
-  // Apply current clone positions to any icon the user hasn't dragged.
+  // Apply current clone positions to any icon the user hasn't dragged, and
+  // pull dragged ones back inside if the desktop shrank.
   function repositionUndragged() {
     if (!iconLayout.freed) return;
     const desktopRect = iconLayout.desktop.getBoundingClientRect();
     iconLayout.icons.forEach((icon, i) => {
-      if (icon.dataset.dragged === "true") return;
+      if (icon.dataset.dragged === "true") {
+        const maxX = desktopRect.width  - icon.offsetWidth;
+        const maxY = desktopRect.height - icon.offsetHeight;
+        icon.style.left = Math.max(0, Math.min(maxX, parseFloat(icon.style.left) || 0)) + "px";
+        icon.style.top  = Math.max(0, Math.min(maxY, parseFloat(icon.style.top)  || 0)) + "px";
+        return;
+      }
       const r = iconLayout.clones[i].getBoundingClientRect();
       icon.style.left = (r.left - desktopRect.left) + "px";
       icon.style.top  = (r.top  - desktopRect.top)  + "px";
@@ -679,7 +748,9 @@
 
       btn.addEventListener("contextmenu", (e) => {
         e.preventDefault();
-        if (!APPS[app].disabled) showContextMenu(e.clientX, e.clientY, app);
+        // Desktop only: on phones a long-press on a tab shouldn't pop a
+        // Windows-style menu.
+        if (!APPS[app].disabled && !isPhone()) showContextMenu(e.clientX, e.clientY, app);
       });
     });
 
@@ -730,18 +801,22 @@
   // -- Hash routing ---------------------------------------------------------
 
   // URL hash scheme: `#<app>` for the app at list view, `#<app>:<detail-id>`
-  // for a specific detail. Triggers and back buttons set location.hash; this
+  // for a specific detail. Triggers and back buttons change the URL; this
   // function reads the hash and mutates the UI to match. Runs on every
-  // hashchange + once at page load (so a deep link in the URL on first load
-  // opens the right window/state).
+  // hashchange, after pushHash(), and once at page load (so a deep link in
+  // the URL on first load opens the right window/state).
   function applyHash() {
     const raw = location.hash.replace(/^#/, "");
+    const quiet = quietHome;
+    quietHome = false;
 
-    // Empty hash (e.g. the back button after opening an app):
+    // Empty hash from the visitor pressing back (not from closing or
+    // minimising, which step back quietly):
     // - phone: back to the home page, so hide every open app;
     // - desktop: reset every open list/detail window back to its list view
     //   (windows stay open, like a real desktop).
     if (!raw) {
+      if (quiet) return;
       if (isPhone()) {
         openWindows.forEach((w) => w.classList.add("is-minimised"));
         updateTaskbarState();
@@ -751,6 +826,7 @@
         const list   = w.querySelector('[data-view="list"]');
         const detail = w.querySelector('[data-view="detail"]');
         if (list && detail) { detail.hidden = true; list.hidden = false; }
+        w.dataset.detail = "";
       });
       return;
     }
@@ -768,8 +844,12 @@
     const body       = win.querySelector(".window-body");
     if (!listView || !detailView) return;
 
+    // Remember what the window shows, so reopening it from the taskbar puts
+    // the same detail back in the URL (see openApp).
+    const trigger = detailId && win.querySelector(`[data-detail-trigger="${CSS.escape(detailId)}"]`);
+    win.dataset.detail = trigger ? detailId : "";
+
     if (detailId) {
-      const trigger = win.querySelector(`[data-detail-trigger="${CSS.escape(detailId)}"]`);
       if (trigger) {
         const titleTarget = detailView.querySelector("[data-detail-title-target]");
         if (titleTarget) titleTarget.textContent = trigger.dataset.detailTitle || detailId;
@@ -816,6 +896,7 @@
 
     setupIcons();
     wireTaskbar();
+    wireAppLinks(document.querySelector(".desktop"));
 
     // Escape closes the topmost window. Inside a search box that still has
     // text, Escape just clears the box (browser default) instead.
