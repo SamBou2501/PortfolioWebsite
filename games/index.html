@@ -6,7 +6,7 @@
   <!-- Every relative path on this page resolves from the site root, so the
        content below works unchanged inside a desktop window too. -->
   <base href="../">
-  <title>Games I've Worked On — Samuel Bouzanquet, Game Designer</title>
+  <title>Projects — Samuel Bouzanquet, Game Designer</title>
   <meta name="description" content="Case studies of Samuel Bouzanquet's design work as Lead Game Designer on ORDINEM, STARVIN MARTIAN, WAR OF STEEL and NEXUS, plus two study projects.">
   <meta name="theme-color" content="#0F2020">
   <link rel="canonical" href="https://sambou2501.github.io/PortfolioWebsite/games/">
@@ -16,7 +16,7 @@
 
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://sambou2501.github.io/PortfolioWebsite/games/">
-  <meta property="og:title" content="Games I've Worked On — Samuel Bouzanquet, Game Designer">
+  <meta property="og:title" content="Projects — Samuel Bouzanquet, Game Designer">
   <meta property="og:description" content="Case studies of Samuel Bouzanquet's design work as Lead Game Designer on ORDINEM, STARVIN MARTIAN, WAR OF STEEL and NEXUS, plus two study projects.">
   <meta property="og:image" content="https://sambou2501.github.io/PortfolioWebsite/assets/og-image.png">
   <meta property="og:image:width" content="1200">
@@ -26,8 +26,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Caveat:wght@500;600&family=Orbitron:wght@800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/themes.css?v=11">
-  <link rel="stylesheet" href="css/style.css?v=11">
+  <link rel="stylesheet" href="css/themes.css?v=19">
+  <link rel="stylesheet" href="css/style.css?v=19">
 </head>
 <body class="page">
   <!-- Shown only without JavaScript; with it, desktop.js builds the desktop
@@ -36,11 +36,12 @@
   <main class="page-main" data-page="games/">
     <article class="app-content app-games" data-theme="games">
       <header class="app-section-header">
-        <h2 class="app-title">Games I've Worked On</h2>
+        <h2 class="app-title">Projects</h2>
         <p class="app-eyebrow">Portfolio</p>
       </header>
 
-      <!-- Grid view: 4 cards in display order ORDINEM → STARVIN MARTIAN → WAR OF STEEL → NEXUS.
+      <!-- Grid view: 6 cards in display order ORDINEM → STARVIN MARTIAN → WAR OF STEEL → NEXUS,
+           then the study projects UMS → ZORDE.
            Each card links to its case study page (games/<id>/).
            Each card is wrapped in a .game-card-row so per-game decorative
            sketches can sit in the side margins without getting clipped by
@@ -359,31 +360,137 @@
             <line x1="38" y1="124" x2="52" y2="124"/>
           </svg>
         </div>
-      </div>
 
-      <!-- Study projects: smaller cards under the games, same detail routing. -->
-      <section class="study-section">
-        <h3 class="app-subtitle">Study projects</h3>
-        <div class="study-grid">
-          <a class="study-card has-image" href="games/capstone/">
-            <img class="study-card-image" src="assets/games/ums-fragments-thumb.webp" width="640" height="400" alt="" loading="lazy">
-            <span class="study-card-kicker">Capstone · UE5</span>
-            <span class="study-card-title">Ultra Modular Systems</span>
-            <span class="study-card-desc">A UE5 framework for fully modular abilities, effects, stats and art, built over 3 months.</span>
-            <span class="card-cta">Read more <span aria-hidden="true">&rarr;</span></span>
+        <!-- Study projects: same card as the games, after them. -->
+        <div class="game-card-row">
+          <a class="game-card" href="games/capstone/">
+            <div class="game-card-image">
+              <img src="assets/games/ums-fragments-thumb.webp" width="640" height="400" alt="Ultra Modular Systems fragments panel in Unreal Engine 5" loading="lazy">
+            </div>
+            <div class="game-card-body">
+              <h3 class="game-card-title">Ultra Modular Systems</h3>
+              <p class="game-card-desc">My capstone project: a framework for Unreal Engine 5 that makes abilities, effects, stats and art fully modular, so I never have to go back and redo core logic again. It combines C++ base classes with a lot of Blueprint, and took 3 months of research, development, testing and iteration. It's planned to fully launch by the end of 2026.</p>
+              <div class="game-card-tags">
+                <span class="game-tag">Study Project</span>
+                <span class="game-tag">Unreal Engine</span>
+                <span class="game-tag">C++</span>
+                <span class="game-tag">Blueprint</span>
+                <span class="game-tag">Systems</span>
+                <span class="game-tag">Tools</span>
+              </div>
+              <span class="card-cta">Read more <span aria-hidden="true">&rarr;</span></span>
+            </div>
           </a>
-          <a class="study-card has-image" href="games/zorde/">
-            <img class="study-card-image" src="assets/games/zorde-moodboard-thumb.webp" width="640" height="398" alt="" loading="lazy">
-            <span class="study-card-kicker">Assessment · Level design</span>
-            <span class="study-card-title">ZORDE's map</span>
-            <span class="study-card-desc">A huge medieval castle map with paranatural and eldritch elements, for a zombie horde shooter.</span>
-            <span class="card-cta">Read more <span aria-hidden="true">&rarr;</span></span>
-          </a>
+          <!-- UMS: snap-together building blocks (left) + a Blueprint node
+               graph (right). -->
+          <svg class="game-sketch game-sketch-blocks" viewBox="0 0 120 110" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" filter="url(#sketch-roughen-light)" aria-hidden="true">
+            <!-- floating block, about to snap in -->
+            <rect x="34" y="12" width="40" height="22" rx="1"/>
+            <rect x="40" y="6" width="8" height="6"/>
+            <rect x="60" y="6" width="8" height="6"/>
+            <path d="M 54 38 L 54 52" stroke-dasharray="2 2"/>
+            <path d="M 50 48 L 54 52 L 58 48"/>
+            <!-- two blocks already placed -->
+            <rect x="10" y="62" width="40" height="24" rx="1"/>
+            <rect x="16" y="56" width="8" height="6"/>
+            <rect x="34" y="56" width="8" height="6"/>
+            <rect x="56" y="62" width="40" height="24" rx="1"/>
+            <rect x="62" y="56" width="8" height="6"/>
+            <rect x="80" y="56" width="8" height="6"/>
+            <line x1="16" y1="74" x2="30" y2="74"/>
+            <line x1="62" y1="74" x2="80" y2="74"/>
+            <!-- annotation -->
+            <path d="M 96 76 L 108 94" stroke-dasharray="2 2"/>
+            <line x1="98" y1="98" x2="118" y2="98"/>
+            <line x1="100" y1="102" x2="114" y2="102"/>
+          </svg>
+          <svg class="game-sketch game-sketch-nodes" viewBox="0 0 140 100" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" filter="url(#sketch-roughen-light)" aria-hidden="true">
+            <!-- node 1 -->
+            <rect x="6" y="18" width="46" height="52" rx="4"/>
+            <line x1="6" y1="30" x2="52" y2="30"/>
+            <line x1="12" y1="24" x2="34" y2="24" stroke-width="2"/>
+            <line x1="12" y1="42" x2="32" y2="42"/>
+            <line x1="12" y1="56" x2="30" y2="56"/>
+            <circle cx="46" cy="42" r="2.5"/>
+            <circle cx="46" cy="56" r="2.5"/>
+            <!-- node 2 -->
+            <rect x="88" y="34" width="46" height="52" rx="4"/>
+            <line x1="88" y1="46" x2="134" y2="46"/>
+            <line x1="94" y1="40" x2="118" y2="40" stroke-width="2"/>
+            <line x1="102" y1="58" x2="126" y2="58"/>
+            <line x1="102" y1="72" x2="124" y2="72"/>
+            <circle cx="94" cy="58" r="2.5"/>
+            <circle cx="94" cy="72" r="2.5"/>
+            <!-- wires -->
+            <path d="M 48.5 42 C 70 42 70 58 91.5 58"/>
+            <path d="M 48.5 56 C 70 56 70 72 91.5 72"/>
+          </svg>
         </div>
-      </section>
+
+        <div class="game-card-row">
+          <a class="game-card" href="games/zorde/">
+            <div class="game-card-image">
+              <img src="assets/games/zorde-moodboard-thumb.webp" width="640" height="398" alt="ZORDE mood board" loading="lazy">
+            </div>
+            <div class="game-card-body">
+              <h3 class="game-card-title">ZORDE</h3>
+              <p class="game-card-desc">A huge medieval castle map with paranatural and eldritch elements. Made for an assessment as a part of ZORDE - the accompanying 3rd person roguelite zombie horde shooter I was making at the same time. The level went through many iterations, and I'm especially proud of the research and visualising that went into the map and the game as a whole.</p>
+              <div class="game-card-tags">
+                <span class="game-tag">Study Project</span>
+                <span class="game-tag">Level Design</span>
+                <span class="game-tag">Horde Shooter</span>
+                <span class="game-tag">Visuals</span>
+              </div>
+              <span class="card-cta">Read more <span aria-hidden="true">&rarr;</span></span>
+            </div>
+          </a>
+          <!-- ZORDE: castle tower (left) + zombie hand out of the ground under
+               an eldritch eye (right). -->
+          <svg class="game-sketch game-sketch-castle" viewBox="0 0 110 130" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" filter="url(#sketch-roughen-light)" aria-hidden="true">
+            <rect x="30" y="40" width="50" height="84"/>
+            <path d="M 26 40 L 26 26 L 38 26 L 38 32 L 50 32 L 50 26 L 62 26 L 62 32 L 74 32 L 74 26 L 84 26 L 84 40 Z"/>
+            <line x1="56" y1="32" x2="56" y2="8"/>
+            <path d="M 56 8 L 74 12 L 56 17"/>
+            <path d="M 46 124 L 46 106 Q 55 96 64 106 L 64 124"/>
+            <rect x="38" y="54" width="6" height="12" rx="3"/>
+            <rect x="66" y="54" width="6" height="12" rx="3"/>
+            <rect x="52" y="74" width="6" height="12" rx="3"/>
+            <line x1="32" y1="96" x2="42" y2="96"/>
+            <line x1="68" y1="90" x2="78" y2="90"/>
+            <line x1="34" y1="48" x2="40" y2="48"/>
+            <line x1="4" y1="124" x2="106" y2="124"/>
+            <path d="M 84 12 Q 87 9 90 12 Q 93 9 96 12"/>
+            <path d="M 92 22 Q 94 20 96 22 Q 98 20 100 22"/>
+          </svg>
+          <svg class="game-sketch game-sketch-horde" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" filter="url(#sketch-roughen-light)" aria-hidden="true">
+            <!-- eldritch eye with tentacles -->
+            <path d="M 80 22 Q 96 8 112 22 Q 96 36 80 22 Z"/>
+            <circle cx="96" cy="22" r="4" fill="currentColor"/>
+            <path d="M 86 29 Q 82 40 88 48"/>
+            <path d="M 96 31 Q 99 42 94 52"/>
+            <path d="M 106 29 Q 112 38 107 46"/>
+            <!-- zombie hand out of the ground -->
+            <path d="M 50 104 L 51 68"/>
+            <path d="M 66 104 L 64 68"/>
+            <path d="M 51 68 Q 48 60 49 52 L 65 52 Q 66 60 64 68"/>
+            <path d="M 49 54 L 44 34 L 48 33 L 53 52"/>
+            <path d="M 53 52 L 53 28 L 57 28 L 58 52"/>
+            <path d="M 58 52 L 61 30 L 65 31 L 62 52"/>
+            <path d="M 64 56 L 72 42 L 75 45 L 66 62"/>
+            <path d="M 50 62 L 39 52 L 37 55 L 49 66"/>
+            <line x1="54" y1="80" x2="58" y2="84"/>
+            <!-- ground and dirt -->
+            <line x1="6" y1="104" x2="114" y2="104"/>
+            <path d="M 30 104 Q 40 96 50 104"/>
+            <path d="M 66 104 Q 76 97 86 104"/>
+            <circle cx="24" cy="110" r="1" fill="currentColor"/>
+            <circle cx="92" cy="110" r="1" fill="currentColor"/>
+          </svg>
+        </div>
+      </div>
       </div>
     </article>
   </main>
-  <script src="js/desktop.js?v=11"></script>
+  <script src="js/desktop.js?v=19"></script>
 </body>
 </html>

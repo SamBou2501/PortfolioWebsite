@@ -40,14 +40,15 @@ img { display: block; max-width: 100%; }
   --font-hand: "Caveat", cursive;
 
   /* Ink color for sketchbook content (sketches, scribbles, frames).
-     OFF-WHITE inside windows; the desktop overrides it with purple. */
+     OFF-WHITE inside windows; the desktop uses a fainter --wall-ink. */
   --ink-color: rgba(244, 255, 253, 0.88);
 
   /* Desktop wallpaper: sleek near-black (the taskbar's dark teal) with
-     purple sketch ink and green paint splotches on top. */
+     faint off-white sketch ink and dim teal paint splotches on top (option D,
+     Samuel's pick 2026-11-09: only the app icons carry bright colour). */
   --wall-base: #0B1717;
-  --wall-ink: rgba(163, 120, 255, 0.9);
-  --wall-splotch: #53FC8D;
+  --wall-ink: rgba(244, 255, 253, 0.5);
+  --wall-splotch: #2A4A48;
 }
 
 @supports (height: 100dvh) {
@@ -72,7 +73,7 @@ body {
   width: 100%;
   height: calc(var(--screen-h) - var(--taskbar-height));
   overflow: hidden;
-  --ink-color: var(--wall-ink); /* sketches, frames and captions go purple */
+  --ink-color: var(--wall-ink); /* sketches, frames and captions: faint off-white */
 
   /* Sleek dark base: a faint dot grid and a soft vignette. The colour lives
      in the decor layer on top (purple sketches, green .splotch paint). */
@@ -95,6 +96,12 @@ body {
   padding: calc(56 * var(--u)) calc(56 * var(--u)) calc(64 * var(--u));
   text-align: center;
   background: transparent;
+  /* Nudged right so the photo + name sit centred in the space left of the
+     icons now that the study tiles take up the left edge. */
+  translate: calc(70 * var(--u)) 0;
+  /* The panel's box overlaps the study tiles on the left edge and holds
+     nothing clickable, so it lets clicks through to them. */
+  pointer-events: none;
 }
 
 /* Photo: no white polaroid frame; just the image with a hand-drawn sketchy
@@ -173,7 +180,11 @@ body {
   /* Nudge the whole icon cluster up + left from dead-centre — feels less
      "trapped in the corner" and frees up the bottom-right for the WoS polaroid. */
   transform: translate(calc(-40 * var(--u)), calc(-54 * var(--u)));
+  /* The grid's box sits over the screenshot links (on the desktop it only
+     holds hidden measuring clones), so it must not catch clicks itself. */
+  pointer-events: none;
 }
+.app-icon { pointer-events: auto; }
 
 .app-grid > *:nth-child(3),
 .app-grid > *:nth-child(4) { transform: translateY(calc(60 * var(--u))); }
@@ -286,12 +297,11 @@ body {
   pointer-events: none;
 }
 
-/* Sketches — high opacity now, ink color flipped per --ink-color. */
+/* Sketches: faint off-white ink, no glow. */
 .sketch {
   position: absolute;
   color: var(--ink-color);
-  opacity: 0.85;
-  filter: drop-shadow(0 0 6px rgba(132, 71, 255, 0.45));
+  opacity: 0.55;
 }
 
 /* Green paint splotches: the bottom layer of the decor, under the sketches
@@ -311,7 +321,7 @@ body {
    the pylon sits at 35% to leave room for the ZORDE tile. */
 .sketch-dungeon   { width: calc(165 * var(--u)); bottom: 2%; left: 20%;  transform: rotate(-6deg); }
 .sketch-talents   { width: calc(140 * var(--u)); top: 52%;   right: 4%;  transform: rotate(5deg); }
-.sketch-mechanic  { width: calc(195 * var(--u)); top: 19%;   left: 40%;  transform: rotate(-3deg); }
+.sketch-mechanic  { width: calc(195 * var(--u)); top: 19%;   left: 41.5%;  transform: rotate(-3deg); }
 .sketch-heart     { width: calc(120 * var(--u)); top: 3%;    left: 4%;   transform: rotate(-8deg); }
 .sketch-card      { width: calc( 93 * var(--u)); top: 21%;   right: 22%; transform: rotate(7deg); }
 .sketch-pylon     { width: calc(100 * var(--u)); top: 35%;   left: 4%;   transform: rotate(3deg); }
@@ -372,7 +382,7 @@ body {
   font-family: var(--font-hand);
   font-weight: 600;
   font-size: max(14px, calc(29.6 * var(--u)));
-  color: var(--ink-color);
+  color: var(--text-soft); /* brighter than the ink: these are link labels */
   text-align: center;
   margin-top: 2px;
   white-space: nowrap;
@@ -906,8 +916,24 @@ body.is-dragging-window * { cursor: grabbing !important; }
 .game-sketch-grenade     { right: -227px; top: -38px; width: 183px; transform: rotate(10deg); }
 .game-sketch-capacitor   { right: -307px; top:  76px; width: 217px; transform: rotate(-6deg); }
 
+/* ULTRA MODULAR SYSTEMS — building blocks (left) + node graph (right). */
+.game-sketch-blocks { left: -190px; top: 60px; width: 160px; transform: rotate(-6deg); }
+.game-sketch-nodes  { right: -250px; top: 50px; width: 210px; transform: rotate(6deg); }
+
+/* ZORDE — castle tower (left) + zombie hand and eldritch eye (right). */
+.game-sketch-castle { left: -170px; top: 40px; width: 130px; transform: rotate(-4deg); }
+.game-sketch-horde  { right: -215px; top: 50px; width: 170px; transform: rotate(5deg); }
+
 @media (max-width: 1080px) {
   .game-sketch { display: none; }
+}
+/* Where the doodles show, cards are tall enough (and spaced out enough)
+   that each pair sits beside its own card instead of drifting into the
+   next one. */
+@media (min-width: 1081px) {
+  .games-grid { gap: 32px; }
+  .game-card { min-height: 290px; }
+  .games-grid .game-card-image { flex-basis: 400px; width: 400px; }
 }
 .game-card {
   display: flex;
@@ -930,8 +956,7 @@ button.game-card {
   padding: 0;
 }
 /* Cards and back buttons are links to their pages. */
-a.game-card,
-a.study-card { color: inherit; text-decoration: none; }
+a.game-card { color: inherit; text-decoration: none; }
 a.detail-view-back { text-decoration: none; }
 .game-card:hover {
   transform: translateY(-2px);
@@ -1064,73 +1089,15 @@ a.detail-view-back { text-decoration: none; }
   color: var(--text-soft);
 }
 
-/* Games: study projects + per-game case studies -------------------------- */
+/* Projects: list wrapper + per-project case studies ---------------------- */
 
-/* The Games list view wraps the game cards and the study projects. */
+/* The Projects list view wraps the cards. */
 .games-list {
   display: flex;
   flex-direction: column;
   gap: 30px;
 }
-.study-section {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-.study-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 14px;
-}
-.study-card {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  padding: 16px 18px;
-  text-align: left;
-  font: inherit;
-  color: inherit;
-  cursor: pointer;
-  background: rgba(0, 0, 0, 0.32);
-  border: 1px dashed color-mix(in srgb, var(--theme-accent) 40%, transparent);
-  border-radius: 8px;
-  overflow: hidden;
-  transition: transform 140ms ease, border-color 140ms ease, box-shadow 140ms ease;
-}
-.study-card:hover {
-  transform: translateY(-2px);
-  border-color: color-mix(in srgb, var(--theme-accent) 70%, transparent);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
-}
-.study-card:focus-visible { outline: 2px solid var(--theme-accent); outline-offset: 2px; }
-.study-card-image {
-  display: block;
-  width: calc(100% + 36px);
-  height: 110px;
-  margin: -16px -18px 6px;
-  object-fit: cover;
-}
-.study-card-kicker {
-  font-size: 0.7rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-}
-.study-card-title {
-  font-family: var(--font-display);
-  font-weight: var(--display-weight);
-  text-transform: uppercase;
-  font-size: 0.95rem;
-  letter-spacing: 0.04em;
-  color: var(--theme-accent);
-}
-.study-card-desc {
-  font-size: 0.85rem;
-  line-height: 1.5;
-  color: var(--text);
-}
-
-/* "Read the case study →" on game and study cards, so it's obvious the
+/* "Read the case study →" on the project cards, so it's obvious the
    cards open something. The arrow nudges right on hover. */
 .card-cta {
   align-self: flex-start;
@@ -1145,11 +1112,9 @@ a.detail-view-back { text-decoration: none; }
   transition: transform 140ms ease;
 }
 .game-card:hover .card-cta > span,
-.study-card:hover .card-cta > span,
-.game-card:focus-visible .card-cta > span,
-.study-card:focus-visible .card-cta > span { transform: translateX(4px); }
+.game-card:focus-visible .card-cta > span { transform: translateX(4px); }
 
-/* On a case study the "Games I've worked on" header is redundant, so the
+/* On a case study the "Projects" header is redundant, so the
    page starts straight at the back button and the game title. */
 .app-games:has(> .detail-view:not([hidden])) > .app-section-header { display: none; }
 
@@ -2097,14 +2062,61 @@ a.detail-view-back { text-decoration: none; }
 }
 .contact-mailto:hover { color: var(--accent-off-white); }
 
+/* Phone + LinkedIn: two smaller rows under the email block. */
+.contact-more {
+  list-style: none;
+  margin: 18px 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 14px;
+}
+.contact-more-link {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  height: 100%;
+  padding: 16px 20px;
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid color-mix(in srgb, var(--theme-accent) 22%, transparent);
+  border-radius: 12px;
+  color: inherit;
+  text-decoration: none;
+  transition: background-color 140ms ease, border-color 140ms ease, transform 140ms ease;
+}
+.contact-more-link:hover,
+.contact-more-link:focus-visible {
+  background: color-mix(in srgb, var(--theme-accent) 16%, rgba(0, 0, 0, 0.25));
+  border-color: color-mix(in srgb, var(--theme-accent) 60%, transparent);
+  transform: translateY(-2px);
+}
+.contact-more-link:focus-visible { outline: 2px solid var(--theme-accent); outline-offset: 2px; }
+.contact-more-icon { flex: 0 0 auto; display: inline-flex; color: var(--theme-accent); }
+.contact-more-icon svg { width: 32px; height: 32px; }
+.contact-more-text { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.contact-more-name {
+  font-family: var(--font-display);
+  font-weight: var(--display-weight);
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 0.18em;
+  color: var(--theme-accent);
+}
+.contact-more-value {
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 1.1rem;
+  color: var(--accent-off-white);
+  overflow-wrap: anywhere;
+}
+
 /* Friendly hand-written doodles filling the empty space below the email
-   block — "thank you" with a heart, "click here" with an arrow,
-   "let's chat" with a scroll. Captions use the same Caveat handwriting
+   block: the "thank you!" heart and a Zerg drone with minerals.
+   The caption uses the same Caveat handwriting
    font as the desktop screenshot captions. Sized large to fill the
    bottom third of the page. */
 .contact-doodles {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap; /* one row at every width */
   align-items: flex-start;
   justify-content: space-around;
   gap: 28px;
@@ -2113,6 +2125,7 @@ a.detail-view-back { text-decoration: none; }
 }
 .contact-doodle {
   margin: 0;
+  min-width: 0; /* lets the two shrink together in narrow windows */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -2134,15 +2147,13 @@ a.detail-view-back { text-decoration: none; }
   text-align: center;
 }
 .contact-doodle-thanks { width: 320px; transform: rotate(-6deg); }
-.contact-doodle-click  { width: 461px; transform: rotate(3deg); margin-top: 22px; }
-.contact-doodle-scroll { width: 374px; transform: rotate(-3deg); }
+.contact-doodle-drone     { width: 340px; transform: rotate(3deg); margin-top: 22px; }
 
 @media (max-width: 720px) {
-  .contact-doodles { gap: 18px; padding: 18px 8px 6px; }
+  .contact-doodles { gap: 10px; padding: 18px 0 6px; }
   .contact-doodle figcaption { font-size: 1.4rem; }
-  .contact-doodle-thanks { width: 130px; }
-  .contact-doodle-click  { width: 170px; margin-top: 12px; }
-  .contact-doodle-scroll { width: 160px; }
+  .contact-doodle-thanks { width: 44%; }
+  .contact-doodle-drone     { width: 46%; margin-top: 12px; }
 }
 
 /* Page files (about/, games/ordinem/ …) read without JavaScript: crawlers,
@@ -2221,17 +2232,17 @@ body.page { overflow: auto; }
     padding-bottom: var(--taskbar-height); /* clear the fixed tab bar */
     overflow: visible;
     /* Same dark wallpaper; the SVG splotches are hidden here, so soft
-       green glows stand in for them. */
+       dim teal glows stand in for them. */
     background:
       radial-gradient(circle, var(--tint-05) 1px, transparent 1.5px) 0 0 / 24px 24px,
-      radial-gradient(ellipse 70% 14% at 20% 20%, rgba(83, 252, 141, 0.10), transparent 70%),
-      radial-gradient(ellipse 60% 12% at 85% 52%, rgba(83, 252, 141, 0.08), transparent 70%),
-      radial-gradient(ellipse 70% 12% at 25% 86%, rgba(83, 252, 141, 0.07), transparent 70%),
+      radial-gradient(ellipse 70% 14% at 20% 20%, rgba(42, 74, 72, 0.55), transparent 70%),
+      radial-gradient(ellipse 60% 12% at 85% 52%, rgba(42, 74, 72, 0.45), transparent 70%),
+      radial-gradient(ellipse 70% 12% at 25% 86%, rgba(42, 74, 72, 0.4), transparent 70%),
       linear-gradient(180deg, #0F2020 0%, var(--wall-base) 50%, #081111 100%);
   }
 
   /* Home page order: identity → app tiles → screenshots. */
-  .identity-panel { order: 1; padding: 36px 20px 8px; gap: 12px; }
+  .identity-panel { order: 1; padding: 36px 20px 8px; gap: 12px; translate: none; }
   .app-grid       { order: 2; }
   .desktop-decor  { order: 3; }
 

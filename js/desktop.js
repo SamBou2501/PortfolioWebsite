@@ -33,7 +33,7 @@
   // SMALL_FRAC. See createWindow() / toggleMaximise().
   const APPS = {
     about:      { title: "About Me"   },
-    games:      { title: "Games"      },
+    games:      { title: "Projects"   },
     blogs:      { title: "Blogs", disabled: true }, // greyed out until real posts exist
     experience: { title: "Experience" },
     links:      { title: "Links"      },
