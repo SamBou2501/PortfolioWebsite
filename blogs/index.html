@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Every relative path on this page resolves from the site root, so the
+       content below works unchanged inside a desktop window too. -->
+  <base href="../">
+  <title>Blogs — Samuel Bouzanquet</title>
+  <meta name="description" content="Design write-ups by Samuel Bouzanquet (coming soon).">
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#0F2020">
+  <link rel="canonical" href="https://sambou2501.github.io/PortfolioWebsite/blogs/">
+
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://sambou2501.github.io/PortfolioWebsite/blogs/">
+  <meta property="og:title" content="Blogs — Samuel Bouzanquet">
+  <meta property="og:description" content="Design write-ups by Samuel Bouzanquet (coming soon).">
+  <meta property="og:image" content="https://sambou2501.github.io/PortfolioWebsite/assets/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Caveat:wght@500;600&family=Orbitron:wght@800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/themes.css?v=9">
+  <link rel="stylesheet" href="css/style.css?v=9">
+</head>
+<body class="page">
+  <!-- Shown only without JavaScript; with it, desktop.js builds the desktop
+       around this page and opens it in a window. -->
+  <header class="page-header"><a href="./">Samuel Bouzanquet — Game Designer</a></header>
+  <main class="page-main" data-page="blogs/">
+    <article class="app-content app-blogs" data-theme="blogs">
+      <!-- Pinned diagonal sketch-note, centred over the title row. Decoration
+           only (pointer-events: none); drop the whole .wip-note element when
+           real blog posts exist. -->
+      <div class="wip-note" aria-hidden="true">
+        <span class="wip-note-tape" aria-hidden="true"></span>
+        Work in progress!
+      </div>
+
+      <header class="app-section-header has-toolbar">
+        <div class="app-section-header-text">
+          <h2 class="app-title">Blogs</h2>
+          <p class="app-eyebrow">Notes from the workbench</p>
+        </div>
+        <div class="blog-search-wrap">
+          <svg class="blog-search-icon" viewBox="0 0 16 16" aria-hidden="true">
+            <circle cx="7" cy="7" r="4.5" fill="none" stroke="currentColor" stroke-width="1.4"/>
+            <line x1="10.4" y1="10.4" x2="13.5" y2="13.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+          <input class="blog-search" type="search" placeholder="Search posts&hellip;" aria-label="Search posts">
+        </div>
+      </header>
+
+      <!-- Grid view: 5 standin blog rows. Tags are intentionally NOT shown
+           on the front page (Samuel's call); they'll live on the per-post
+           detail page when content is written. Description text is lorem
+           ipsum for now — replace with real preview copy per post. -->
+      <ul class="blog-list" data-view="list">
+        <li>
+          <button class="blog-entry" type="button" data-detail-trigger="blog-1" data-detail-title="[Title 1]">
+            <div class="blog-entry-text">
+              <h3 class="blog-title">[Title 1]</h3>
+              <p class="blog-meta"><span>[Category 1]</span> &middot; <time>[Date 1]</time> &middot; <span>[N min read]</span></p>
+              <p class="blog-preview">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            </div>
+            <div class="blog-entry-image" aria-hidden="true"></div>
+          </button>
+        </li>
+        <li>
+          <button class="blog-entry" type="button" data-detail-trigger="blog-2" data-detail-title="[Title 2]">
+            <div class="blog-entry-text">
+              <h3 class="blog-title">[Title 2]</h3>
+              <p class="blog-meta"><span>[Category 2]</span> &middot; <time>[Date 2]</time> &middot; <span>[N min read]</span></p>
+              <p class="blog-preview">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            </div>
+            <div class="blog-entry-image" aria-hidden="true"></div>
+          </button>
+        </li>
+        <li>
+          <button class="blog-entry" type="button" data-detail-trigger="blog-3" data-detail-title="[Title 3]">
+            <div class="blog-entry-text">
+              <h3 class="blog-title">[Title 3]</h3>
+              <p class="blog-meta"><span>[Category 3]</span> &middot; <time>[Date 3]</time> &middot; <span>[N min read]</span></p>
+              <p class="blog-preview">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+            </div>
+            <div class="blog-entry-image" aria-hidden="true"></div>
+          </button>
+        </li>
+        <li>
+          <button class="blog-entry" type="button" data-detail-trigger="blog-4" data-detail-title="[Title 4]">
+            <div class="blog-entry-text">
+              <h3 class="blog-title">[Title 4]</h3>
+              <p class="blog-meta"><span>[Category 4]</span> &middot; <time>[Date 4]</time> &middot; <span>[N min read]</span></p>
+              <p class="blog-preview">Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est qui dolorem ipsum quia dolor sit amet.</p>
+            </div>
+            <div class="blog-entry-image" aria-hidden="true"></div>
+          </button>
+        </li>
+        <li>
+          <button class="blog-entry" type="button" data-detail-trigger="blog-5" data-detail-title="[Title 5]">
+            <div class="blog-entry-text">
+              <h3 class="blog-title">[Title 5]</h3>
+              <p class="blog-meta"><span>[Category 5]</span> &middot; <time>[Date 5]</time> &middot; <span>[N min read]</span></p>
+              <p class="blog-preview">Adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam.</p>
+            </div>
+            <div class="blog-entry-image" aria-hidden="true"></div>
+          </button>
+        </li>
+      </ul>
+
+      <!-- Detail view (shared with Games structurally — same sketch + copy). -->
+      <div class="detail-view" data-view="detail" hidden>
+        <button class="detail-view-back" type="button" data-detail-back>
+          <span class="detail-view-back-arrow" aria-hidden="true">&larr;</span>
+          Back to all blogs
+        </button>
+        <div class="detail-view-stage">
+          <h3 class="detail-view-title" data-detail-title-target>[Title]</h3>
+          <div class="detail-view-sketch" aria-hidden="true">
+            <svg viewBox="0 0 220 180">
+              <g filter="url(#sketch-roughen)" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" transform="rotate(-3 110 90)">
+                <rect x="40" y="20" width="120" height="140" rx="3"/>
+                <path d="M 55 55 Q 75 52, 95 55 T 135 55 T 145 55"/>
+                <path d="M 55 75 Q 75 72, 95 75 T 135 75 T 145 75"/>
+                <path d="M 55 95 Q 75 92, 95 95 T 125 95"/>
+                <path d="M 55 115 Q 75 112, 95 115 T 145 115"/>
+              </g>
+              <g filter="url(#sketch-roughen)" stroke="currentColor" stroke-width="2" fill="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="170" y1="155" x2="200" y2="120"/>
+                <line x1="170" y1="155" x2="167" y2="161"/>
+                <polygon points="200,120 207,123 202,129"/>
+              </g>
+            </svg>
+          </div>
+          <p class="detail-view-message">More info coming soon!</p>
+        </div>
+      </div>
+    </article>
+  </main>
+  <script src="js/desktop.js?v=9"></script>
+</body>
+</html>

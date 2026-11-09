@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Every relative path on this page resolves from the site root, so the
+       content below works unchanged inside a desktop window too. -->
+  <base href="../../">
+  <title>WAR OF STEEL case study — Samuel Bouzanquet, Game Designer</title>
+  <meta name="description" content="WAR OF STEEL is a battle royale where players pilot mechs and blow each other up, entertaining a world that's watching an event commemorating the extra-terrestrial war these mechs won for humanity over a century ago. Samuel Bouzanquet's work on it as Lead Game Designer: the design problems, iterations and takeaways.">
+  <meta name="theme-color" content="#0F2020">
+  <link rel="canonical" href="https://sambou2501.github.io/PortfolioWebsite/games/war-of-steel/">
+
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://sambou2501.github.io/PortfolioWebsite/games/war-of-steel/">
+  <meta property="og:title" content="WAR OF STEEL case study — Samuel Bouzanquet, Game Designer">
+  <meta property="og:description" content="WAR OF STEEL is a battle royale where players pilot mechs and blow each other up, entertaining a world that's watching an event commemorating the extra-terrestrial war these mechs won for humanity over a century ago. Samuel Bouzanquet's work on it as Lead Game Designer: the design problems, iterations and takeaways.">
+  <meta property="og:image" content="https://sambou2501.github.io/PortfolioWebsite/assets/og/war-of-steel.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Caveat:wght@500;600&family=Orbitron:wght@800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/themes.css?v=9">
+  <link rel="stylesheet" href="css/style.css?v=9">
+</head>
+<body class="page">
+  <!-- Shown only without JavaScript; with it, desktop.js builds the desktop
+       around this page and opens it in a window. -->
+  <header class="page-header"><a href="./">Samuel Bouzanquet — Game Designer</a></header>
+  <main class="page-main" data-page="games/war-of-steel/">
+    <article class="app-content app-games" data-theme="games">
+      <div class="detail-view">
+        <a class="detail-view-back" href="games/">
+          <span class="detail-view-back-arrow" aria-hidden="true">&larr;</span>
+          Back to all games
+        </a>
+
+        <article class="case-study">
+          <header class="cs-header">
+            <h3 class="cs-title">WAR OF STEEL</h3>
+            <p class="cs-meta">Mech battle royale · PC (Epic Games) · 2022–2025 · Lead Game Designer</p>
+            <p class="cs-lede">WAR OF STEEL is a battle royale where players pilot mechs and blow each other up, entertaining a world that's watching an event commemorating the extra-terrestrial war these mechs won for humanity over a century ago.</p>
+            <ul class="cs-highlights">
+              <li>Designed the map, mech types, weapons, pickups and battle-royale mechanics, and wrote the lore.</li>
+              <li>Worked across three development teams.</li>
+              <li>Reached closed alpha in late Q2 2025, before development was paused due to loss of funding.</li>
+            </ul>
+          </header>
+
+          <nav class="cs-jump" aria-label="Jump to a design problem">
+            <span class="cs-jump-label">Jump to</span>
+            <button type="button" data-jump="wos-p1">1 · Creating the map</button>
+            <button type="button" data-jump="wos-p2">2 · Making mechs feel good</button>
+            <button type="button" data-jump="wos-p3">3 · How much should the mech do?</button>
+          </nav>
+
+          <section class="cs-section">
+            <h4 class="app-subtitle">Design overview</h4>
+            <p>There was no real template for this game. Mech games aren't battle royales, and battle royales don't have mechs. So much of my job was research and translation: what Titanfall 2 and Armored Core VI do for mech feel, what Fortnite and Apex Legends do for battle-royale flow, and how to combine them.</p>
+            <p>The first prototype didn't look or feel promising, and I was part of the decision to stop it. Across the next two teams I rebuilt the design docs, lore, map plans and references, all the way to a closed alpha in 2025.</p>
+          </section>
+
+          <section class="cs-section">
+            <h4 class="app-subtitle">What I did</h4>
+            <ul class="cs-did">
+              <li><strong>Lead Game Designer.</strong> Designed all of the game's mechanics, gameplay elements and story, and was heavily involved in designing the map layout and feel. I explained the reasoning behind every design so it could be debated, because some final calls weren't mine.</li>
+              <li><strong>Documentation.</strong> GDD (Google Docs from mid 2022, then GitBook, through mid 2025). It was the source of truth for me, the devs and the other vision holders, detailing the gameplay, the design and the more technical numbers.</li>
+              <li><strong>Research.</strong> Titanfall 2, Armored Core VI, War Robots and War Robots: Frontiers for mechs. Fortnite, Apex Legends and CS:GO for battle royales and gunplay. Spellbreak and Vampire: The Masquerade – Bloodhunt for class-based battle royales.</li>
+              <li><strong>Map design.</strong> Planned and drew both versions of the map, and researched map designs and assets that would fit our theme and gameplay.</li>
+              <li><strong>Vision.</strong> Wrote the lore and theming for the initial prototypes, then improved and expanded them as we moved to new teams and got closer to the closed alpha.</li>
+              <li><strong>Feedback loop.</strong> Iterated on feedback from the team, higher-ups and closed-alpha players.</li>
+            </ul>
+          </section>
+
+          <section class="cs-problem" data-jump-id="wos-p1">
+            <p class="cs-problem-label">Problem 1</p>
+            <h4 class="cs-problem-title">Creating the map</h4>
+            <p><strong>The problem:</strong> A battle-royale map is played over and over and shapes everything that happens in a match. On top of that, we weren't sure of the core mech mechanics yet, so the map needed memorable zones that could survive big mechanics changes during testing.</p>
+            <h5 class="cs-subhead">The iterations</h5>
+            <ol class="cs-iterations">
+              <li><strong>The 2024 map.</strong> The layout was a set of distinct, unique, themed Points of Interest (POIs) across several biomes. It was also built so each POI and major biome would be as simple as possible to create, since we had few dedicated modellers and artists and would largely be using asset packs. It fulfilled my vision, but the implementation just wasn't done very well, so for the next iteration I did more research and gathered more references for the team to build from.</li>
+              <li><strong>The 2025 map.</strong> Had many more specific references, from Fortnite, Apex Legends, Destiny 2 and others.</li>
+            </ol>
+            <p class="cs-status">Closed alpha in 2025, then development was paused.</p>
+            <p class="cs-takeaway"><span class="cs-takeaway-label">Takeaway</span> Map-making is a whole job in itself for games like this. In 3D games especially, maps have a huge impact on gameplay and game design.</p>
+            <figure class="cs-figure cs-figure-narrow">
+              <a class="cs-shot" href="assets/games/wos-map-2024-full.webp" target="_blank" rel="noopener"><img src="assets/games/wos-map-2024.webp" width="1400" height="1400" alt="Samuel's hand-drawn WAR OF STEEL map design from 2024" loading="lazy"></a>
+              <figcaption>My map sketch and design from 2024.</figcaption>
+            </figure>
+            <figure class="cs-figure">
+              <div class="cs-grid">
+                <a class="cs-shot" href="assets/games/wos-map-asset-ideas-full.webp" target="_blank" rel="noopener"><span class="cs-shot-label">Map asset ideas</span><img src="assets/games/wos-map-asset-ideas.webp" width="1600" height="822" alt="2025 mood board of map asset ideas" loading="lazy"></a>
+                <a class="cs-shot" href="assets/games/wos-map-references-full.webp" target="_blank" rel="noopener"><span class="cs-shot-label">Map references</span><img src="assets/games/wos-map-references.webp" width="1600" height="1026" alt="2025 map reference board" loading="lazy"></a>
+                <a class="cs-shot" href="assets/games/wos-mech-ideas-full.webp" target="_blank" rel="noopener"><span class="cs-shot-label">Mechs</span><img src="assets/games/wos-mech-ideas.webp" width="1600" height="677" alt="2025 mech reference board" loading="lazy"></a>
+                <a class="cs-shot" href="assets/games/wos-ui-references-full.webp" target="_blank" rel="noopener"><span class="cs-shot-label">UI/UX</span><img src="assets/games/wos-ui-references.webp" width="1600" height="1095" alt="2025 UI and UX reference board" loading="lazy"></a>
+              </div>
+              <figcaption>My 2025 map design references and mood board, plus the reference images I added for UI/UX, key gameplay elements and the mechs themselves. These were all detailed in the GDD; this is a snippet. Click any board to open it full size.</figcaption>
+            </figure>
+          </section>
+
+          <section class="cs-problem" data-jump-id="wos-p2">
+            <p class="cs-problem-label">Problem 2</p>
+            <h4 class="cs-problem-title">Mech point of view, and making mechs feel good</h4>
+            <p><strong>The problem:</strong> First person or third? And how do you make a mech feel good in either?</p>
+            <p>We chose <strong>third person</strong> so players could see their own badass mech in action. The drawback is that gameplay feedback and immersion are harder to do well.</p>
+            <h5 class="cs-subhead">The iterations</h5>
+            <ol class="cs-iterations">
+              <li><strong>First pass.</strong> It didn't feel good, and I wasn't sure exactly why, as "feel" is one of those nebulous things with any number of causes. I went back to research, mainly Titanfall 2, Armored Core VI and War Robots.</li>
+              <li><strong>Second pass.</strong> We improved the camera, animations and movement feedback, which made it a lot better, but the guns still felt weak, and again I wasn't sure exactly why. I went back for more specific references, this time for weapon sound and VFX, and found the answer: guns that hit like wet noodles, with poor sound and visual feedback, just don't feel good to use.</li>
+              <li><strong>Third pass.</strong> We improved the gun animations, firing SFX/VFX and hit SFX/VFX, which really improved their "kick" and feel.</li>
+            </ol>
+            <p class="cs-status">Development was paused before this was fully finished.</p>
+            <p class="cs-takeaway"><span class="cs-takeaway-label">Takeaway</span> Game feel is mostly feedback. A mech is only as powerful as it looks and sounds when it fires.</p>
+          </section>
+
+          <section class="cs-problem" data-jump-id="wos-p3">
+            <p class="cs-problem-label">Problem 3</p>
+            <h4 class="cs-problem-title">How much should the mech do?</h4>
+            <p><strong>The problem:</strong> With no game quite like this to 'copy', how much should the mech itself shape a match, compared with the pilot's skill and the loot they find? In a battle royale, can we even let mechs have different abilities, stats and loot?</p>
+            <h5 class="cs-subhead">The iterations</h5>
+            <ol class="cs-iterations">
+              <li><strong>Fortnite and CS:GO as references.</strong> Neither had real pre-match customisation at the time (funnily enough, Fortnite has since added Sprites), so they couldn't answer the question.</li>
+              <li><strong>Class-based battle royales.</strong> I turned to Spellbreak, Apex Legends and Vampire: The Masquerade – Bloodhunt (sadly, two of the three no longer exist). All of them let players pick and customise classes or abilities before a match, and they really helped me shape my initial mech classes and types.</li>
+              <li><strong>Bring back simplicity.</strong> As fun as it was to go all out and design lots of mech-specific mechanics, once development started properly it was obvious this was too convoluted and complicated. So the complexity of mech types and classes was dialled back, and that 'complexity budget' went into things like more interesting items to find.</li>
+            </ol>
+            <p class="cs-takeaway"><span class="cs-takeaway-label">Takeaway</span> The line can be wherever you want it to be, but you have to account for it and build your game around it. Don't half-implement something this fundamental.</p>
+          </section>
+        </article>
+
+        <a class="detail-view-back cs-back-bottom" href="games/">
+          <span class="detail-view-back-arrow" aria-hidden="true">&larr;</span>
+          Back to all games
+        </a>
+      </div>
+    </article>
+  </main>
+  <script src="js/desktop.js?v=9"></script>
+</body>
+</html>

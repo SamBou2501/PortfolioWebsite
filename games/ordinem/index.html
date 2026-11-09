@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Every relative path on this page resolves from the site root, so the
+       content below works unchanged inside a desktop window too. -->
+  <base href="../../">
+  <title>ORDINEM case study — Samuel Bouzanquet, Game Designer</title>
+  <meta name="description" content="ORDINEM is a PvP trading card game in the vein of Magic: The Gathering, Hearthstone and Legends of Runeterra. Samuel Bouzanquet's work on it as Lead Game Designer: the design problems, iterations and takeaways.">
+  <meta name="theme-color" content="#0F2020">
+  <link rel="canonical" href="https://sambou2501.github.io/PortfolioWebsite/games/ordinem/">
+
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://sambou2501.github.io/PortfolioWebsite/games/ordinem/">
+  <meta property="og:title" content="ORDINEM case study — Samuel Bouzanquet, Game Designer">
+  <meta property="og:description" content="ORDINEM is a PvP trading card game in the vein of Magic: The Gathering, Hearthstone and Legends of Runeterra. Samuel Bouzanquet's work on it as Lead Game Designer: the design problems, iterations and takeaways.">
+  <meta property="og:image" content="https://sambou2501.github.io/PortfolioWebsite/assets/og/ordinem.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Caveat:wght@500;600&family=Orbitron:wght@800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/themes.css?v=9">
+  <link rel="stylesheet" href="css/style.css?v=9">
+</head>
+<body class="page">
+  <!-- Shown only without JavaScript; with it, desktop.js builds the desktop
+       around this page and opens it in a window. -->
+  <header class="page-header"><a href="./">Samuel Bouzanquet — Game Designer</a></header>
+  <main class="page-main" data-page="games/ordinem/">
+    <article class="app-content app-games" data-theme="games">
+      <div class="detail-view">
+        <a class="detail-view-back" href="games/">
+          <span class="detail-view-back-arrow" aria-hidden="true">&larr;</span>
+          Back to all games
+        </a>
+
+        <article class="case-study">
+          <header class="cs-header">
+            <h3 class="cs-title">ORDINEM</h3>
+            <p class="cs-meta">Digital trading card game · PC (Epic Games) · 2022–2026 · Lead Game Designer</p>
+            <p class="cs-lede">ORDINEM is a PvP trading card game in the vein of Magic: The Gathering, Hearthstone and Legends of Runeterra. You aren't a lone hero: you command an entire city, drawing on its weaves to summon followers and bear down on your opponent's city.</p>
+            <ul class="cs-highlights">
+              <li>Designed every core mechanic, including turn structure, player actions, card types, costs and resources.</li>
+              <li>Designed the full first set of ~210 cards.</li>
+              <li>Held the overall vision: wrote the lore, set the art direction and made sure it all came together with the gameplay and mechanics.</li>
+              <li>Shipped closed alpha (late 2023) → open beta (late 2024) → v1.0 (late 2025) → v1.5 (early 2026). Development is now paused.</li>
+            </ul>
+          </header>
+
+          <nav class="cs-jump" aria-label="Jump to a design problem">
+            <span class="cs-jump-label">Jump to</span>
+            <button type="button" data-jump="ordinem-p1">1 · Making lands feel good</button>
+            <button type="button" data-jump="ordinem-p2">2 · The UX of using mana</button>
+            <button type="button" data-jump="ordinem-p3">3 · Feeling like a city</button>
+            <button type="button" data-jump="ordinem-p4">4 · Each Order's mechanics</button>
+            <button type="button" data-jump="ordinem-p5">5 · Naming things</button>
+          </nav>
+
+          <section class="cs-section">
+            <h4 class="app-subtitle">Design overview: why ORDINEM isn't just MTG</h4>
+            <p>My brief was: "Make a similarly complex game to MTG so we can capture that market, but in crypto." So I wanted to keep the MTG mechanics that give it depth, the ones few other digital card games use, while still giving players a reason to pick ORDINEM over MTG Arena.</p>
+            <p>My research showed that almost every competitor sets itself apart by changing mana or lands. I didn't want to push those too far, or we'd lose the "MTG-ness" that was the whole point.</p>
+            <p>So I flipped the perspective instead. In MTG you're a single planeswalker. In ORDINEM you're an entire city. The main difference comes from the theme, lore and win conditions rather than the core rules. I then designed mechanics to support that shift and to fix some of the problems MTG Arena's best-of-one format is known for, such as having no sideboard (no 'flexible' card slots to give a horrible matchup a fighting chance). The results were <strong>city abilities</strong> (inspired by Hearthstone's hero powers) and a <strong>Market</strong> (inspired by the digital card game Eternal).</p>
+            <p class="cs-status">The Market and the full city design were never fully implemented because other work took priority, but Problem 3 below shows where the city design was heading.</p>
+          </section>
+
+          <section class="cs-section">
+            <h4 class="app-subtitle">What I did</h4>
+            <ul class="cs-did">
+              <li><strong>Lead Game Designer.</strong> Designed every mechanic (turn phases, player actions, card types, costs, resources) and all ~210 cards in the first set.</li>
+              <li><strong>Vision holder.</strong> Created the theming, lore and art style, and kept the whole team aligned to them through weekly meetings, Discord and Monday (our task manager).</li>
+              <li><strong>Balance and feedback.</strong> Sole owner of card balance. Triaged feedback from players and devs, and vetted and prioritised QA bugs.</li>
+              <li><strong>Documentation.</strong> Wrote and maintained the Game Design Document (Google Docs from Jan 2023, then GitBook, through early 2026). Built the card spreadsheet, the single source of truth for every card's numbers, and maintained it from Jan 2023 to early 2026 as player feedback, team feedback, technical limits and my own playtesting came in.</li>
+              <li><strong>Research.</strong> Played and studied MTG Arena, Hearthstone, Legends of Runeterra, Riftbound, Gods Unchained, Eternal and more, to find references, explain concepts and validate ideas.</li>
+              <li><strong>Hands-on polish.</strong> For v1.5 I implemented visual, UI, animation and sound-feedback improvements myself in Unity.</li>
+            </ul>
+            <div class="cs-docs">
+              <a class="cs-doc" href="assets/docs/ORIGINSCardsStats_ORDINEMTDD2026.pdf" target="_blank" rel="noopener">
+                <span class="cs-doc-badge" aria-hidden="true">PDF</span>
+                <span class="cs-doc-text"><strong>ORDINEM TDD: card stats</strong> Every card's stats, effect and dev status. Just one of the sheets in the TDD. (6.9 MB)</span>
+              </a>
+            </div>
+          </section>
+
+          <section class="cs-section">
+            <h4 class="app-subtitle">Glossary</h4>
+            <div class="cs-table-wrap">
+              <table class="cs-table">
+                <thead><tr><th>ORDINEM term</th><th>What it is</th></tr></thead>
+                <tbody>
+                  <tr><td>City</td><td>You, the player (like MTG's planeswalker or Hearthstone's hero)</td></tr>
+                  <tr><td>Weaves</td><td>Resource cards (like MTG lands)</td></tr>
+                  <tr><td>Enweave</td><td>Put a weave into play from the top of your weave deck</td></tr>
+                  <tr><td>Threads</td><td>Mana (like MTG, Hearthstone and LoR)</td></tr>
+                  <tr><td>Orders</td><td>The five factions (like MTG's colours)</td></tr>
+                  <tr><td>Followers</td><td>Creatures/units (like MTG creatures)</td></tr>
+                  <tr><td>Advancements</td><td>Non-weave cards. They 'advance' your city.</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="cs-problem" data-jump-id="ordinem-p1">
+            <p class="cs-problem-label">Problem 1</p>
+            <h4 class="cs-problem-title">Making lands feel good</h4>
+            <p><strong>The problem:</strong> In MTG, drawing too many or too few lands can decide a game by pure luck. Card games have been trying to fix this for decades. I wanted a system that balanced deckbuilding expression, meaningful choices during play, and being easy to understand.</p>
+            <h5 class="cs-subhead">The iterations</h5>
+            <ol class="cs-iterations">
+              <li><strong>Weaves in the main deck, like MTG.</strong> With how our thread system worked, this was far too close to MTG, so it was scrapped.</li>
+              <li><strong>A separate weave deck, with a free weave each turn on top of your draw.</strong> That's essentially Hearthstone or Legends of Runeterra. Those games make cheap cards stronger since you're guaranteed your resource each turn, and our cards weren't designed that way. It felt refreshing in testing, but I really wanted this to be a tactical decision, so I didn't go with it.</li>
+              <li><strong>Each turn, choose: draw a card <em>or</em> enweave.</strong> Much better for both feel and balance, but something was still missing. The choice didn't feel <em>meaningful</em>.</li>
+              <li><strong>Double every cost and give two picks per turn</strong> (draw + draw, draw + enweave, or enweave + enweave). Players disliked it at first but grew to like it. Two problems remained: double-enweaving was always correct until turn 3 or 4 (V3 had this too), and doing maths with doubled numbers in your head was a pain.</li>
+              <li><strong>Back to one deck, like V1, but draw two cards a turn.</strong> My final design, planned for the next update before development was paused.</li>
+            </ol>
+            <p class="cs-status">V4 is live. V5 was fully designed but not shipped.</p>
+            <p><strong>I also explored and paper-tested many other systems:</strong> "any card can be played as a land" (Duel Masters, Star Wars: Unlimited), dropped because of the awful 'but I want to play this card!' feeling; and a Riftbound-style system, where lands can be 'recycled' and shuffled back into the deck, which would at least give two separate decks a reason to exist.</p>
+            <p class="cs-takeaway"><span class="cs-takeaway-label">Takeaway</span> Sometimes simpler is better, but you still have to test things to find out what's fun <em>and</em> practical.</p>
+            <figure class="cs-figure">
+              <div class="cs-pair">
+                <a class="cs-shot" href="assets/games/ordinem-enweave-2024.webp" target="_blank" rel="noopener"><span class="cs-shot-label">2024</span><img src="assets/games/ordinem-enweave-2024.webp" width="1172" height="1002" alt="ORDINEM's enweave and draw choice in 2024, with one pick per turn" loading="lazy"></a>
+                <a class="cs-shot" href="assets/games/ordinem-enweave-2026.webp" target="_blank" rel="noopener"><span class="cs-shot-label">2026</span><img src="assets/games/ordinem-enweave-2026.webp" width="1200" height="781" alt="ORDINEM's enweave and draw choice in 2026, with two picks per turn" loading="lazy"></a>
+              </div>
+              <figcaption>Enweaving and drawing in 2024 (one pick per turn) vs 2026 (two picks per turn).</figcaption>
+            </figure>
+          </section>
+
+          <section class="cs-problem" data-jump-id="ordinem-p2">
+            <p class="cs-problem-label">Problem 2</p>
+            <h4 class="cs-problem-title">The UX of using mana</h4>
+            <p><strong>The problem:</strong> MTG-style coloured mana was hard enough to design around (see the design overview), and on a digital client it became a huge UX problem: players struggled to pay with the right colours.</p>
+            <h5 class="cs-subhead">The iterations</h5>
+            <ol class="cs-iterations">
+              <li><strong>Straight MTG mana.</strong> Tap weaves for the Orders of thread they produce, either when you need them or automatically. MTG Arena makes this look easy, but after only a little work on it I realised the UI behind it was far beyond our team's size and budget.</li>
+              <li><strong>Hybrid threads that count as more than one Order.</strong> How do you show hybrid colours clearly, and let players spend the colour they <em>meant</em> to? We actually built the UI, and only then saw how convoluted and messy it was.</li>
+              <li><strong>Weaves add threads to your pool automatically each turn.</strong> That raised a new question: pick the colour every time, or lock it in when the weave is played? Picking every turn became a chore as weaves piled up, so we switched to locking it in. This was better, but players kept locking in the wrong Order and regretting it.</li>
+              <li><strong>Influence, borrowed from Eternal.</strong> Threads become Orderless (colourless), and weaves give Influence instead, which unlocks cards of their Order. The trade-off is that once you meet a card's Influence requirement, you can cast as many copies as you like (in MTG every cast needs its coloured pips). But it's far simpler to use, and far easier to show in a digital UI.</li>
+            </ol>
+            <p class="cs-status">V4 was designed but never implemented, due to a team miscommunication and then the pause. The live game uses V3.</p>
+            <p class="cs-takeaway"><span class="cs-takeaway-label">Takeaway</span> Whether players can see and use something effectively in the UI <strong>is</strong> a design constraint, not an afterthought.</p>
+            <figure class="cs-figure">
+              <div class="cs-pair cs-pair-uneven">
+                <a class="cs-shot" href="assets/games/ordinem-hybrid-sketch.webp" target="_blank" rel="noopener"><span class="cs-shot-label">Sketch</span><img src="assets/games/ordinem-hybrid-sketch.webp" width="1200" height="994" alt="Sketch of hybrid mana shown as filled bars" loading="lazy"></a>
+                <a class="cs-shot" href="assets/games/ordinem-hybrid-mana-ui.webp" target="_blank" rel="noopener"><span class="cs-shot-label">Built</span><img src="assets/games/ordinem-hybrid-mana-ui.webp" width="1513" height="440" alt="The built hybrid mana UI: pips inside an expandable bar" loading="lazy"></a>
+              </div>
+              <figcaption>The initial sketch for hybrid mana as 'filled bars'. This was later changed to show the actual 'pips' you had inside an expandable bar. In practice, the bar became incredibly unwieldy, and I realised this was a mechanical design problem, not a UX one.</figcaption>
+            </figure>
+          </section>
+
+          <section class="cs-problem" data-jump-id="ordinem-p3">
+            <p class="cs-problem-label">Problem 3</p>
+            <h4 class="cs-problem-title">Making the player feel like a city</h4>
+            <p><strong>The problem:</strong> The player is meant to command an entire city, but neither the mechanics nor the flavour supported that, so players never felt like one.</p>
+            <h5 class="cs-subhead">The iterations</h5>
+            <ol class="cs-iterations">
+              <li><strong>One activated ability per city, paid with threads.</strong> Too simple, and too close to Hearthstone's hero powers. The choice wasn't interesting.</li>
+              <li><strong>The ability plus a change to starting life</strong>, to offset the wilder abilities. More interesting, but not there yet.</li>
+              <li><strong>Cities change several starting stats</strong> (life, starting cards and starting weaves) on top of the ability. More intriguing, and it gave me extra levers for balance, but it still felt lacking.</li>
+              <li><strong>Each city has a quest</strong> that powers you up as you complete it, or eventually wins you the game.</li>
+            </ol>
+            <p class="cs-status">V3 is live. V4 was fully designed but not implemented, as development was paused.</p>
+            <p><em>Also explored before settling on quests:</em> how the WoW TCG and Heroes of the Storm handle quests; buildable structures that give bonuses but double as objectives to attack (like MTG planeswalkers); places you capture and hold (like MTG Battles or Riftbound's battlefields).</p>
+            <p class="cs-takeaway"><span class="cs-takeaway-label">Takeaway</span> Stat tweaks can balance a city, but they can't make you feel like one. The fantasy has to come from what you do.</p>
+            <figure class="cs-figure cs-figure-narrow">
+              <a class="cs-shot" href="assets/games/ordinem-city.webp" target="_blank" rel="noopener"><img src="assets/games/ordinem-city.webp" width="1465" height="1026" alt="The Cultivator's Commune city card" loading="lazy"></a>
+              <figcaption>The Cultivator's Commune city gave you an ability to 'ramp' faster, plus more starting life but fewer starting cards.</figcaption>
+            </figure>
+          </section>
+
+          <section class="cs-problem" data-jump-id="ordinem-p4">
+            <p class="cs-problem-label">Problem 4</p>
+            <h4 class="cs-problem-title">Making each Order's mechanics work</h4>
+            <p><strong>The problem:</strong> I wanted each of the five Orders to have its own varied, useful set of keywords and effects that also came out of the lore. Some cards went through a dozen iterations.</p>
+            <h5 class="cs-subhead">The iterations</h5>
+            <ol class="cs-iterations">
+              <li><strong>Lots of unique, flavourful mechanics per Order.</strong> There were almost 20 keywords (e.g. <em>Decay</em> for Necros, our "black"), and many cards had several. They were fun to design, but hard to program, hard for players to learn, and spread too thin: each archetype had too few cards to actually work as a deck.</li>
+              <li><strong>A big prune.</strong> I simplified and streamlined the cards. But cutting that much power and complexity left some archetypes under-supported, and the surviving mechanics weren't memorable, partly from technical limits and partly because some just weren't fun in practice.</li>
+              <li><strong>Back to the roots.</strong> For v1.0 I reworked every Order's mechanics and many of its cards around a small set of signature mechanics (from over 20 keywords in total to under 10), with enough cards behind each to carry its archetypes. v1.5 added balance passes for playability and fun.</li>
+            </ol>
+            <p class="cs-takeaway"><span class="cs-takeaway-label">Takeaway</span> Complexity is fun for the designer, but it comes with a real cost to development <em>and</em> to players learning your game. Complexity has to be earnt and <em>needed</em>.</p>
+            <figure class="cs-figure">
+              <div class="cs-stack">
+                <a class="cs-shot" href="assets/games/ordinem-card-iterations-1.webp" target="_blank" rel="noopener"><span class="cs-shot-label">Mid 2024</span><img src="assets/games/ordinem-card-iterations-1.webp" width="1568" height="294" alt="Five cards in the card spreadsheet, mid 2024" loading="lazy"></a>
+                <a class="cs-shot" href="assets/games/ordinem-card-iterations-2.webp" target="_blank" rel="noopener"><span class="cs-shot-label">Mid 2025</span><img src="assets/games/ordinem-card-iterations-2.webp" width="1978" height="388" alt="The same five cards, mid 2025" loading="lazy"></a>
+                <a class="cs-shot" href="assets/games/ordinem-card-iterations-3.webp" target="_blank" rel="noopener"><span class="cs-shot-label">Mid 2026</span><img src="assets/games/ordinem-card-iterations-3.webp" width="1829" height="414" alt="The same five cards, mid 2026" loading="lazy"></a>
+              </div>
+              <figcaption>The same 5 cards at different points in development: mid 2024 → mid 2025 → mid 2026. A small example of the many iterations some cards went through.</figcaption>
+            </figure>
+          </section>
+
+          <section class="cs-problem" data-jump-id="ordinem-p5">
+            <p class="cs-problem-label">Problem 5</p>
+            <h4 class="cs-problem-title">Naming things</h4>
+            <p><strong>The problem:</strong> Honestly, the hardest part of the job for me. Every name had to tell most players what it does, be flavourful, <em>and</em> not copy another popular game's term. That's... really hard.</p>
+            <p>I'm still not happy with a lot of the names! Some I meant to change in the next big update, but development was paused before I got the chance. Most mechanics, card types, actions and phases were renamed several times. The breakthrough was to stop hunting for a middle ground and lean fully into the lore of 'cities at war':</p>
+            <div class="cs-table-wrap">
+              <table class="cs-table">
+                <thead><tr><th>Generic term</th><th>Earlier name(s)</th><th>ORDINEM name</th></tr></thead>
+                <tbody>
+                  <tr><td>Player / hero</td><td>Enclave, Commander</td><td>City</td></tr>
+                  <tr><td>Graveyard</td><td>Boneyard, Cemetery</td><td>Graveyard</td></tr>
+                  <tr><td>Lifelink</td><td>Siphon</td><td>Lifesteal</td></tr>
+                  <tr><td>Enchantment</td><td>Twine</td><td>Confluence</td></tr>
+                  <tr><td>Creature</td><td>Unit</td><td>Follower</td></tr>
+                  <tr><td>Artifact</td><td>Artefact, Relic</td><td>Works</td></tr>
+                  <tr><td>Tap</td><td>Exert</td><td>Exhaust</td></tr>
+                  <tr><td>Destroyed</td><td>Ruined, Killed</td><td>Destroyed</td></tr>
+                  <tr><td>'Second chance'</td><td>Reanimate</td><td>Undying</td></tr>
+                  <tr><td>Power</td><td>Strength</td><td>Attack</td></tr>
+                  <tr><td>Toughness</td><td>Resilience, Defence</td><td>Health</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="cs-takeaway"><span class="cs-takeaway-label">Takeaway</span> Committing fully to the fiction helped a ton, even without changing any of the mechanics. But it didn't always work: some words just need to be simple so players understand them immediately, and the extra flavour doesn't make up for losing that.</p>
+            <figure class="cs-figure">
+              <div class="cs-stack">
+                <a class="cs-shot" href="assets/games/ordinem-card-before-naming.webp" target="_blank" rel="noopener"><span class="cs-shot-label">Before</span><img src="assets/games/ordinem-card-before-naming.webp" width="956" height="52" alt="A card's rules text before the naming pass" loading="lazy"></a>
+                <a class="cs-shot" href="assets/games/ordinem-card-after-naming.webp" target="_blank" rel="noopener"><span class="cs-shot-label">After</span><img src="assets/games/ordinem-card-after-naming.webp" width="657" height="48" alt="The same card's rules text after the naming and icons pass" loading="lazy"></a>
+              </div>
+              <figcaption>A card before and after the second large naming and icons pass.</figcaption>
+            </figure>
+          </section>
+        </article>
+
+        <a class="detail-view-back cs-back-bottom" href="games/">
+          <span class="detail-view-back-arrow" aria-hidden="true">&larr;</span>
+          Back to all games
+        </a>
+      </div>
+    </article>
+  </main>
+  <script src="js/desktop.js?v=9"></script>
+</body>
+</html>

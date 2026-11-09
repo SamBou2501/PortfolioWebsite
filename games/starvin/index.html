@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Every relative path on this page resolves from the site root, so the
+       content below works unchanged inside a desktop window too. -->
+  <base href="../../">
+  <title>STARVIN MARTIAN case study — Samuel Bouzanquet, Game Designer</title>
+  <meta name="description" content="STARVIN MARTIAN is a PvE farming game in the vein of Township and Stardew Valley. Samuel Bouzanquet's work on it as Lead Game Designer: the design problems, iterations and takeaways.">
+  <meta name="theme-color" content="#0F2020">
+  <link rel="canonical" href="https://sambou2501.github.io/PortfolioWebsite/games/starvin/">
+
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://sambou2501.github.io/PortfolioWebsite/games/starvin/">
+  <meta property="og:title" content="STARVIN MARTIAN case study — Samuel Bouzanquet, Game Designer">
+  <meta property="og:description" content="STARVIN MARTIAN is a PvE farming game in the vein of Township and Stardew Valley. Samuel Bouzanquet's work on it as Lead Game Designer: the design problems, iterations and takeaways.">
+  <meta property="og:image" content="https://sambou2501.github.io/PortfolioWebsite/assets/og/starvin.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Caveat:wght@500;600&family=Orbitron:wght@800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/themes.css?v=9">
+  <link rel="stylesheet" href="css/style.css?v=9">
+</head>
+<body class="page">
+  <!-- Shown only without JavaScript; with it, desktop.js builds the desktop
+       around this page and opens it in a window. -->
+  <header class="page-header"><a href="./">Samuel Bouzanquet — Game Designer</a></header>
+  <main class="page-main" data-page="games/starvin/">
+    <article class="app-content app-games" data-theme="games">
+      <div class="detail-view">
+        <a class="detail-view-back" href="games/">
+          <span class="detail-view-back-arrow" aria-hidden="true">&larr;</span>
+          Back to all games
+        </a>
+
+        <article class="case-study">
+          <header class="cs-header">
+            <h3 class="cs-title">STARVIN MARTIAN</h3>
+            <p class="cs-meta">Farming sim · PC (Epic Games) + Android · 2022–2025 · Lead Game Designer</p>
+            <p class="cs-lede">STARVIN MARTIAN is a PvE farming game in the vein of Township and Stardew Valley. You lead a brand-new colony on Mars, growing crazily spliced crops and animals and turning them into food to give your colonists a fighting chance.</p>
+            <ul class="cs-highlights">
+              <li>Took an acquired, generic mobile farming game and turned it into a Mars game, with a new theme, lore and art direction.</li>
+              <li>Rebuilt the progression curve and tech tree, reworked mechanics that weren't fun, designed new ones and designed the tutorial.</li>
+              <li>Shipped closed alpha (late 2023) → closed beta (late 2024) → open beta (v0.9, late 2025). Development is now paused.</li>
+            </ul>
+          </header>
+
+          <nav class="cs-jump" aria-label="Jump to a design problem">
+            <span class="cs-jump-label">Jump to</span>
+            <button type="button" data-jump="starvin-p1">1 · A curve built for microtransactions</button>
+            <button type="button" data-jump="starvin-p2">2 · Making it feel like Mars</button>
+            <button type="button" data-jump="starvin-p3">3 · Improving mechanics</button>
+            <button type="button" data-jump="starvin-p4">4 · UI and UX</button>
+          </nav>
+
+          <section class="cs-section">
+            <h4 class="app-subtitle">Design overview</h4>
+            <p>The company bought a successful mobile farming game and could reuse it with an entirely new theme. My brief was to turn it into a Mars game, at first just by directing new names and art. (I directed the art; I wasn't the artist.)</p>
+            <p>Early testing showed the bigger problem was underneath: the game's pacing was built around mobile microtransactions, and without them it wasn't fun or deep. I spent the next three years rebuilding its curve, reworking its mechanics and adding new ones.</p>
+          </section>
+
+          <section class="cs-section">
+            <h4 class="app-subtitle">What I did</h4>
+            <ul class="cs-did">
+              <li><strong>Lead Game Designer.</strong> Overhauled existing mechanics and added new ones, and retuned every build time, cost, XP amount and unlock for a smoother curve. Designed the tutorial to introduce new players to each mechanic.</li>
+              <li><strong>Vision holder.</strong> Created the theme, lore and art style. I made it sillier than my other games because that suited the gameplay and let us be crazier with designs ('Galaxy Grain', 'Orion Onion', 'Radiation Rabbit' and 'Gyroscopic Goat', to name a few). Kept the team aligned through weekly meetings, Discord and Monday.</li>
+              <li><strong>Documentation.</strong> Owned the GDD (Google Docs from early 2023, then GitBook, through late 2025). Built a master spreadsheet of every building, crop and animal and its build time (the most important number in a game like this), plus levels, XP and unlocks. Built a Miro tech tree showing what builds what, overhauled several times until it showed progression clearly.</li>
+              <li><strong>Balance and feedback.</strong> Sole owner of economy and progression balance. Triaged player and dev feedback and QA bugs, and decided what to implement, tweak or discard.</li>
+              <li><strong>Research.</strong> Studied Township, Town Star and other farming games (which I don't usually play), plus real research into what a Mars colony would actually need.</li>
+            </ul>
+            <figure class="cs-figure">
+              <a class="cs-shot" href="assets/games/starvin-tech-tree-full.webp" target="_blank" rel="noopener"><img src="assets/games/starvin-tech-tree.webp" width="2000" height="438" alt="STARVIN MARTIAN's tech tree, mapped out in Miro" loading="lazy"></a>
+              <figcaption>STARVIN MARTIAN's tech tree in visual form. Click to open it full size.</figcaption>
+            </figure>
+            <div class="cs-docs">
+              <a class="cs-doc" href="assets/docs/Levels_SMTDDEconomyStats.pdf" target="_blank" rel="noopener">
+                <span class="cs-doc-badge" aria-hidden="true">PDF</span>
+                <span class="cs-doc-text"><strong>Level and XP progression</strong> The XP each level needs and what it unlocks. (0.5 MB)</span>
+              </a>
+              <a class="cs-doc" href="assets/docs/Products_SMTDDEconomyStats.pdf" target="_blank" rel="noopener">
+                <span class="cs-doc-badge" aria-hidden="true">PDF</span>
+                <span class="cs-doc-text"><strong>Products</strong> Every product's unlock level, processing time and XP. (3.3 MB)</span>
+              </a>
+            </div>
+          </section>
+
+          <section class="cs-problem" data-jump-id="starvin-p1">
+            <p class="cs-problem-label">Problem 1</p>
+            <h4 class="cs-problem-title">A curve built for microtransactions</h4>
+            <p><strong>The problem:</strong> The base game's progression was built for mobile monetisation: a very non-linear curve that players were expected to skip by paying. Without the microtransactions, and played on PC, it felt grindy and uneven.</p>
+            <h5 class="cs-subhead">The iterations</h5>
+            <ol class="cs-iterations">
+              <li><strong>Reskin it with the original numbers.</strong> Playtesting wasn't favourable: it still felt very "mobile" and shallow.</li>
+              <li><strong>Retune the numbers.</strong> When the game was rebuilt in 2024, I reworked build times, costs and unlocks in the master spreadsheet and updated the docs as mechanics shifted after testing and budget changes. This made the game's curve feel much less grindy and uneven, but the mechanical depth and interesting choices were still lacking. For reference, reaching max level used to take months of playtime, most of it in the last few levels. My reshuffle cut that to weeks <em>and</em> made it far less back-ended.</li>
+              <li><strong>Overhaul construction items and expanding.</strong> These were two of the worst bottleneck mechanics in the game, and felt horrible when they went badly.</li>
+              <li><strong>Rebuild the curve and tech tree.</strong> In 2025 I overhauled the whole progression: an updated curve, a reorganised tech tree (mapped out in Miro) and simpler loops, both for budget and to make play smoother. Then came lots of testing to iron out bugs and make sure it felt good.</li>
+            </ol>
+            <p class="cs-status">V4 shipped in v0.9 on Epic Games and Android.</p>
+            <p class="cs-takeaway"><span class="cs-takeaway-label">Takeaway</span> Sometimes tuning numbers just isn't enough, even though it <em>does</em> help a lot.</p>
+            <figure class="cs-figure cs-figure-narrow">
+              <a class="cs-shot" href="assets/games/starvin-time-smoothing.webp" target="_blank" rel="noopener"><img src="assets/games/starvin-time-smoothing.webp" width="1645" height="1488" alt="Charts from the time-smoothing proposal comparing items' XP and build times with an ideal curve" loading="lazy"></a>
+              <figcaption>Part of my proposal to improve the game's overall curve, showing how far the XP and build times of many items were from where they ideally should be.</figcaption>
+            </figure>
+          </section>
+
+          <section class="cs-problem" data-jump-id="starvin-p2">
+            <p class="cs-problem-label">Problem 2</p>
+            <h4 class="cs-problem-title">Making it feel like Mars</h4>
+            <p><strong>The problem:</strong> The original game had almost no lore or explanation for anything. Our Mars version technically worked, but it didn't <em>feel</em> like feeding and building a colony.</p>
+            <h5 class="cs-subhead">The iterations</h5>
+            <ol class="cs-iterations">
+              <li><strong>Mars versions of standard farm items.</strong> It worked, but a lot of it was uninspired.</li>
+              <li><strong>Rework the lore and names.</strong> I made the lore less vague and more fun and playful, and researched fun references for names. Better, but something was still missing.</li>
+              <li><strong>Rebuild from the ground up.</strong> With brand-new art coming, I researched what terraforming Mars would actually require, plus other space concepts, and rebuilt the buildings and items around it (Wheat → Galaxy Grain, Cow → Cosmic Cow, Bread → Beacon Bread, Orange Tree → Meteorange Tree). I also made sure every asset could be identified at a glance, thinking about gameplay as well as looks.</li>
+              <li><strong>Use the tech-tree reshuffle.</strong> When the 2025 tech-tree overhaul reshuffled everything, I re-examined each item's place in both the tree and the fiction, so that progression and theme told the same story and fed into each other instead of being entirely separate. This helped a ton, but something was still missing.</li>
+              <li><strong>Add mechanics that add flavour.</strong> To close the gap we were still feeling, we added new mechanics. Colonists became a number you actually cared about, tied to your progression, and you could now see them wandering around. We also added the food quota: you had to put food into your Colony Hall to keep your colonists happy and fed. You're literally feeding the "Starvin' Martians"! This last one especially was a big improvement to flavour and game feel.</li>
+            </ol>
+            <p class="cs-status">Some mechanics from iteration 5 weren't shipped, as development was paused before they were fully implemented.</p>
+            <p class="cs-takeaway"><span class="cs-takeaway-label">Takeaway</span> Theme sticks best when progression and fiction tell the same story.</p>
+          </section>
+
+          <section class="cs-problem" data-jump-id="starvin-p3">
+            <p class="cs-problem-label">Problem 3</p>
+            <h4 class="cs-problem-title">Improving mechanics</h4>
+            <p><strong>The problem:</strong> With the way the tech tree was set up, many things were ginormous bottlenecks (on purpose, to drive microtransactions). Redoing the tech tree helped, but some mechanics had to be overhauled entirely. The depth just wasn't there.</p>
+            <h5 class="cs-subhead">The iterations</h5>
+            <ol class="cs-iterations">
+              <li><strong>Reshuffle numbers and remove unwanted mechanics.</strong> Definitely helpful, but it didn't fix the core issues, and we were still missing the depth we wanted. Feeling I was missing something, I went back to basics: I drew out the game's entire gameplay loop(s) and picked them apart.</li>
+              <li><strong>Add building upgrades.</strong> These helped, and gave players a real choice of what to upgrade, since each building had its own bonuses. But because of how they were implemented and tied to our own monetisation, they still left something to be desired.</li>
+              <li><strong>Add power and water.</strong> The main problem I identified was too few avenues for choice, and so no depth: the game was very 'railroady' by design. Power and water gave players things they had to manage, which added depth. Good in theory, but it didn't solve players not feeling like they had much choice.</li>
+              <li><strong>Add research.</strong> Permanent research you could unlock at a dedicated building. In dev testing this definitely helped, giving players more divergent paths to take.</li>
+              <li><strong>Move to a 'town hall' approach.</strong> Like Town Halls in Clash of Clans, the Colony Hall became upgradable, and each level gave you brand-new toys to build in any order, instead of each level handing you specific buildings and items.</li>
+            </ol>
+            <p class="cs-status">Iterations 4 and 5 were never properly released, as development was paused first.</p>
+            <p class="cs-takeaway"><span class="cs-takeaway-label">Takeaway</span> Sometimes fixing something that's broken means adding complementary pieces. Fixing one part isn't always enough.</p>
+            <figure class="cs-figure cs-figure-narrow">
+              <a class="cs-shot" href="assets/games/starvin-gameplay-loops-full.webp" target="_blank" rel="noopener"><img src="assets/games/starvin-gameplay-loops.webp" width="1438" height="1480" alt="A Miro flowchart of STARVIN MARTIAN's gameplay loops" loading="lazy"></a>
+              <figcaption>Working through STARVIN MARTIAN's gameplay loop(s) to figure out what specifically was causing problems.</figcaption>
+            </figure>
+          </section>
+
+          <section class="cs-problem" data-jump-id="starvin-p4">
+            <p class="cs-problem-label">Problem 4</p>
+            <h4 class="cs-problem-title">UI and UX</h4>
+            <p><strong>The problem:</strong> The inherited UI was uninspired, hard to extend, had real gaps in the player experience and didn't work on mobile.</p>
+            <h5 class="cs-subhead">The iterations</h5>
+            <ol class="cs-iterations">
+              <li><strong>Reskinned.</strong> Testing quickly showed gaps in the player experience.</li>
+              <li><strong>Usability pass</strong> to make the game easier to play. Good, but it could be better.</li>
+              <li><strong>Re-themed</strong> to fix the expandability issues.</li>
+              <li><strong>Mobile overhaul</strong>, visually and mechanically, with the lessons carried back into the PC version.</li>
+            </ol>
+            <p class="cs-status"><strong>My part:</strong> I didn't design the UI. I did the initial research into similar games for the designers, gave vision and gameplay feedback through each pass, and directed the new icons for buildings and products.</p>
+            <p class="cs-takeaway"><span class="cs-takeaway-label">Takeaway</span> UI/UX is often overlooked until the last minute, but it's a huge part of a game's experience. Game designers need to be aware of it because it impacts gameplay so much.</p>
+          </section>
+        </article>
+
+        <a class="detail-view-back cs-back-bottom" href="games/">
+          <span class="detail-view-back-arrow" aria-hidden="true">&larr;</span>
+          Back to all games
+        </a>
+      </div>
+    </article>
+  </main>
+  <script src="js/desktop.js?v=9"></script>
+</body>
+</html>

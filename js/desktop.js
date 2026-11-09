@@ -3,7 +3,7 @@
  *
  * Two layouts, switched live by the PHONE media query (also in style.css):
  *
- * Desktop (> 900px wide)
+ * Desktop (everything else)
  * - Clicking an app icon opens a draggable window with theme-colored chrome.
  * - Title bar has Win11-style minimise / maximise / close.
  * - Desktop icons themselves are draggable around the desktop surface
@@ -11,7 +11,7 @@
  * - Taskbar: left-click open/focus/minimise (Win11 toggle), right-click
  *   context menu, Start = show desktop, .is-open class on open apps.
  *
- * Phone / small tablet (<= 900px wide)
+ * Phone / small tablet / sideways phone (<= 900px wide or <= 500px tall)
  * - Scrolling home page of app tiles; the taskbar becomes a bottom tab bar.
  * - Apps open one at a time, full screen, like pages. Opening an app adds a
  *   history entry, so the phone's back button returns to the home page
@@ -20,6 +20,8 @@
  * Both: pointer events (mouse + touch + pen), Escape closes the top window,
  * focus moves into a window on open and back to its opener on close.
  * No persistence — refresh resets icon positions and closes all windows.
+ * Content: each app and case study is its own page file (about/index.html,
+ * games/ordinem/index.html); windows fetch those pages. See "Pages and paths".
  * ------------------------------------------------------------------------- */
 
 (() => {
@@ -58,55 +60,78 @@
     win.style.zIndex = String(++zCounter);
   }
 
-  // The app named in the URL hash (`#games` or `#games:ordinem` → "games").
-  const hashApp = () => location.hash.slice(1).split(":")[0];
+  // -- Pages and paths -------------------------------------------------------
 
-  // Every history entry the site adds remembers the hash it was added from
+  // Every app and case study is its own page file (about/index.html,
+  // games/ordinem/index.html, …) so search engines and link previews see
+  // it. The desktop fetches those pages and shows their <article> in a
+  // window. Paths are relative to the site root: "" is home, "games/",
+  // "games/ordinem/". Page files carry <base href> pointing at the root, so
+  // relative URLs resolve the same on every page.
+  const SITE_ROOT = new URL(document.querySelector("base") ? document.baseURI : "./", location.href).href;
+  const pathOf = (url) => {
+    const u = url.split(/[?#]/)[0];
+    return u.startsWith(SITE_ROOT) ? u.slice(SITE_ROOT.length).replace(/index\.html$/, "") : null;
+  };
+  const here = () => pathOf(location.href) || "";
+  const appOf = (path) => path.split("/")[0];
+
+  // Arriving on a page file (from Google, a shared link): build the desktop
+  // around it. Its own article is kept so the window doesn't fetch it again.
+  const IS_PAGE = document.body.classList.contains("page");
+  const startPage = IS_PAGE
+    ? { path: here(), article: document.querySelector(".page-main > article"), title: document.title }
+    : null;
+  if (IS_PAGE) document.documentElement.classList.add("has-shell"); // hide the bare page now
+  let homeTitle = IS_PAGE ? "" : document.title;
+
+  // Every history entry the site adds remembers the path it was added from
   // and how many site entries came before it (`depth`), so going back or
   // closing can step back through history instead of piling up duplicate
   // entries the back button then has to wade through.
-  // `base` is the hash the chain started from ("" = the home page).
+  // `base` is the path the chain started from ("" = the home page).
   function nextState() {
     const s = history.state;
-    const here = location.hash.slice(1);
     return s && s.site
-      ? { site: true, from: here, depth: s.depth + 1, base: s.base }
-      : { site: true, from: here, depth: 1, base: here };
+      ? { site: true, from: here(), depth: s.depth + 1, base: s.base }
+      : { site: true, from: here(), depth: 1, base: here() };
   }
 
-  // In-app navigation. pushState doesn't fire hashchange, so apply it here.
-  function pushHash(hash) {
-    history.pushState(nextState(), "", "#" + hash);
-    applyHash();
+  // In-app navigation. pushState doesn't fire popstate, so route here.
+  function navigate(path) {
+    history.pushState(nextState(), "", SITE_ROOT + path);
+    route();
   }
 
   // Take the app out of the URL when its window is closed or minimised. If
   // the site's entries lead straight back to the home page, step back there
   // rather than leaving a duplicate; never step back onto an app's entry,
   // which on desktop would re-open a window the visitor may have closed.
-  function clearHashFor(app) {
-    if (hashApp() !== app) return;
+  function clearPathFor(app) {
+    if (appOf(here()) !== app) return;
     const s = history.state;
     if (s && s.site && s.base === "") {
       quietHome = true; // this isn't the visitor pressing back: change nothing else
       history.go(-s.depth);
     } else {
-      history.replaceState(null, "", location.pathname + location.search);
+      history.replaceState(null, "", SITE_ROOT);
+      document.title = homeTitle;
     }
   }
   let quietHome = false;
 
-  // `fromHash` is true when applyHash() is the caller — the URL is already
-  // right, so don't push another history entry. Otherwise the URL names the
-  // detail the window is showing (e.g. reopening a minimised case study).
-  function openApp(app, { fromHash = false } = {}) {
-    if (APPS[app] && APPS[app].disabled) return;
+  // Open an app from the UI (icon, tab, menu). The URL names the page the
+  // window is already showing, if any (e.g. reopening a minimised case study).
+  function openApp(app) {
+    if (!APPS[app] || APPS[app].disabled) return;
     const existing = openWindows.get(app);
-    const target = existing && existing.dataset.detail ? `${app}:${existing.dataset.detail}` : app;
-    if (!fromHash && location.hash.slice(1) !== target) {
-      history.pushState(nextState(), "", "#" + target);
-    }
+    const target = (existing && existing.dataset.page) || app + "/";
+    if (here() !== target) navigate(target);
+    else route();
+  }
 
+  // Show (create, un-minimise, focus) an app's window. Called by route().
+  function showApp(app) {
     // Phone: one app at a time, like pages.
     if (isPhone()) {
       openWindows.forEach((w, a) => { if (a !== app) w.classList.add("is-minimised"); });
@@ -126,6 +151,7 @@
     focusWindow(win);
     win.focus({ preventScroll: true });
     updateTaskbarState();
+    return win;
   }
 
   function restoreFocus(win, app) {
@@ -140,7 +166,7 @@
     if (!win) return;
     win.remove();
     openWindows.delete(app);
-    clearHashFor(app);
+    clearPathFor(app);
     updateTaskbarState();
     restoreFocus(win, app);
   }
@@ -149,7 +175,7 @@
     const win = openWindows.get(app);
     if (!win) return;
     win.classList.add("is-minimised");
-    clearHashFor(app);
+    clearPathFor(app);
     updateTaskbarState();
     if (win.contains(document.activeElement)) restoreFocus(win, app);
   }
@@ -196,8 +222,8 @@
 
   function showDesktop() {
     openWindows.forEach((win) => win.classList.add("is-minimised"));
-    const app = hashApp();
-    if (app) clearHashFor(app);
+    const app = appOf(here());
+    if (app) clearPathFor(app);
     updateTaskbarState();
   }
 
@@ -273,7 +299,7 @@
           </button>
         </div>
       </header>
-      <div class="window-body">${getAppBody(app)}</div>
+      <div class="window-body"></div>
     `;
 
     // Controls
@@ -293,6 +319,24 @@
       if (e.target.closest(".window-control") || isPhone()) return;
       toggleMaximise(app);
     });
+
+    return win;
+  }
+
+  // Put a page's article into a window and wire its behaviour. Runs each
+  // time the window shows a different page.
+  function showPage(win, path, page) {
+    const body = win.querySelector(".window-body");
+    body.replaceChildren(document.importNode(page.article, true));
+    body.scrollTop = 0;
+    win.dataset.page = path;
+    win.dataset.title = page.title || "";
+    if (page.title) document.title = page.title;
+    wireContent(win);
+  }
+
+  function wireContent(win) {
+    const app = win.dataset.app;
 
     // Wire any [data-copy] elements in the body (e.g. the Contacts email
     // button). Click → copy the value to clipboard and say whether it worked:
@@ -323,41 +367,8 @@
       });
     });
 
-    wireAppLinks(win);
-
-    // Generic list/detail view swap, hash-routed so each detail view has a
-    // shareable URL (e.g. #blogs:blog-3 → opens Blogs with that post showing,
-    // #games:ordinem → opens Games on the ORDINEM detail). The click handlers
-    // here ONLY change the URL; the actual UI swap happens inside the
-    // top-level applyHash() function, so there's a single source of truth for
-    // the visible state.
-    const listView   = win.querySelector('[data-view="list"]');
-    const detailView = win.querySelector('[data-view="detail"]');
-    if (listView && detailView) {
-      win.querySelectorAll("[data-detail-trigger]").forEach((trigger) => {
-        trigger.addEventListener("click", (e) => {
-          e.preventDefault();
-          pushHash(`${app}:${trigger.dataset.detailTrigger}`);
-        });
-      });
-      win.querySelectorAll("[data-detail-back]").forEach((btn) => {
-        btn.addEventListener("click", () => {
-          // Opened from the list: step back, so the phone's back button
-          // doesn't return to this detail. Otherwise (a deep link from the
-          // resume, say) swap the entry in place.
-          const s = history.state;
-          if (s && s.site && s.from === app) {
-            history.back();
-          } else {
-            history.replaceState(s, "", "#" + app);
-            applyHash();
-          }
-        });
-      });
-    }
-
-    // In-page "Jump to" buttons on long detail pages. These scroll instead of
-    // using #anchors, because the URL hash is reserved for app routing.
+    // In-page "Jump to" buttons on long pages. They scroll the window body
+    // directly, since #anchors would scroll the page behind it.
     win.querySelectorAll("[data-jump]").forEach((btn) => {
       btn.addEventListener("click", () => {
         const target = win.querySelector(`[data-jump-id="${CSS.escape(btn.dataset.jump)}"]`);
@@ -393,8 +404,6 @@
         });
       });
     }
-
-    return win;
   }
 
   // -- Blog decoration ------------------------------------------------------
@@ -511,28 +520,63 @@
     return svg ? svg.outerHTML : "";
   }
 
-  // Pulls each app's content from a <template id="app-content-<id>"> in
-  // index.html. Templates make the content editable as plain HTML without
-  // touching this JS file.
-  function getAppBody(app) {
-    const tpl = document.getElementById(`app-content-${app}`);
-    return tpl ? tpl.innerHTML : "";
+  // Fetch a page file and pull out its article and title. Cached, so going
+  // back to a page is instant.
+  const pageCache = new Map();
+  function fetchPage(path) {
+    if (startPage && path === startPage.path) return Promise.resolve(startPage);
+    if (!pageCache.has(path)) {
+      const p = fetch(SITE_ROOT + path)
+        .then((res) => { if (!res.ok) throw new Error(res.status); return res.text(); })
+        .then((text) => {
+          const doc = new DOMParser().parseFromString(text, "text/html");
+          const article = doc.querySelector(".page-main > article");
+          if (!article) throw new Error("no article");
+          return { article, title: doc.title };
+        });
+      p.catch(() => pageCache.delete(path)); // let a later click retry
+      pageCache.set(path, p);
+    }
+    return pageCache.get(path);
   }
 
-  // Links to an app (e.g. Experience → Games "Browse the portfolio", or a
-  // desktop screenshot → its case study). Routed through pushHash so they
-  // still work when the URL already points there (no hashchange would fire)
-  // and so they join the site's history bookkeeping.
-  function wireAppLinks(root) {
-    root.querySelectorAll('a[href^="#"]').forEach((link) => {
-      const hash = link.getAttribute("href").slice(1);
-      if (!APPS[hash.split(":")[0]]) return;
-      link.addEventListener("click", (e) => {
-        e.preventDefault();
-        if (location.hash.slice(1) === hash) applyHash();
-        else pushHash(hash);
-      });
-    });
+  async function loadPage(win, path) {
+    win.dataset.loading = path;
+    let page;
+    try {
+      page = await fetchPage(path);
+    } catch (_) {
+      const msg = document.createElement("p");
+      msg.className = "window-load-error";
+      msg.innerHTML = `Couldn't load this page. <a href="${SITE_ROOT + path}">Open it on its own</a>.`;
+      page = { article: msg, title: "" };
+    }
+    if (win.dataset.loading !== path || !win.isConnected) return; // clicked elsewhere meanwhile
+    showPage(win, path, page);
+  }
+
+  // Any click on a link to one of the site's pages (icons, cards, back
+  // buttons, the desktop screenshots, cross-links) opens it in its window
+  // instead of loading a new document. Assets, PDFs and other sites pass
+  // through untouched, as do new-tab clicks.
+  function onLinkClick(e) {
+    if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    const link = e.target.closest("a[href]");
+    if (!link || link.target === "_blank") return;
+    const path = pathOf(link.href);
+    if (path === null || (path !== "" && !APPS[appOf(path)])) return;
+    e.preventDefault();
+    if (path && APPS[appOf(path)].disabled) return;
+    const s = history.state;
+    if (s && s.site && s.from === path) {
+      // Back to where this page was opened from (e.g. "Back to all games"):
+      // step back, so the browser's back button doesn't return here.
+      history.back();
+    } else if (here() === path) {
+      route();
+    } else {
+      navigate(path);
+    }
   }
 
   // -- Window dragging ------------------------------------------------------
@@ -601,6 +645,7 @@
       const clone = icon.cloneNode(true);
       clone.style.visibility = "hidden";
       clone.removeAttribute("data-app");
+      clone.removeAttribute("href"); // not a second link for crawlers
       clone.setAttribute("aria-hidden", "true");
       clone.tabIndex = -1;
       return clone;
@@ -798,90 +843,41 @@
     }, 0);
   }
 
-  // -- Hash routing ---------------------------------------------------------
+  // -- Routing --------------------------------------------------------------
 
-  // URL hash scheme: `#<app>` for the app at list view, `#<app>:<detail-id>`
-  // for a specific detail. Triggers and back buttons change the URL; this
-  // function reads the hash and mutates the UI to match. Runs on every
-  // hashchange, after pushHash(), and once at page load (so a deep link in
-  // the URL on first load opens the right window/state).
-  function applyHash() {
-    const raw = location.hash.replace(/^#/, "");
+  // The URL path decides what's visible: "" = home, "<app>/…" = that app's
+  // window showing that page. Runs on popstate, after navigate(), and once at
+  // load (so arriving on games/ordinem/ opens ORDINEM).
+  function route() {
+    const path = here();
     const quiet = quietHome;
     quietHome = false;
 
-    // Empty hash from the visitor pressing back (not from closing or
-    // minimising, which step back quietly):
-    // - phone: back to the home page, so hide every open app;
-    // - desktop: reset every open list/detail window back to its list view
-    //   (windows stay open, like a real desktop).
-    if (!raw) {
-      if (quiet) return;
-      if (isPhone()) {
-        openWindows.forEach((w) => w.classList.add("is-minimised"));
-        updateTaskbarState();
-        return;
-      }
-      openWindows.forEach((w) => {
-        const list   = w.querySelector('[data-view="list"]');
-        const detail = w.querySelector('[data-view="detail"]');
-        if (list && detail) { detail.hidden = true; list.hidden = false; }
-        w.dataset.detail = "";
-      });
+    // Home from the visitor pressing back (not from closing or minimising,
+    // which step back quietly): on phones hide every app; on desktop the
+    // windows stay open, like a real desktop.
+    if (!path) {
+      if (homeTitle) document.title = homeTitle;
+      if (quiet || !isPhone()) return;
+      openWindows.forEach((w) => w.classList.add("is-minimised"));
+      updateTaskbarState();
       return;
     }
 
-    const [appId, detailId] = raw.split(":");
-    if (!appId || !APPS[appId] || APPS[appId].disabled) return;
+    const app = appOf(path);
+    if (!APPS[app] || APPS[app].disabled) return;
+    const win = showApp(app);
+    if (win.dataset.page !== path) loadPage(win, path);
+    else if (win.dataset.title) document.title = win.dataset.title;
+  }
 
-    // Open the app (idempotent: focuses + un-minimises if already open).
-    openApp(appId, { fromHash: true });
-
-    const win = openWindows.get(appId);
-    if (!win) return;
-    const listView   = win.querySelector('[data-view="list"]');
-    const detailView = win.querySelector('[data-view="detail"]');
-    const body       = win.querySelector(".window-body");
-    if (!listView || !detailView) return;
-
-    // Remember what the window shows, so reopening it from the taskbar puts
-    // the same detail back in the URL (see openApp).
-    const trigger = detailId && win.querySelector(`[data-detail-trigger="${CSS.escape(detailId)}"]`);
-    win.dataset.detail = trigger ? detailId : "";
-
-    if (detailId) {
-      if (trigger) {
-        const titleTarget = detailView.querySelector("[data-detail-title-target]");
-        if (titleTarget) titleTarget.textContent = trigger.dataset.detailTitle || detailId;
-        // Apps with per-item content (Games) hold one [data-detail-panel] per
-        // trigger; show only the matching one. Apps without panels (Blogs)
-        // keep their single shared detail view.
-        detailView.querySelectorAll("[data-detail-panel]").forEach((panel) => {
-          panel.hidden = panel.dataset.detailPanel !== detailId;
-          // Panel images carry data-src so opening the Games list doesn't
-          // download every game's images; load them the first time the
-          // panel is shown (loading="lazy" still staggers them by scroll).
-          if (!panel.hidden) {
-            panel.querySelectorAll("img[data-src]").forEach((img) => {
-              img.src = img.dataset.src;
-              img.removeAttribute("data-src");
-            });
-          }
-        });
-        listView.hidden   = true;
-        detailView.hidden = false;
-      } else {
-        // Unknown detail id (post deleted, typo'd URL, etc.) — fall back to list.
-        detailView.hidden = true;
-        listView.hidden   = false;
-      }
-    } else {
-      // `#<app>` with no detail → list view.
-      detailView.hidden = true;
-      listView.hidden   = false;
-    }
-
-    if (body) body.scrollTop = 0;
+  // Links from before pages existed (`#games`, `#games:ordinem`, e.g. on the
+  // resume) still land on the right page.
+  function upgradeOldLink() {
+    const m = location.hash.match(/^#([a-z-]+)(?::([a-z0-9-]+))?$/);
+    if (!m || !APPS[m[1]] || here()) return false;
+    history.replaceState(null, "", SITE_ROOT + m[1] + "/" + (m[2] ? m[2] + "/" : ""));
+    return true;
   }
 
   // -- Init -----------------------------------------------------------------
@@ -896,7 +892,7 @@
 
     setupIcons();
     wireTaskbar();
-    wireAppLinks(document.querySelector(".desktop"));
+    document.addEventListener("click", onLinkClick);
 
     // Escape closes the topmost window. Inside a search box that still has
     // text, Escape just clears the box (browser default) instead.
@@ -911,16 +907,38 @@
       if (app) closeApp(app);
     });
 
-    // Hash routing — keep UI in sync with location.hash so URLs like
-    // `#blogs:blog-3` deep-link to a specific detail view. Runs once now to
-    // honour any hash present at page load, then on every subsequent change.
-    window.addEventListener("hashchange", applyHash);
-    applyHash();
+    window.addEventListener("popstate", route);
+    window.addEventListener("hashchange", () => { if (upgradeOldLink()) route(); });
+    upgradeOldLink();
+    route();
   }
 
+  // On a page file, fetch the home page and move its desktop (icon sprite,
+  // desktop, taskbar) into this document, then start as usual. Relative URLs
+  // inside it still work because this page's <base> points at the root.
+  async function buildShell() {
+    try {
+      const res = await fetch(SITE_ROOT);
+      if (!res.ok) throw new Error(res.status);
+      const home = new DOMParser().parseFromString(await res.text(), "text/html");
+      homeTitle = home.title;
+      const parts = [...home.body.children].filter((el) => el.matches("svg, main.desktop, footer.taskbar"));
+      if (parts.length < 3) throw new Error("shell not found");
+      document.body.prepend(...parts.map((el) => document.adoptNode(el)));
+      // The taskbar clock only exists now, so start clock.js after it.
+      const clock = home.querySelector('script[src*="clock.js"]');
+      if (clock) document.body.append(Object.assign(document.createElement("script"), { src: clock.getAttribute("src") }));
+      init();
+    } catch (_) {
+      // No desktop (offline, or opened from disk): show the plain page.
+      document.documentElement.classList.remove("has-shell");
+    }
+  }
+
+  const start = IS_PAGE ? buildShell : init;
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", init);
+    document.addEventListener("DOMContentLoaded", start);
   } else {
-    init();
+    start();
   }
 })();
