@@ -390,36 +390,6 @@ body {
 .study-ums   { top: 15%; left: 1.2%; transform: rotate(-4deg); }
 .study-zorde { top: 56%; left: 1.2%; transform: rotate(3deg); }
 
-/* UMS has no screenshot: a dark note card with a modular-blocks doodle. */
-.ums-card {
-  aspect-ratio: 16 / 10;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: calc(6 * var(--u));
-  padding: calc(14 * var(--u));
-  background: #0F2020;
-  text-align: center;
-}
-.ums-blocks { width: 46%; color: var(--ink-color); }
-.ums-card-title {
-  font-family: var(--font-display);
-  font-weight: var(--display-weight);
-  text-transform: uppercase;
-  font-size: max(9px, calc(17 * var(--u)));
-  letter-spacing: 0.04em;
-  line-height: 1.15;
-  color: var(--accent-off-white);
-}
-.ums-card-kicker {
-  font-family: var(--font-hand);
-  font-weight: 600;
-  font-size: max(11px, calc(20 * var(--u)));
-  line-height: 1;
-  color: var(--ink-color);
-}
-
 /* Taskbar ----------------------------------------------------------------- */
 
 .taskbar {
@@ -855,6 +825,29 @@ body.is-dragging-window * { cursor: grabbing !important; }
   color: var(--text);
 }
 .app-bio p { margin: 0; }
+
+/* Photo inside an About Me section: slightly tilted, sketchy frame like the
+   home-page portrait, handwritten caption underneath. */
+.bio-photo {
+  margin: 8px auto 0;
+  width: min(100%, 420px);
+  transform: rotate(1.2deg);
+  text-align: center;
+}
+.bio-photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 2px solid var(--theme-accent);
+  border-radius: 3px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.45);
+}
+.bio-photo figcaption {
+  margin-top: 6px;
+  font-family: var(--font-hand);
+  font-size: 1.35rem;
+  color: var(--text-soft);
+}
 
 .app-bullets {
   margin: 4px 0 0;
@@ -2299,9 +2292,6 @@ body.page { overflow: auto; }
   .screenshot-image { width: 100%; }
   .screenshot-caption,
   .study-tile .screenshot-caption { font-size: clamp(1.05rem, 4.6vw, 1.4rem); white-space: normal; }
-  .ums-card { gap: 6px; padding: 10px; }
-  .ums-card-title { font-size: clamp(0.62rem, 2.6vw, 0.9rem); }
-  .ums-card-kicker { font-size: clamp(0.9rem, 3.6vw, 1.15rem); }
 
   /* Tab bar: Home + the six apps, each a full-height, labelled button. */
   .taskbar {
