@@ -1,13 +1,11 @@
 /* ---------------------------------------------------------------------------
- * Desktop runtime: window manager + draggable desktop icons.
+ * Desktop runtime: window manager + desktop icons.
  *
  * Two layouts, switched live by the PHONE media query (also in style.css):
  *
  * Desktop (everything else)
  * - Clicking an app icon opens a draggable window with theme-colored chrome.
  * - Title bar has Win11-style minimise / maximise / close.
- * - Desktop icons themselves are draggable around the desktop surface
- *   (drag = move, click without drag = open the app).
  * - Taskbar: left-click open/focus/minimise (Win11 toggle), right-click
  *   context menu, Start = show desktop, .is-open class on open apps.
  *
@@ -19,7 +17,7 @@
  *
  * Both: pointer events (mouse + touch + pen), Escape closes the top window,
  * focus moves into a window on open and back to its opener on close.
- * No persistence — refresh resets icon positions and closes all windows.
+ * No persistence — refresh closes all windows.
  * Content: each app and case study is its own page file (about/index.html,
  * games/ordinem/index.html); windows fetch those pages. See "Pages and paths".
  * ------------------------------------------------------------------------- */
@@ -42,8 +40,6 @@
 
   const OPEN_FRAC  = 0.85; // default size on open
   const SMALL_FRAC = 0.60; // size after clicking restore from maximised
-
-  const DRAG_THRESHOLD = 4; // px before a pointerdown counts as a drag
 
   // Phones, small tablets, and any screen under 500px tall (phones held
   // sideways). Must match the phone breakpoint in style.css.
@@ -624,153 +620,20 @@
     titlebar.addEventListener("pointercancel", endDrag);
   }
 
-  // -- Draggable desktop icons ---------------------------------------------
+  // -- Desktop icons --------------------------------------------------------
 
-  // Desktop layout: icons are "freed" from the grid and become absolutely
-  // positioned, draggable children of .desktop. Phone layout: they sit back
-  // in the grid as plain tiles. setIconMode() switches between the two
-  // whenever the PHONE media query changes (rotating a tablet, resizing).
-  const iconLayout = { icons: [], clones: [], grid: null, desktop: null, freed: false };
-
+  // Icons stay in their grid cells (no dragging). `click` opens the app, so
+  // mouse, touch and keyboard (Enter) all work.
   function setupIcons() {
-    iconLayout.grid = document.querySelector(".app-grid");
-    iconLayout.desktop = document.querySelector(".desktop");
-    if (!iconLayout.grid || !iconLayout.desktop) return;
-
-    iconLayout.icons = Array.from(iconLayout.grid.querySelectorAll(".app-icon"));
-    // Invisible stand-ins that stay in the grid while the real icons are
-    // freed, so the grid still computes the staircase layout (and reflows on
-    // resize) and each "would-be" position can be read off a clone.
-    iconLayout.clones = iconLayout.icons.map((icon) => {
-      const clone = icon.cloneNode(true);
-      clone.style.visibility = "hidden";
-      clone.removeAttribute("data-app");
-      clone.removeAttribute("href"); // not a second link for crawlers
-      clone.setAttribute("aria-hidden", "true");
-      clone.tabIndex = -1;
-      return clone;
-    });
-    iconLayout.icons.forEach(wireIcon);
-
-    setIconMode();
-    PHONE.addEventListener("change", setIconMode);
-    // Re-place undragged icons whenever the desktop or the grid changes size
-    // (window resize, rotation, fonts loading). More reliable than the
-    // window "resize" event, which can fire before layout has settled.
-    const ro = new ResizeObserver(repositionUndragged);
-    ro.observe(iconLayout.desktop);
-    ro.observe(iconLayout.grid);
-  }
-
-  function setIconMode() {
-    const { icons, clones, grid, desktop } = iconLayout;
-    const wantFree = !isPhone();
-    if (wantFree === iconLayout.freed) return;
-
-    if (wantFree) {
-      icons.forEach((icon, i) => {
-        grid.replaceChild(clones[i], icon);
-        icon.classList.add("is-free");
-        desktop.appendChild(icon);
+    document.querySelectorAll(".app-grid .app-icon").forEach((icon) => {
+      icon.addEventListener("click", (e) => {
+        e.preventDefault();
+        openApp(icon.dataset.app);
       });
-      iconLayout.freed = true;
-      repositionUndragged();
-    } else {
-      icons.forEach((icon, i) => {
-        icon.classList.remove("is-free", "is-dragging");
-        icon.style.left = icon.style.top = "";
-        delete icon.dataset.dragged;
-        grid.replaceChild(icon, clones[i]);
-      });
-      iconLayout.freed = false;
-    }
-    updateTaskbarState(); // the phone-only inert home page depends on the layout
-  }
-
-  // Apply current clone positions to any icon the user hasn't dragged, and
-  // pull dragged ones back inside if the desktop shrank.
-  function repositionUndragged() {
-    if (!iconLayout.freed) return;
-    const desktopRect = iconLayout.desktop.getBoundingClientRect();
-    iconLayout.icons.forEach((icon, i) => {
-      if (icon.dataset.dragged === "true") {
-        const maxX = desktopRect.width  - icon.offsetWidth;
-        const maxY = desktopRect.height - icon.offsetHeight;
-        icon.style.left = Math.max(0, Math.min(maxX, parseFloat(icon.style.left) || 0)) + "px";
-        icon.style.top  = Math.max(0, Math.min(maxY, parseFloat(icon.style.top)  || 0)) + "px";
-        return;
-      }
-      const r = iconLayout.clones[i].getBoundingClientRect();
-      icon.style.left = (r.left - desktopRect.left) + "px";
-      icon.style.top  = (r.top  - desktopRect.top)  + "px";
     });
-  }
-
-  // One handler set for both layouts. `click` opens the app, so mouse, touch
-  // and keyboard (Enter / Space) all work; a drag swallows the click that
-  // follows it. Dragging is only active while the icon is freed.
-  function wireIcon(icon) {
-    let pressed = false;
-    let dragging = false;
-    let justDragged = false;
-    let sx = 0, sy = 0, startLeft = 0, startTop = 0;
-
-    icon.addEventListener("click", (e) => {
-      e.preventDefault();
-      if (justDragged) { justDragged = false; return; }
-      openApp(icon.dataset.app);
-    });
-
-    icon.addEventListener("pointerdown", (e) => {
-      if (e.button !== 0 || !iconLayout.freed) return;
-      pressed = true;
-      dragging = false;
-      justDragged = false;
-      sx = e.clientX;
-      sy = e.clientY;
-      startLeft = parseFloat(icon.style.left) || 0;
-      startTop  = parseFloat(icon.style.top)  || 0;
-      icon.setPointerCapture(e.pointerId);
-      e.preventDefault(); // no text selection / native image drag
-    });
-
-    icon.addEventListener("pointermove", (e) => {
-      if (!pressed) return;
-      const dx = e.clientX - sx;
-      const dy = e.clientY - sy;
-      if (!dragging && Math.hypot(dx, dy) > DRAG_THRESHOLD) {
-        dragging = true;
-        icon.classList.add("is-dragging");
-        icon.dataset.dragged = "true"; // exclude from resize-reflow
-        document.body.classList.add("is-dragging-icon");
-      }
-      if (!dragging) return;
-
-      const desktopRect = iconLayout.desktop.getBoundingClientRect();
-      let nx = startLeft + dx;
-      let ny = startTop  + dy;
-      // Keep within desktop bounds
-      nx = Math.max(0, Math.min(desktopRect.width  - icon.offsetWidth,  nx));
-      ny = Math.max(0, Math.min(desktopRect.height - icon.offsetHeight, ny));
-      icon.style.left = nx + "px";
-      icon.style.top  = ny + "px";
-    });
-
-    const endPress = () => {
-      if (!pressed) return;
-      pressed = false;
-      if (dragging) {
-        dragging = false;
-        justDragged = true; // swallow the click that follows the drag
-        icon.classList.remove("is-dragging");
-        document.body.classList.remove("is-dragging-icon");
-        // If the pointer was released off the icon no click fires, so don't
-        // let the flag leak into the next real click.
-        setTimeout(() => { justDragged = false; }, 0);
-      }
-    };
-    icon.addEventListener("pointerup", endPress);
-    icon.addEventListener("pointercancel", endPress);
+    // The phone-only inert home page depends on the layout.
+    PHONE.addEventListener("change", updateTaskbarState);
+    updateTaskbarState();
   }
 
   // -- Taskbar wiring -------------------------------------------------------

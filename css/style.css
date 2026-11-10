@@ -389,10 +389,10 @@ body {
   transition: color 160ms ease;
 }
 
-.screenshot-nexus    { top:  3%;  left: 51%;  transform: rotate(-3deg); }
+.screenshot-ordinem  { top:  3%;  left: 51%;  transform: rotate(-3deg); }
 .screenshot-starvin  { top:  4%;  right: 2%;  transform: rotate(5deg); }
-.screenshot-ordinem  { bottom: 4%; left: 50%; transform: rotate(-4deg); }
-.screenshot-wos      { bottom: 2%; right: 1%; transform: rotate(6deg); }
+.screenshot-wos      { bottom: 4%; left: 50%; transform: rotate(-4deg); }
+.screenshot-nexus    { bottom: 2%; right: 1%; transform: rotate(6deg); }
 
 /* Study projects: smaller tiles on the left edge, beside the photo. */
 .study-tile { --shot-w: calc(250 * var(--u)); }
@@ -524,33 +524,6 @@ body {
 
 .taskbar-clock #clock-time { font-weight: 600; font-size: 0.8rem; }
 .taskbar-clock #clock-date { opacity: 0.75; font-size: 0.65rem; }
-
-/* App icons — draggable feedback ----------------------------------------- */
-
-/* Desktop layout: JS "frees" each icon from the grid (.is-free) and places
-   it absolutely inside .desktop so it can be dragged. Grab cursor at rest so
-   users discover they can move it; touch-action: none lets a finger drag it
-   on touch-screen laptops / landscape tablets instead of scrolling. */
-.app-icon.is-free {
-  position: absolute;
-  margin: 0;
-  transform: none;
-  z-index: 3; /* above decor (1) and panels (2) */
-  cursor: grab;
-  touch-action: none;
-}
-.app-icon.is-dragging {
-  cursor: grabbing;
-  /* Slight visual lift while dragging */
-  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.55));
-  transition: none;
-}
-.app-icon.is-dragging .app-icon-face { transform: none; }
-
-/* Force grabbing cursor on the whole document while a drag is in flight,
-   so leaving the icon mid-drag doesn't flash a different cursor. */
-body.is-dragging-icon,
-body.is-dragging-icon * { cursor: grabbing !important; }
 
 /* Windows layer + window chrome ------------------------------------------ */
 
@@ -1299,6 +1272,7 @@ a.detail-view-back { text-decoration: none; }
   text-align: center;
   color: var(--text-soft);
 }
+.cs-figure figcaption a { color: var(--theme-accent); }
 .cs-shot {
   position: relative;
   display: block;
@@ -1313,6 +1287,18 @@ a.detail-view-back { text-decoration: none; }
 .cs-shot:hover { border-color: color-mix(in srgb, var(--theme-accent) 70%, transparent); }
 .cs-shot:focus-visible { outline: 2px solid var(--theme-accent); outline-offset: 2px; }
 .cs-shot img { display: block; width: 100%; height: auto; }
+/* Very tall sheets (the ORDINEM card spreadsheet): shown at a readable size
+   inside a frame that scrolls both ways, instead of shrunk to fit. */
+.cs-sheet {
+  max-height: min(70vh, 640px);
+  overflow: auto;
+  overscroll-behavior: contain;
+  background: var(--accent-off-white);
+  border: 1px solid color-mix(in srgb, var(--theme-accent) 25%, transparent);
+  border-radius: 6px;
+}
+.cs-sheet:focus-visible { outline: 2px solid var(--theme-accent); outline-offset: 2px; }
+.cs-sheet img { display: block; width: 1400px; max-width: none; height: auto; }
 .cs-shot-label {
   position: absolute;
   top: 8px;
