@@ -19,7 +19,7 @@
  * focus moves into a window on open and back to its opener on close.
  * No persistence — refresh closes all windows.
  * Content: each app and case study is its own page file (about/index.html,
- * games/ordinem/index.html); windows fetch those pages. See "Pages and paths".
+ * projects/ordinem/index.html); windows fetch those pages. See "Pages and paths".
  * ------------------------------------------------------------------------- */
 
 (() => {
@@ -31,7 +31,7 @@
   // SMALL_FRAC. See createWindow() / toggleMaximise().
   const APPS = {
     about:      { title: "About Me"   },
-    games:      { title: "Projects"   },
+    projects:   { title: "Projects"   },
     blogs:      { title: "Blogs", disabled: true }, // greyed out until real posts exist
     experience: { title: "Experience" },
     links:      { title: "Links"      },
@@ -59,10 +59,10 @@
   // -- Pages and paths -------------------------------------------------------
 
   // Every app and case study is its own page file (about/index.html,
-  // games/ordinem/index.html, …) so search engines and link previews see
+  // projects/ordinem/index.html, …) so search engines and link previews see
   // it. The desktop fetches those pages and shows their <article> in a
-  // window. Paths are relative to the site root: "" is home, "games/",
-  // "games/ordinem/". Page files carry <base href> pointing at the root, so
+  // window. Paths are relative to the site root: "" is home, "projects/",
+  // "projects/ordinem/". Page files carry <base href> pointing at the root, so
   // relative URLs resolve the same on every page.
   const SITE_ROOT = new URL(document.querySelector("base") ? document.baseURI : "./", location.href).href;
   const pathOf = (url) => {
@@ -565,7 +565,7 @@
     if (path && APPS[appOf(path)].disabled) return;
     const s = history.state;
     if (s && s.site && s.from === path) {
-      // Back to where this page was opened from (e.g. "Back to all games"):
+      // Back to where this page was opened from (e.g. "Back to all projects"):
       // step back, so the browser's back button doesn't return here.
       history.back();
     } else if (here() === path) {
@@ -710,7 +710,7 @@
 
   // The URL path decides what's visible: "" = home, "<app>/…" = that app's
   // window showing that page. Runs on popstate, after navigate(), and once at
-  // load (so arriving on games/ordinem/ opens ORDINEM).
+  // load (so arriving on projects/ordinem/ opens ORDINEM).
   function route() {
     const path = here();
     const quiet = quietHome;
@@ -732,15 +732,6 @@
     const win = showApp(app);
     if (win.dataset.page !== path) loadPage(win, path);
     else if (win.dataset.title) document.title = win.dataset.title;
-  }
-
-  // Links from before pages existed (`#games`, `#games:ordinem`, e.g. on the
-  // resume) still land on the right page.
-  function upgradeOldLink() {
-    const m = location.hash.match(/^#([a-z-]+)(?::([a-z0-9-]+))?$/);
-    if (!m || !APPS[m[1]] || here()) return false;
-    history.replaceState(null, "", SITE_ROOT + m[1] + "/" + (m[2] ? m[2] + "/" : ""));
-    return true;
   }
 
   // -- Init -----------------------------------------------------------------
@@ -771,8 +762,6 @@
     });
 
     window.addEventListener("popstate", route);
-    window.addEventListener("hashchange", () => { if (upgradeOldLink()) route(); });
-    upgradeOldLink();
     route();
   }
 

@@ -737,6 +737,11 @@ body.is-dragging-window * { cursor: grabbing !important; }
   padding-bottom: 8px;
   border-bottom: 1px solid color-mix(in srgb, var(--theme-accent) 26%, transparent);
 }
+/* A "good to know" sub-heading under a section (the ORDINEM glossary). */
+.app-subtitle-minor {
+  font-size: 0.85rem;
+  padding-bottom: 6px;
+}
 
 /* About Me --------------------------------------------------------------- */
 
@@ -797,7 +802,7 @@ body.is-dragging-window * { cursor: grabbing !important; }
 .app-bio-section > .app-subtitle,
 .app-bio-section > .app-bio,
 .app-bio-section > .app-bullets { position: relative; z-index: 1; }
-.game-card-row > .game-card { position: relative; z-index: 1; }
+.project-card-row > .project-card { position: relative; z-index: 1; }
 .blog-list > li > .blog-entry { position: relative; z-index: 1; }
 
 .app-bio {
@@ -848,17 +853,17 @@ body.is-dragging-window * { cursor: grabbing !important; }
 /* Row layout: one card per row, image on the left, body on the
    right. Cards are capped + centred so they don't span absurdly wide on
    huge monitors. Mobile flips back to vertical (image on top of body). */
-.games-grid {
+.projects-grid {
   display: flex;
   flex-direction: column;
   align-items: stretch;
   gap: 14px;
 }
-/* Wrapper around each .game-card so we can paint per-game decorative
+/* Wrapper around each .project-card so we can paint per-game decorative
    sketches in the side margins without them being clipped by the card's
    own overflow:hidden. The wrapper is the positioning context; sketches
    inside it bleed into the .app-content side margins. */
-.game-card-row {
+.project-card-row {
   position: relative;
 }
 .game-sketch {
@@ -904,11 +909,11 @@ body.is-dragging-window * { cursor: grabbing !important; }
    that each pair sits beside its own card instead of drifting into the
    next one. */
 @media (min-width: 1081px) {
-  .games-grid { gap: 32px; }
-  .game-card { min-height: 290px; }
-  .games-grid .game-card-image { flex-basis: 400px; width: 400px; }
+  .projects-grid { gap: 32px; }
+  .project-card { min-height: 290px; }
+  .projects-grid .project-card-image { flex-basis: 400px; width: 400px; }
 }
-.game-card {
+.project-card {
   display: flex;
   flex-direction: row;
   align-items: stretch;
@@ -921,7 +926,7 @@ body.is-dragging-window * { cursor: grabbing !important; }
 }
 /* Card is a <button>; reset the user-agent button styles so it looks like the
    card layout above and not an inline-block default button. */
-button.game-card {
+button.project-card {
   text-align: left;
   font: inherit;
   color: inherit;
@@ -929,31 +934,31 @@ button.game-card {
   padding: 0;
 }
 /* Cards and back buttons are links to their pages. */
-a.game-card { color: inherit; text-decoration: none; }
+a.project-card { color: inherit; text-decoration: none; }
 a.detail-view-back { text-decoration: none; }
-.game-card:hover {
+.project-card:hover {
   transform: translateY(-2px);
   border-color: color-mix(in srgb, var(--theme-accent) 45%, transparent);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
 }
-.game-card:focus-visible {
+.project-card:focus-visible {
   outline: 2px solid var(--theme-accent);
   outline-offset: 2px;
 }
-.game-card-image {
+.project-card-image {
   flex: 0 0 320px;
   width: 320px;
   align-self: stretch;
   background: #000;
   overflow: hidden;
 }
-.game-card-image img {
+.project-card-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
 }
-.game-card-body {
+.project-card-body {
   flex: 1 1 auto;
   display: flex;
   flex-direction: column;
@@ -961,7 +966,7 @@ a.detail-view-back { text-decoration: none; }
   gap: 10px;
   padding: 18px 22px;
 }
-.game-card-title {
+.project-card-title {
   margin: 0;
   font-family: var(--font-display);
   font-weight: var(--display-weight);
@@ -970,13 +975,13 @@ a.detail-view-back { text-decoration: none; }
   letter-spacing: 0.05em;
   color: var(--theme-accent);
 }
-.game-card-desc {
+.project-card-desc {
   margin: 0;
   font-size: 0.85rem;
   color: var(--text);
   line-height: 1.5;
 }
-.game-card-tags {
+.project-card-tags {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
@@ -1065,7 +1070,7 @@ a.detail-view-back { text-decoration: none; }
 /* Projects: list wrapper + per-project case studies ---------------------- */
 
 /* The Projects list view wraps the cards. */
-.games-list {
+.projects-list {
   display: flex;
   flex-direction: column;
   gap: 30px;
@@ -1084,12 +1089,12 @@ a.detail-view-back { text-decoration: none; }
   display: inline-block;
   transition: transform 140ms ease;
 }
-.game-card:hover .card-cta > span,
-.game-card:focus-visible .card-cta > span { transform: translateX(4px); }
+.project-card:hover .card-cta > span,
+.project-card:focus-visible .card-cta > span { transform: translateX(4px); }
 
 /* On a case study the "Projects" header is redundant, so the
    page starts straight at the back button and the game title. */
-.app-games:has(> .detail-view:not([hidden])) > .app-section-header { display: none; }
+.app-projects:has(> .detail-view:not([hidden])) > .app-section-header { display: none; }
 
 /* Case study (one per game, shown in the Games detail view). */
 .case-study {
@@ -1702,9 +1707,8 @@ a.detail-view-back { text-decoration: none; }
 }
 .exp-bullets li::marker { color: var(--theme-accent); }
 
-/* Cross-link callout — points readers from Experience over to the Games
-   portfolio for per-project breakdowns. The href is `#games`, so clicking
-   it triggers applyHash() and opens the Games window. */
+/* Cross-link callout — points readers from Experience over to the
+   Projects window for per-project breakdowns (href `projects/`). */
 .exp-cross-link {
   display: flex;
   flex-wrap: wrap;
@@ -2142,7 +2146,7 @@ a.detail-view-back { text-decoration: none; }
   .contact-doodle-drone     { width: 46%; margin-top: 12px; }
 }
 
-/* Page files (about/, games/ordinem/ …) read without JavaScript: crawlers,
+/* Page files (about/, projects/ordinem/ …) read without JavaScript: crawlers,
    link previews, no-JS visitors. A plain readable column. With JavaScript,
    desktop.js adds .has-shell, which hides this and builds the desktop. */
 body.page { overflow: auto; }
@@ -2357,13 +2361,13 @@ body.page { overflow: auto; }
   .app-content { max-width: 100%; }
 
   /* Cards flip to vertical (image on top, body below). */
-  .game-card { flex-direction: column; }
-  .game-card-image {
+  .project-card { flex-direction: column; }
+  .project-card-image {
     width: 100%;
     flex: 0 0 auto;
     aspect-ratio: 16 / 10;
   }
-  .game-card-body { padding: 14px 16px 16px; }
+  .project-card-body { padding: 14px 16px 16px; }
   .blog-entry { flex-direction: column; gap: 12px; padding: 18px 18px; }
   .blog-entry-image {
     width: 100%;

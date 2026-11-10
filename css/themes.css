@@ -73,7 +73,7 @@
 }
 
 /* "Work" pair: yellow. */
-[data-theme="games"],
+[data-theme="projects"],
 [data-theme="experience"] {
   --theme-accent: var(--icon-gold);
   --theme-accent-deep: #6B5420;
