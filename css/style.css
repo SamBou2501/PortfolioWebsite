@@ -69,7 +69,12 @@ body {
 .desktop {
   position: relative;
   display: grid;
-  grid-template-columns: minmax(360px, 50%) 1fr;
+  /* Left column: photo, name and the icon row, stacked and centred
+     vertically. Its width is 100% - 1080u, so its centre sits 540u left of
+     the screen centre: the whole composition (this + the case-study group
+     on the right, see .case-studies) stays together on ultrawide screens. */
+  grid-template-columns: calc(100% - 1080 * var(--u)) 1fr;
+  grid-template-rows: 1fr auto auto 1fr;
   width: 100%;
   height: calc(var(--screen-h) - var(--taskbar-height));
   overflow: hidden;
@@ -83,24 +88,22 @@ body {
     linear-gradient(160deg, #0F2020 0%, var(--wall-base) 55%, #081111 100%);
 }
 
-/* Identity panel (left) --------------------------------------------------- */
+/* Identity panel (left, above the icons) ---------------------------------- */
 
 .identity-panel {
   position: relative;
   z-index: 2;
+  grid-column: 1;
+  grid-row: 2;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: calc(18 * var(--u));
-  padding: calc(56 * var(--u)) calc(56 * var(--u)) calc(64 * var(--u));
+  padding: 0 calc(40 * var(--u));
   text-align: center;
   background: transparent;
-  /* Nudged right so the photo + name sit centred in the space left of the
-     icons now that the study tiles take up the left edge. */
-  translate: calc(70 * var(--u)) 0;
-  /* The panel's box overlaps the study tiles on the left edge and holds
-     nothing clickable, so it lets clicks through to them. */
+  /* Holds nothing clickable, so its box never blocks the decor behind it. */
   pointer-events: none;
 }
 
@@ -163,34 +166,25 @@ body {
   color: var(--accent-off-white);
 }
 
-/* App grid (right) — color-grouped staircase ----------------------------- */
+/* App grid (left, one row under the name) --------------------------------- */
 
 .app-grid {
   position: relative;
   z-index: 2;
+  grid-column: 1;
+  grid-row: 3;
   display: grid;
   grid-auto-flow: column;
-  grid-template-rows: repeat(2, auto);
+  grid-template-rows: auto;
   grid-auto-columns: auto;
-  gap: calc(30 * var(--u)) calc(38 * var(--u));
-  align-content: center;
+  gap: max(6px, calc(10 * var(--u)));
   justify-content: center;
-  padding: calc(40 * var(--u));
+  padding: calc(34 * var(--u)) 0 0;
   background: transparent;
-  /* Nudge the whole icon cluster up + left from dead-centre — feels less
-     "trapped in the corner" and frees up the bottom-right for the WoS polaroid. */
-  transform: translate(calc(-40 * var(--u)), calc(-54 * var(--u)));
-  /* The grid's box sits over the screenshot links (on the desktop it only
-     holds hidden measuring clones), so it must not catch clicks itself. */
+  /* Only the icons themselves catch clicks, never the grid's box. */
   pointer-events: none;
 }
 .app-icon { pointer-events: auto; }
-
-.app-grid > *:nth-child(3),
-.app-grid > *:nth-child(4) { transform: translateY(calc(60 * var(--u))); }
-
-.app-grid > *:nth-child(5),
-.app-grid > *:nth-child(6) { transform: translateY(calc(120 * var(--u))); }
 
 /* App icon — strict square cell (--icon-cell, 170px at the reference size). */
 .app-icon {
@@ -316,22 +310,40 @@ body {
 .splotch-corner  { width: calc(260 * var(--u)); top: -7%;  left: -3%;  opacity: 0.16; transform: rotate(80deg); }
 .splotch-bottom  { width: calc(380 * var(--u)); bottom: -14%; right: -5%; opacity: 0.18; transform: rotate(-110deg); }
 
-/* Each sketch sits clear of the photo, name, icons and screenshots (the
-   dungeon stays below the tagline). Positions tuned by Samuel in DevTools;
-   the pylon sits at 35% to leave room for the ZORDE tile. */
-.sketch-dungeon   { width: calc(165 * var(--u)); bottom: 2%; left: 20%;  transform: rotate(-6deg); }
-.sketch-talents   { width: calc(140 * var(--u)); top: 52%;   right: 4%;  transform: rotate(5deg); }
-.sketch-mechanic  { width: calc(195 * var(--u)); top: 19%;   left: 41.5%;  transform: rotate(-3deg); }
-.sketch-heart     { width: calc(120 * var(--u)); top: 3%;    left: 4%;   transform: rotate(-8deg); }
-.sketch-card      { width: calc( 93 * var(--u)); top: 21%;   right: 22%; transform: rotate(7deg); }
-.sketch-pylon     { width: calc(100 * var(--u)); top: 35%;   left: 4%;   transform: rotate(3deg); }
-.sketch-sword     { width: calc( 94 * var(--u)); top: 52%;   left: 43%;  transform: rotate(-12deg); }
+/* Each sketch sits clear of the photo, name, icons and case studies. Like
+   the layout itself, they're placed from the screen centre in u (x, y
+   offsets at the 2304×1152 reference), so they keep their spot relative to
+   the content on every screen shape. Left of the photo: heart, pylon. In
+   the gap between photo and case studies: mechanic flow, sword. Right of
+   the case studies: card, talents, dungeon. */
+.sketch-heart     { width: calc(120 * var(--u)); left: calc(50% - 1110 * var(--u)); top: calc(50% - 550 * var(--u)); transform: rotate(-8deg); }
+.sketch-pylon     { width: calc(100 * var(--u)); left: calc(50% - 1110 * var(--u)); top: calc(50% - 175 * var(--u)); transform: rotate(3deg); }
+.sketch-mechanic  { width: calc(195 * var(--u)); left: calc(50% - 215 * var(--u));  top: calc(50% - 380 * var(--u)); transform: rotate(-3deg); }
+.sketch-sword     { width: calc( 94 * var(--u)); left: calc(50% - 160 * var(--u));  top: calc(50% - 110 * var(--u)); transform: rotate(-12deg); }
+.sketch-card      { width: calc( 93 * var(--u)); left: calc(50% + 1010 * var(--u)); top: calc(50% - 450 * var(--u)); transform: rotate(7deg); }
+.sketch-talents   { width: calc(140 * var(--u)); left: calc(50% + 980 * var(--u));  top: calc(50% - 120 * var(--u)); transform: rotate(5deg); }
+.sketch-dungeon   { width: calc(165 * var(--u)); left: calc(50% + 960 * var(--u));  top: calc(50% + 250 * var(--u)); transform: rotate(-6deg); }
 
 /* Game screenshots — image with sketchy hand-drawn border + Caveat caption.
    No white polaroid backdrop; sits directly on the desktop. Each one is a
    link to its case study, so it lifts on hover / focus. */
-.screenshot {
+/* The six case studies as one group on the right: the four games in a 2×2
+   grid, the two smaller study tiles centred under them. Centred 520u right
+   of the screen centre (mirrors the left column's -540u). */
+.case-studies {
   position: absolute;
+  top: 50%;
+  left: calc(50% + 520 * var(--u));
+  translate: -50% -50%;
+  display: grid;
+  grid-template-columns: repeat(2, var(--shot-w));
+  gap: calc(52 * var(--u)) calc(72 * var(--u));
+  justify-items: center;
+  align-items: center;
+}
+
+.screenshot {
+  position: relative;
   margin: 0;
   display: flex;
   flex-direction: column;
@@ -389,16 +401,17 @@ body {
   transition: color 160ms ease;
 }
 
-.screenshot-ordinem  { top:  3%;  left: 51%;  transform: rotate(-3deg); }
-.screenshot-starvin  { top:  4%;  right: 2%;  transform: rotate(5deg); }
-.screenshot-wos      { bottom: 4%; left: 50%; transform: rotate(-4deg); }
-.screenshot-nexus    { bottom: 2%; right: 1%; transform: rotate(6deg); }
+/* Slight tilts keep the scrapbook feel inside the tidy grid. */
+.screenshot-ordinem  { transform: rotate(-3deg); }
+.screenshot-starvin  { transform: rotate(4deg); }
+.screenshot-wos      { transform: rotate(-2deg); }
+.screenshot-nexus    { transform: rotate(3deg); }
 
-/* Study projects: smaller tiles on the left edge, beside the photo. */
+/* Study projects: smaller tiles in the bottom row of the group. */
 .study-tile { --shot-w: calc(250 * var(--u)); }
 .study-tile .screenshot-caption { font-size: max(13px, calc(24 * var(--u))); }
-.study-ums   { top: 15%; left: 1.2%; transform: rotate(-4deg); }
-.study-zorde { top: 56%; left: 1.2%; transform: rotate(3deg); }
+.study-ums   { transform: rotate(-4deg); }
+.study-zorde { transform: rotate(3deg); }
 
 /* Taskbar ----------------------------------------------------------------- */
 
@@ -2232,7 +2245,7 @@ body.page { overflow: auto; }
   }
 
   /* Home page order: identity → app tiles → screenshots. */
-  .identity-panel { order: 1; padding: 36px 20px 8px; gap: 12px; translate: none; }
+  .identity-panel { order: 1; padding: 36px 20px 8px; gap: 12px; }
   .app-grid       { order: 2; }
   .desktop-decor  { order: 3; }
 
@@ -2289,6 +2302,7 @@ body.page { overflow: auto; }
     padding: 24px 20px 28px;
   }
   .sketch, .splotch { display: none; }
+  .case-studies { display: contents; } /* its six links join the gallery grid */
   .screenshot { position: static; min-width: 0; }
   .screenshot-image { width: 100%; }
   .screenshot-caption,
